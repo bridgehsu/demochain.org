@@ -73,7 +73,7 @@ export default function Header(): React.ReactElement {
                 className="px-4 lg:px-12 max-w-screen-2xl mx-auto w-full relative flex justify-between items-center py-4">
                 <div className="flex items-center flex-1">
                     <Logo/>
-                    <div className="hidden md:flex flex-1 justify-end mr-3">
+                    <div className="hidden md:flex flex-1 justify-end mr-6">
                         {isMounted && (
                             <Menu
                                 currentPathname={currentPathname}

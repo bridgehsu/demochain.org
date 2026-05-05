@@ -7,11 +7,11 @@ export type Consensus = 'POW' | 'POS' | 'DPOS' | 'POA' | 'BFT' | 'AVALANCHE' | '
 export const ALL_MENUS: Record<Consensus, MenuItem[]> = {
     POW: [
         {name: '哈希', href: '/'},
-        {name: '区块', href: '/block'},
-        {name: '区块链', href: '/blockchain'},
-        {name: '分布式', href: '/distribution'},
-        {name: '代币', href: '/token'},
-        {name: '币基', href: '/coinbase'},
+        {name: '区块', href: '/pow/block'},
+        {name: '区块链', href: '/pow/blockchain'},
+        {name: '分布式', href: '/pow/distribution'},
+        {name: '代币', href: '/pow/token'},
+        {name: '币基', href: '/pow/coinbase'},
     ],
     POS: [
         {name: '质押', href: '/pos'},
@@ -118,10 +118,10 @@ export default function Menu({currentPathname}: MenuProps): React.ReactElement {
         return (
             <Link
                 href={item.href}
-                className={`px-3 py-1.5 rounded-md text-sm font-medium whitespace-nowrap transition-colors duration-150 ${
+                className={`px-3.5 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 ${
                     isActive
-                        ? `${cfg.accent} bg-black/5 dark:bg-white/8`
-                        : 'text-gray-600 hover:text-gray-900 hover:bg-black/5 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/8'
+                        ? `${cfg.accent} bg-black/5 dark:bg-white/10 shadow-sm`
+                        : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-800/50'
                 }`}
             >
                 {item.name}
@@ -134,15 +134,15 @@ export default function Menu({currentPathname}: MenuProps): React.ReactElement {
     const overflowLg = menuItems.slice(MAX_LG);
 
     return (
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-2">
             {/* 步骤链接 — lg 以下截断 */}
-            <div className="flex lg:hidden items-center gap-0.5">
+            <div className="flex lg:hidden items-center gap-1">
                 {inlineLg.map(item => <NavLink key={item.href} item={item}/>)}
                 {overflowLg.length > 0 && (
                     <div className="relative" ref={moreRef}>
                         <button
                             onClick={() => setMoreOpen(v => !v)}
-                            className="px-3 py-1.5 rounded-md text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-black/5 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/8 flex items-center gap-1"
+                            className="px-3 py-2 rounded-lg text-sm font-medium text-gray-600 hover:text-gray-900 hover:bg-black/5 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/8 flex items-center gap-1"
                         >
                             更多
                             <svg className="w-3.5 h-3.5 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor">
@@ -154,7 +154,7 @@ export default function Menu({currentPathname}: MenuProps): React.ReactElement {
                                 {overflowLg.map(item => (
                                     <Link key={item.href} href={item.href}
                                         onClick={() => setMoreOpen(false)}
-                                        className={`flex items-center px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${currentPathname === item.href ? `${cfg.accent} bg-black/5 dark:bg-white/8` : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
+                                        className={`flex items-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${currentPathname === item.href ? `${cfg.accent} bg-black/5 dark:bg-white/8` : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>
                                         {item.name}
                                     </Link>
                                 ))}
@@ -165,29 +165,30 @@ export default function Menu({currentPathname}: MenuProps): React.ReactElement {
             </div>
 
             {/* 步骤链接 — lg 及以上全显 */}
-            <div className="hidden lg:flex items-center gap-0.5">
+            <div className="hidden lg:flex items-center gap-1">
                 {menuItems.map(item => <NavLink key={item.href} item={item}/>)}
             </div>
 
             {/* 分隔线 */}
-            <div className="mx-2 h-4 w-px bg-gray-200 dark:bg-gray-700"/>
+            <div className="mx-2 h-6 w-px bg-gray-200 dark:bg-gray-800"/>
 
-            {/* 共识切换器 */}
+            {/* 共识切换器 (放最右侧) */}
             <div className="relative" ref={switcherRef}>
                 <button
                     onClick={() => setOpen(v => !v)}
-                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm font-semibold transition-colors hover:bg-black/5 dark:hover:bg-white/8 ${cfg.switcherActive}`}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-bold shadow-sm ring-1 ring-black/5 dark:ring-white/10 transition-all hover:shadow-md ${cfg.switcherActive} bg-white dark:bg-[#1a1a1a]`}
                     aria-haspopup="menu"
                     aria-expanded={open}
                 >
-                    <span className={`w-1.5 h-1.5 rounded-full ${cfg.dot}`}/>
-                    {cfg.label}
-                    <svg className={`w-3.5 h-3.5 opacity-50 transition-transform ${open ? 'rotate-180' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <span className={`w-2 h-2 rounded-full ${cfg.dot}`}/>
+                    {cfg.label} 机制
+                    <svg className={`w-4 h-4 opacity-50 transition-transform ${open ? 'rotate-180' : ''}`} viewBox="0 0 24 24" fill="none" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7"/>
                     </svg>
                 </button>
                 {open && (
-                    <div role="menu" className="absolute right-0 mt-2 w-40 rounded-xl border bg-white shadow-lg ring-1 ring-black/5 p-1.5 border-gray-200 dark:bg-[#1e1e1e] dark:border-[#2d2d30] dark:ring-white/5 z-50">
+                    <div role="menu" className="absolute right-0 mt-2 w-48 rounded-xl border bg-white shadow-xl ring-1 ring-black/5 p-2 border-gray-200 dark:bg-[#1e1e1e] dark:border-[#2d2d30] dark:ring-white/5 z-50">
+                        <div className="px-2 py-1.5 text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase tracking-wider">选择共识</div>
                         {CONSENSUS_ORDER.map(c => {
                             const cc = CONSENSUS_CONFIG[c];
                             const isActive = c === consensus;
@@ -197,14 +198,21 @@ export default function Menu({currentPathname}: MenuProps): React.ReactElement {
                                     href={CONSENSUS_ENTRY[c]}
                                     role="menuitem"
                                     onClick={() => setOpen(false)}
-                                    className={`flex items-center justify-between px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                                    className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-sm font-medium transition-colors mt-1 ${
                                         isActive
                                             ? 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100'
-                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
+                                            : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800/50'
                                     }`}
                                 >
-                                    <span>{cc.label}</span>
-                                    {isActive && <span className={`w-1.5 h-1.5 rounded-full ${cc.dot}`}/>}
+                                    <div className="flex items-center gap-2">
+                                        <span className={`w-1.5 h-1.5 rounded-full ${cc.dot}`}/>
+                                        <span>{cc.label}</span>
+                                    </div>
+                                    {isActive && (
+                                        <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"/>
+                                        </svg>
+                                    )}
                                 </Link>
                             );
                         })}

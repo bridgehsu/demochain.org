@@ -6,8 +6,8 @@ import {FiBook, FiChevronDown, FiChevronRight, FiExternalLink} from 'react-icons
 
 interface DocsLayoutProps {
     children: React.ReactNode;
-    demoHref?: string;
-    demoLabel?: string;
+    demoHref?: string | null;
+    demoLabel?: string | null;
 }
 
 function SidebarGroup({group, currentPath}: {group: DocNavGroup; currentPath: string}) {

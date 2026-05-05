@@ -70,7 +70,7 @@ export default forwardRef<TokenCfgRef, Props>(function TokenCfg({ onTxsChange },
           <div className="space-y-3">
             <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">交易记录</h4>
             {txs && txs.length > 0 ? (
-              <div className="border border-gray-300 dark:border-gray-600 rounded overflow-hidden">
+              <div className="border border-gray-300 dark:border-gray-600 rounded overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="bg-gray-50 dark:bg-gray-700 border-b border-gray-300 dark:border-gray-600">

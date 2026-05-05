@@ -157,9 +157,9 @@ export default function BlockchainPage(): React.ReactElement {
                 {/* 控制面板 */}
                 <div
                     className="mb-6 p-4 rounded-lg border bg-white border-gray-200 dark:border-gray-700 dark:bg-gray-800">
-                    <div className="flex items-center justify-between mb-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4">
                         <h1 className="text-xl font-semibold text-gray-900 dark:text-white">区块链演示</h1>
-                        <div className="flex items-center gap-4">
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
                             <div className="flex items-center gap-2">
                                 <label className="text-sm font-medium text-gray-700 dark:text-gray-300">难度</label>
                                 <input
@@ -182,11 +182,11 @@ export default function BlockchainPage(): React.ReactElement {
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
                         <div className="text-sm text-gray-600 dark:text-gray-300">
                             <span>当前链长度: {blocks.length} | 下一区块高度: {nextHeight}</span>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-2">
                             <button
                                 onClick={() => runMine(0)}
                                 disabled={loading || !pendingData.trim()}
@@ -254,7 +254,7 @@ export default function BlockchainPage(): React.ReactElement {
                         <div className="flex items-center gap-6 min-w-max">
                             {blocks.map((block, index) => (
                                 <div key={block.height} className="flex items-center">
-                                    <div className="flex-shrink-0 w-96">
+                                    <div className="flex-shrink-0 w-[85vw] sm:w-96">
                                         <BlockCard
                                             block={block}
                                             difficulty={difficulty}

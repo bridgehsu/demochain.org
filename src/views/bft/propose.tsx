@@ -88,7 +88,7 @@ export default function BFTProposePage(): React.ReactElement {
                 )}
 
                 {/* 节点状态 */}
-                <div className="grid grid-cols-4 gap-3 mb-6">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
                     {ALL_NODES.map(n => {
                         const isLeader = n === leader
                         const isByz = BYZANTINE.has(n)

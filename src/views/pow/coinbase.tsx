@@ -316,8 +316,8 @@ export default function CoinbasePage(): React.ReactElement {
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
                             <div className="text-sm text-gray-600 dark:text-gray-300">
                                 <span>当前链长度: {blocks.length} | 下一区块高度: {nextHeight}</span>
                             </div>
@@ -334,7 +334,7 @@ export default function CoinbasePage(): React.ReactElement {
                                 </div>
                             )}
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-2">
                             <button
                                 onClick={runMine}
                                 disabled={loading}

@@ -81,14 +81,14 @@ export default function RewardsPage(): React.ReactElement {
         <div className="px-4 py-8">
             <div className="max-w-4xl mx-auto">
                 <div className="mb-6 p-4 rounded-lg border bg-white border-gray-200 dark:border-gray-700 dark:bg-gray-800">
-                    <div className="flex items-center justify-between mb-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4">
                         <div>
                             <h1 className="text-xl font-semibold text-gray-900 dark:text-white">PoS 奖励机制</h1>
                             <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">验证者出块获得奖励，质押越多收益越高</p>
                         </div>
                         <button onClick={reset} className="px-3 py-1.5 rounded text-sm border bg-white text-gray-700 border-gray-200 hover:bg-gray-50 dark:bg-black/20 dark:border-white/20 dark:text-white">重置</button>
                     </div>
-                    <div className="flex items-center gap-6">
+                    <div className="flex flex-wrap items-center gap-3 sm:gap-6">
                         <div className="flex items-center gap-2">
                             <label className="text-sm text-gray-700 dark:text-gray-300">每块奖励</label>
                             <input type="number" value={blockReward} onChange={e => setBlockReward(Number(e.target.value))}

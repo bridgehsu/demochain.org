@@ -115,7 +115,7 @@ export default function AvalancheChainPage(): React.ReactElement {
                 {/* 对比说明 */}
                 <div className="mb-6 p-4 rounded-lg border bg-white border-gray-200 dark:border-gray-700 dark:bg-gray-800">
                     <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Avalanche 的独特优势</h3>
-                    <div className="grid grid-cols-3 gap-3 text-xs text-center">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs text-center">
                         {[
                             {label: '吞吐量', value: '4500+ TPS', sub: '亚秒级确认'},
                             {label: '置信度', value: '≥99.9%', sub: '概率最终性'},

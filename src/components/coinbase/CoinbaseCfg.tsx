@@ -99,13 +99,12 @@ export default forwardRef<CoinbaseCfgRef, Props>(function CoinbaseCfg({ onGpuCha
             <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">矿机与钱包</h4>
             
             {(['A', 'B', 'C'] as const).map((machine) => (
-              <div key={machine} className="flex items-center justify-between">
-                <div className="flex items-center gap-2 w-full">
-                  <label className="text-sm text-gray-600 dark:text-gray-400 min-w-[52px]">电脑{machine}</label>
+              <div key={machine} className="flex items-center gap-2 w-full min-w-0">
+                  <label className="text-sm text-gray-600 dark:text-gray-400 min-w-[52px] shrink-0">电脑{machine}</label>
                   <select
                     value={machine === 'A' ? aGpu : machine === 'B' ? bGpu : cGpu}
                     onChange={(e) => handleGpuChange(machine, e.target.value as '1' | '2' | '3')}
-                    className="px-3 py-1.5 text-sm rounded border border-gray-300 bg-white text-gray-900 focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    className="shrink-0 px-3 py-1.5 text-sm rounded border border-gray-300 bg-white text-gray-900 focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                   >
                     <option value="1">GPU-1 (慢)</option>
                     <option value="2">GPU-2 (中)</option>
@@ -116,9 +115,8 @@ export default forwardRef<CoinbaseCfgRef, Props>(function CoinbaseCfg({ onGpuCha
                     value={machine === 'A' ? aAddr : machine === 'B' ? bAddr : cAddr}
                     onChange={(e) => handleAddrChange(machine, e.target.value)}
                     placeholder={`电脑${machine} 钱包地址`}
-                    className="flex-1 px-3 py-1.5 text-sm rounded border border-gray-300 bg-white text-gray-900 focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                    className="flex-1 min-w-0 px-3 py-1.5 text-sm rounded border border-gray-300 bg-white text-gray-900 focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                   />
-                </div>
               </div>
             ))}
           </div>
@@ -128,7 +126,7 @@ export default forwardRef<CoinbaseCfgRef, Props>(function CoinbaseCfg({ onGpuCha
             <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300">交易记录</h4>
             <div className="tx">
               {txs && txs.length > 0 ? (
-                <div className="border border-gray-300 dark:border-gray-600 rounded overflow-hidden">
+                <div className="border border-gray-300 dark:border-gray-600 rounded overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="bg-gray-50 dark:bg-gray-700 border-b border-gray-300 dark:border-gray-600">

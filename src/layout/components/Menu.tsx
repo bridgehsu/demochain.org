@@ -51,7 +51,7 @@ export const ALL_MENUS: Record<Consensus, MenuItem[]> = {
 
 export const MENUS = ALL_MENUS.POW;
 
-const CONSENSUS_CONFIG: Record<Consensus, {
+export const CONSENSUS_CONFIG: Record<Consensus, {
     label: string;
     accent: string;      // active link color
     dot: string;         // indicator dot color
@@ -66,8 +66,8 @@ const CONSENSUS_CONFIG: Record<Consensus, {
     POH:       {label: 'PoH',       accent: 'text-amber-500 dark:text-amber-400',    dot: 'bg-amber-500',   switcherActive: 'text-amber-600 dark:text-amber-400'},
 };
 
-const CONSENSUS_ORDER: Consensus[] = ['POW', 'POS', 'DPOS', 'POA', 'BFT', 'AVALANCHE', 'POH'];
-const CONSENSUS_ENTRY: Record<Consensus, string> = {
+export const CONSENSUS_ORDER: Consensus[] = ['POW', 'POS', 'DPOS', 'POA', 'BFT', 'AVALANCHE', 'POH'];
+export const CONSENSUS_ENTRY: Record<Consensus, string> = {
     POW: '/', POS: '/pos', DPOS: '/dpos', POA: '/poa', BFT: '/bft', AVALANCHE: '/avalanche', POH: '/poh',
 };
 

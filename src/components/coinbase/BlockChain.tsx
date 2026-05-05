@@ -14,7 +14,7 @@ export default function BlockChain({ blocks }: Props) {
       <div className="flex items-center gap-4 overflow-x-auto pb-2">
         {blocks.map((block, index) => (
           <div key={block.height} className="flex items-center">
-            <div className="flex-shrink-0 w-80">
+            <div className="flex-shrink-0 w-[75vw] sm:w-80">
               <BlockCard block={block} />
             </div>
             {index < blocks.length - 1 && (

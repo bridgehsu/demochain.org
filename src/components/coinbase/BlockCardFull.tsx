@@ -4,7 +4,7 @@ import type { MiniBlock, Tx } from '@/types/block'
 
 export default function BlockCardFull({ block }: { block: MiniBlock }) {
   return (
-    <div className="cbase block-card-container rounded-lg border border-gray-700 bg-gradient-to-br from-gray-800 to-gray-900 shadow-xl w-[420px] shrink-0">
+    <div className="cbase block-card-container rounded-lg border border-gray-700 bg-gradient-to-br from-gray-800 to-gray-900 shadow-xl w-[85vw] sm:w-[420px] shrink-0">
       {/* Card Title */}
       <div className="p-6 border-b border-gray-700">
         <h2 className="text-lg font-semibold text-yellow-500">区块</h2>
@@ -77,7 +77,7 @@ export default function BlockCardFull({ block }: { block: MiniBlock }) {
           <label className="w-16 text-white text-sm font-medium pt-2">TX</label>
           <div className="flex-1">
             {block.txs && block.txs.length > 0 ? (
-              <div className="border border-white/30 rounded overflow-hidden">
+              <div className="border border-white/30 rounded overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="bg-black/30 border-b border-white/30">

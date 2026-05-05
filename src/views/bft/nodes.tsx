@@ -45,7 +45,7 @@ export default function BFTNodesPage(): React.ReactElement {
                 </div>
 
                 {/* 节点网格 */}
-                <div className="grid grid-cols-4 gap-4 mb-6">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
                     {nodes.map(n => {
                         const isByz = n.status === 'byzantine'
                         return (

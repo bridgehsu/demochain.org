@@ -82,13 +82,13 @@ export default function Block(): React.ReactElement {
                 <div
                     className="r-card rounded-lg border bg-white border-gray-200 dark:border-gray-700 dark:bg-gradient-to-br dark:from-gray-800 dark:to-gray-900 shadow-xl">
                     <div
-                        className="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
+                        className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700">
                         <div className="flex items-center gap-3">
                             <h2 className="block-title text-xl font-semibold leading-none text-gray-900 dark:text-yellow-500">区块</h2>
                             <span
                                 className={`inline-flex items-center h-6 gap-1 px-2 rounded text-xs font-medium border ${isValid ? 'text-emerald-700 bg-emerald-50 border-emerald-300 dark:text-emerald-400 dark:bg-emerald-500/10 dark:border-emerald-600' : 'text-rose-700 bg-rose-50 border-rose-300 dark:text-rose-400 dark:bg-rose-500/10 dark:border-rose-600'}`}>{isValid ? '有效' : '无效'}</span>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-2">
                             <label className="text-sm text-gray-700 dark:text-gray-300">难度</label>
                             <input
                                 type="range"

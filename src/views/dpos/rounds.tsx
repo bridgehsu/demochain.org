@@ -88,7 +88,7 @@ export default function DPosRoundsPage(): React.ReactElement {
                 </div>
 
                 {/* 代表节点 */}
-                <div className="grid grid-cols-3 gap-4 mb-6">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
                     {DELEGATES.map((d, i) => {
                         const active = currentIdx === i
                         const c = COLORS[d.color]

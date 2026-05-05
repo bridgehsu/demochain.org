@@ -85,7 +85,7 @@ export default function PoAChainPage(): React.ReactElement {
                 </div>
 
                 {/* 统计 */}
-                <div className="grid grid-cols-5 gap-2 mb-6">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 mb-6">
                     {counts.map(c => (
                         <div key={c.name} className="p-3 rounded-lg border bg-white border-gray-200 dark:border-gray-700 dark:bg-gray-800 text-center">
                             <div className={`w-3 h-3 rounded-full mx-auto mb-1 ${NODE_COLORS[c.idx]}`}/>

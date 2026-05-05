@@ -100,12 +100,12 @@ export default function AvalancheSnowballPage(): React.ReactElement {
         <div className="px-4 py-8">
             <div className="max-w-4xl mx-auto">
                 <div className="mb-6 p-4 rounded-lg border bg-white border-gray-200 dark:border-gray-700 dark:bg-gray-800">
-                    <div className="flex items-center justify-between mb-3">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3">
                         <div>
                             <h1 className="text-xl font-semibold text-gray-900 dark:text-white">Avalanche 雪球算法</h1>
                             <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">重复采样累积信心，信心达 β={BETA} 后节点最终确信并固定偏好</p>
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex flex-wrap gap-2">
                             <button onClick={reset} className="px-3 py-1.5 rounded text-sm border bg-white text-gray-700 border-gray-200 hover:bg-gray-50 dark:bg-black/20 dark:border-white/20 dark:text-white">重置</button>
                             {!running
                                 ? <button onClick={start} disabled={allDone}

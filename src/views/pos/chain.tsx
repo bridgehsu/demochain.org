@@ -112,7 +112,7 @@ export default function PosChainPage(): React.ReactElement {
                 </div>
 
                 {/* 验证者权重 */}
-                <div className="mb-6 grid grid-cols-4 gap-3">
+                <div className="mb-6 grid grid-cols-2 sm:grid-cols-4 gap-3">
                     {VALIDATORS.map(v => {
                         const pct = v.stake / total * 100
                         const count = blocks.filter(b => b.validator === v.name).length

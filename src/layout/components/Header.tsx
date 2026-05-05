@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {useRouter} from 'next/router';
+import Link from 'next/link';
 import Logo from "@/components/Logo";
-import Menu, {MENUS} from './Menu';
+import Menu, {MENUS, ALL_MENUS, getActiveConsensus, CONSENSUS_CONFIG, CONSENSUS_ORDER, CONSENSUS_ENTRY, type Consensus} from './Menu';
 import Theme from "@/layout/components/Theme";
 
 export default function Header(): React.ReactElement {
@@ -13,6 +14,7 @@ export default function Header(): React.ReactElement {
     const [systemDark, setSystemDark] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
     const [currentPathname, setCurrentPathname] = useState('');
+    const [mobileOpen, setMobileOpen] = useState(false);
 
     const router = useRouter();
 
@@ -22,6 +24,10 @@ export default function Header(): React.ReactElement {
         setIsMounted(true);
         setCurrentPathname(router.pathname);
     }, [router.pathname]);
+
+    useEffect(() => {
+        setMobileOpen(false);
+    }, [currentPathname]);
 
     const isDarkMode = isMounted ? (theme === 'dark' || (theme === 'system' && systemDark)) : null;
 
@@ -56,11 +62,15 @@ export default function Header(): React.ReactElement {
         }
     }, [theme, isMounted]);
 
+    const consensus = isMounted ? getActiveConsensus(currentPathname) : 'POW';
+    const mobileMenuItems = ALL_MENUS[consensus];
+    const mobileCfg = CONSENSUS_CONFIG[consensus];
+
     return (
         <header
-            className="sticky top-0 z-40 relative py-4 border-b border-gray-100 bg-white/85 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:border-gray-800 dark:bg-[#121212]/85">
+            className="sticky top-0 z-40 border-b border-gray-100 bg-white/85 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:border-gray-800 dark:bg-[#121212]/85">
             <div
-                className="px-4 lg:px-12 max-w-screen-2xl mx-auto w-full relative flex justify-between items-center">
+                className="px-4 lg:px-12 max-w-screen-2xl mx-auto w-full relative flex justify-between items-center py-4">
                 <div className="flex items-center flex-1">
                     <Logo/>
                     <div className="hidden md:flex flex-1 justify-end mr-3">
@@ -72,14 +82,87 @@ export default function Header(): React.ReactElement {
                         )}
                     </div>
                 </div>
-                <div className="flex items-center space-x-2 md:space-x-3">
+                <div className="flex items-center space-x-1 md:space-x-3">
                     <Theme
                         theme={theme}
                         setTheme={setTheme}
                         isDarkMode={isDarkMode}
                     />
+                    {/* 汉堡按钮 — 仅手机端显示 */}
+                    <button
+                        className="md:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-black/5 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/8 transition-colors"
+                        onClick={() => setMobileOpen(v => !v)}
+                        aria-label={mobileOpen ? '关闭菜单' : '打开菜单'}
+                        aria-expanded={mobileOpen}
+                    >
+                        {mobileOpen ? (
+                            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        ) : (
+                            <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/>
+                            </svg>
+                        )}
+                    </button>
                 </div>
             </div>
+
+            {/* 移动端下拉导航面板 */}
+            {mobileOpen && isMounted && (
+                <div className="md:hidden border-t border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-[#121212]/95 backdrop-blur">
+                    <div className="px-4 py-3 space-y-3">
+                        {/* 共识切换 */}
+                        <div>
+                            <p className="text-xs text-gray-400 dark:text-gray-500 px-1 mb-2">切换共识</p>
+                            <div className="grid grid-cols-4 gap-1.5">
+                                {CONSENSUS_ORDER.map((c: Consensus) => {
+                                    const cc = CONSENSUS_CONFIG[c];
+                                    const isActive = c === consensus;
+                                    return (
+                                        <Link
+                                            key={c}
+                                            href={CONSENSUS_ENTRY[c]}
+                                            onClick={() => setMobileOpen(false)}
+                                            className={`flex items-center justify-center gap-1 px-2 py-2 rounded-lg text-xs font-medium transition-colors ${
+                                                isActive
+                                                    ? `${cc.switcherActive} bg-black/5 dark:bg-white/8`
+                                                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                                            }`}
+                                        >
+                                            {isActive && <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${cc.dot}`}/>}
+                                            {cc.label}
+                                        </Link>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                        {/* 当前共识的页面导航 */}
+                        <div>
+                            <p className="text-xs text-gray-400 dark:text-gray-500 px-1 mb-2">页面导航</p>
+                            <div className="grid grid-cols-3 gap-1.5">
+                                {mobileMenuItems.map(item => {
+                                    const isActive = currentPathname === item.href;
+                                    return (
+                                        <Link
+                                            key={item.href}
+                                            href={item.href}
+                                            onClick={() => setMobileOpen(false)}
+                                            className={`px-3 py-2 rounded-lg text-sm font-medium text-center transition-colors ${
+                                                isActive
+                                                    ? `${mobileCfg.accent} bg-black/5 dark:bg-white/8`
+                                                    : 'text-gray-600 hover:text-gray-900 hover:bg-black/5 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/8'
+                                            }`}
+                                        >
+                                            {item.name}
+                                        </Link>
+                                    );
+                                })}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </header>
     );
 }

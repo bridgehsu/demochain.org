@@ -68,12 +68,12 @@ export default function PoASigningPage(): React.ReactElement {
         <div className="px-4 py-8">
             <div className="max-w-4xl mx-auto">
                 <div className="mb-6 p-4 rounded-lg border bg-white border-gray-200 dark:border-gray-700 dark:bg-gray-800">
-                    <div className="flex items-center justify-between mb-3">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-3">
                         <div>
                             <h1 className="text-xl font-semibold text-gray-900 dark:text-white">PoA 签名出块</h1>
                             <p className="text-sm text-gray-500 dark:text-gray-400 mt-0.5">权威节点轮流对区块签名，签名即出块</p>
                         </div>
-                        <div className="flex gap-2">
+                        <div className="flex flex-wrap gap-2">
                             <button onClick={reset} className="px-3 py-1.5 rounded text-sm border bg-white text-gray-700 border-gray-200 hover:bg-gray-50 dark:bg-black/20 dark:border-white/20 dark:text-white">重置</button>
                             <button onClick={manualSign} disabled={signing || running}
                                 className="px-3 py-1.5 rounded text-sm border bg-white text-green-700 border-green-300 hover:bg-green-50 disabled:opacity-40 dark:bg-transparent dark:border-green-500 dark:text-green-400">
@@ -97,7 +97,7 @@ export default function PoASigningPage(): React.ReactElement {
                 </div>
 
                 {/* 节点网格 */}
-                <div className="grid grid-cols-5 gap-3 mb-6">
+                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 mb-6">
                     {AUTHORITIES.map((node, i) => {
                         const active = currentIdx === i
                         return (

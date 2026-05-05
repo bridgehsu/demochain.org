@@ -190,9 +190,9 @@ export default function TokenPage(): React.ReactElement {
                 {/* 控制面板 */}
                 <div
                     className="mb-6 p-4 rounded-lg border bg-white border-gray-200 dark:border-gray-700 dark:bg-gray-800">
-                    <div className="flex items-center justify-between mb-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4">
                         <h1 className="text-xl font-semibold text-gray-900 dark:text-white">代币转账演示</h1>
-                        <div className="flex items-center gap-4">
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
                             <div className="flex items-center gap-2">
                                 <label className="text-sm font-medium text-gray-700 dark:text-gray-300">难度</label>
                                 <input
@@ -214,11 +214,11 @@ export default function TokenPage(): React.ReactElement {
                         </div>
                     </div>
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
                         <div className="text-sm text-gray-600 dark:text-gray-300">
                             <span>当前链长度: {blocks.length} | 下一区块高度: {nextHeight}</span>
                         </div>
-                        <div className="flex items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-2">
                             <button
                                 onClick={runMine}
                                 disabled={loading || txs.length === 0}

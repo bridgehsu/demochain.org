@@ -1,1 +1,1 @@
-export {default} from '@/src/views/poa/signing'
+export {default} from '@/views/poa/signing'

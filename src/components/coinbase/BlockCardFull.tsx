@@ -1,6 +1,6 @@
 "use client"
 
-import type { MiniBlock, Tx } from '../../types/block'
+import type { MiniBlock, Tx } from '@/types/block'
 
 export default function BlockCardFull({ block }: { block: MiniBlock }) {
   return (

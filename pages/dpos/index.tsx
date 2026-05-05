@@ -1,1 +1,1 @@
-export {default} from '@/src/views/dpos/candidates'
+export {default} from '@/views/dpos/candidates'

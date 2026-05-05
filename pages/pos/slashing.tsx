@@ -1,1 +1,1 @@
-export {default} from '@/src/views/pos/slashing'
+export {default} from '@/views/pos/slashing'

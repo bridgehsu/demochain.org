@@ -1,1 +1,1 @@
-export {default} from '@/src/views/pow/hash'
+export {default} from '@/views/pow/hash'

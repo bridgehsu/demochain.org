@@ -1,1 +1,1 @@
-export {default} from '@/src/views/pow/token'
+export {default} from '@/views/pow/token'

@@ -1,1 +1,1 @@
-export {default} from '@/src/views/pos/rewards'
+export {default} from '@/views/pos/rewards'

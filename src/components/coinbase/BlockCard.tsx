@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import type {MiniBlock, Tx} from '../../types/block'
+import type {MiniBlock, Tx} from '@/types/block'
 
 type Props = {
     block: MiniBlock

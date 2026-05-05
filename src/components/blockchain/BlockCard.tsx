@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useMemo, useState, useEffect } from 'react'
-import type { Block } from '../../types/blockchain'
+import type { Block } from '@/types/blockchain'
 
 export default function BlockCard({ 
   block, 

@@ -1,1 +1,1 @@
-export {default} from '@/src/views/dpos/rounds'
+export {default} from '@/views/dpos/rounds'

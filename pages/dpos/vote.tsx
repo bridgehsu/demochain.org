@@ -1,1 +1,1 @@
-export {default} from '@/src/views/dpos/vote'
+export {default} from '@/views/dpos/vote'

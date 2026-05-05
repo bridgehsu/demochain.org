@@ -1,7 +1,7 @@
 "use client"
 
 import React from 'react'
-import type { ComputerBoard, StepStatus } from '../../types/block'
+import type { ComputerBoard, StepStatus } from '@/types/block'
 
 type Props = {
   items: ComputerBoard[]

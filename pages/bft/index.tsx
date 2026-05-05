@@ -1,1 +1,1 @@
-export {default} from '@/src/views/bft/nodes'
+export {default} from '@/views/bft/nodes'

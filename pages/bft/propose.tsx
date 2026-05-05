@@ -1,1 +1,1 @@
-export {default} from '@/src/views/bft/propose'
+export {default} from '@/views/bft/propose'

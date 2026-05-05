@@ -1,1 +1,1 @@
-export {default} from '@/src/views/poh/sequence'
+export {default} from '@/views/poh/sequence'

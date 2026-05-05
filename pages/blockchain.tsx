@@ -1,1 +1,1 @@
-export {default} from '@/src/views/pow/blockchain'
+export {default} from '@/views/pow/blockchain'

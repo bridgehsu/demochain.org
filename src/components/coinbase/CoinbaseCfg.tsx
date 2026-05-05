@@ -1,7 +1,7 @@
 "use client"
 
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
-import type { Tx } from '../../types/block'
+import type { Tx } from '@/types/block'
 
 export type CoinbaseCfgRef = {
   reset: () => void

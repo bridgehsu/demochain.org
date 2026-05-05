@@ -1,1 +1,1 @@
-export {default} from '@/src/views/pow/block'
+export {default} from '@/views/pow/block'

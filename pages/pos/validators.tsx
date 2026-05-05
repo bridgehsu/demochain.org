@@ -1,1 +1,1 @@
-export {default} from '@/src/views/pos/validators'
+export {default} from '@/views/pos/validators'

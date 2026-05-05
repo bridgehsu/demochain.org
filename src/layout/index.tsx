@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import {LayoutProps} from '../types';
+import {LayoutProps} from '@/types/layout';
 
 export default function Layout({children}: LayoutProps): React.ReactElement {
     return (

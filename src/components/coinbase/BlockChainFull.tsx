@@ -1,7 +1,7 @@
 "use client"
 
 import BlockCardFull from './BlockCardFull'
-import type { MiniBlock } from '../../types/block'
+import type { MiniBlock } from '@/types/block'
 
 export default function BlockChainFull({ blocks }: { blocks: MiniBlock[] }) {
   return (

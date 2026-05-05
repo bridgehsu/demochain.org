@@ -2,7 +2,7 @@
 
 import React from 'react'
 import BlockCard from './BlockCard'
-import type { MiniBlock } from '../../types/block'
+import type { MiniBlock } from '@/types/block'
 
 type Props = {
   blocks: MiniBlock[]

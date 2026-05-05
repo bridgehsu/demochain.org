@@ -2,8 +2,8 @@ import React from 'react';
 import {AppProps} from 'next/app';
 import {useRouter} from 'next/router';
 import Head from 'next/head';
-import Layout from '../layout';
-import {getPageSEO} from '@/src/shared/utils/seo';
+import Layout from '@/layout';
+import {getPageSEO} from '@/utils/seo';
 import '../styles/globals.css';
 
 function Application({Component, pageProps}: AppProps): React.ReactElement {

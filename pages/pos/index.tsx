@@ -1,1 +1,1 @@
-export {default} from '@/src/views/pos/staking'
+export {default} from '@/views/pos/staking'

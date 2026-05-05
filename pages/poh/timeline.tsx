@@ -1,1 +1,1 @@
-export {default} from '@/src/views/poh/timeline'
+export {default} from '@/views/poh/timeline'

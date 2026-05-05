@@ -1,1 +1,1 @@
-export {default} from '@/src/views/avalanche/sampling'
+export {default} from '@/views/avalanche/sampling'

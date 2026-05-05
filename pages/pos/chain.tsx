@@ -1,1 +1,1 @@
-export {default} from '@/src/views/pos/chain'
+export {default} from '@/views/pos/chain'

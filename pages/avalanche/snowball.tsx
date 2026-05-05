@@ -1,1 +1,1 @@
-export {default} from '@/src/views/avalanche/snowball'
+export {default} from '@/views/avalanche/snowball'

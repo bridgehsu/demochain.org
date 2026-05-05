@@ -6,9 +6,8 @@
   "scripts": {
     "dev": "next dev ",
     "build": "next build",
-    "start": "next start",
-    "lint": "next lint",
-    "export": "next build && next export"
+    "postbuild": "rm -rf dist/cache dist/server dist/trace dist/react-loadable-manifest.json dist/build-manifest.json dist/prerender-manifest.json dist/server-reference-manifest.json dist/images-manifest.json dist/export-marker.json dist/next-server.js.nft.json dist/package.json dist/required-server-files.json",
+    "lint": "next lint"
   },
   "keywords": [
     "api",

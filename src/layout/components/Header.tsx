@@ -148,12 +148,13 @@ export default function Header(): React.ReactElement {
                                             key={item.href}
                                             href={item.href}
                                             onClick={() => setMobileOpen(false)}
-                                            className={`px-3 py-2 rounded-lg text-sm font-medium text-center transition-colors ${
+                                            className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                                                 isActive
                                                     ? `${mobileCfg.accent} bg-black/5 dark:bg-white/8`
                                                     : 'text-gray-600 hover:text-gray-900 hover:bg-black/5 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/8'
                                             }`}
                                         >
+                                            {item.icon}
                                             {item.name}
                                         </Link>
                                     );

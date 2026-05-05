@@ -4,6 +4,7 @@ import Link from 'next/link';
 import Logo from "@/components/Logo";
 import Menu, {MENUS, ALL_MENUS, getActiveConsensus, CONSENSUS_CONFIG, CONSENSUS_ORDER, CONSENSUS_ENTRY, type Consensus} from './Menu';
 import Theme from "@/layout/components/Theme";
+import {FiBook} from 'react-icons/fi';
 
 export default function Header(): React.ReactElement {
     const [theme, setTheme] = useState<'light' | 'dark' | 'system'>(() => {
@@ -82,7 +83,19 @@ export default function Header(): React.ReactElement {
                         )}
                     </div>
                 </div>
-                <div className="flex items-center space-x-1 md:space-x-3">
+                <div className="flex items-center space-x-1 md:space-x-2">
+                    {/* 文档入口 — 桌面端 */}
+                    <Link
+                        href="/docs"
+                        className={`hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                            currentPathname.startsWith('/docs')
+                                ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10'
+                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/8'
+                        }`}
+                    >
+                        <FiBook className="w-4 h-4"/>
+                        文档
+                    </Link>
                     <Theme
                         theme={theme}
                         setTheme={setTheme}
@@ -136,6 +149,21 @@ export default function Header(): React.ReactElement {
                                     );
                                 })}
                             </div>
+                        </div>
+                        {/* 文档入口 */}
+                        <div>
+                            <Link
+                                href="/docs"
+                                onClick={() => setMobileOpen(false)}
+                                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                                    currentPathname.startsWith('/docs')
+                                        ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10'
+                                        : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                                }`}
+                            >
+                                <FiBook className="w-4 h-4"/>
+                                文档中心
+                            </Link>
                         </div>
                         {/* 当前共识的页面导航 */}
                         <div>

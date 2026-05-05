@@ -53,7 +53,7 @@ function Application({Component, pageProps}: AppProps): React.ReactElement {
                 />
             </Head>
 
-            <Layout>
+            <Layout fullWidth={router.pathname.startsWith('/docs')}>
                 <Component {...pageProps} />
             </Layout>
         </>

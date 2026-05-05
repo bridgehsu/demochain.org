@@ -51,6 +51,15 @@ export const pageSEO: Record<string, Partial<SEOConfig>> = {
   '/poh': { title: '序列 · PoH - DemoChain', description: '演示连续 SHA256 哈希序列作为可验证时钟。' },
   '/poh/timeline': { title: '时序 · PoH - DemoChain', description: '在哈希序列中插入事件，理解 PoH 时间戳证明。' },
   '/poh/chain': { title: '链 · PoH - DemoChain', description: '查看 Solana 风格 PoH Slot 的完整链视图。' },
+  // 文档
+  '/docs': { title: '文档 - DemoChain', description: '七种区块链共识机制的原理讲解与演示导览。' },
+  '/docs/pow': { title: 'PoW 文档 - DemoChain', description: '工作量证明共识机制的原理解读与演示导览。' },
+  '/docs/pos': { title: 'PoS 文档 - DemoChain', description: '权益证明共识机制的原理解读与演示导览。' },
+  '/docs/dpos': { title: 'DPoS 文档 - DemoChain', description: '委托权益证明共识机制的原理解读与演示导览。' },
+  '/docs/poa': { title: 'PoA 文档 - DemoChain', description: '权威证明共识机制的原理解读与演示导览。' },
+  '/docs/bft': { title: 'BFT 文档 - DemoChain', description: '拜占庭容错共识机制的原理解读与演示导览。' },
+  '/docs/avalanche': { title: 'Avalanche 文档 - DemoChain', description: 'Avalanche 雪崩协议的原理解读与演示导览。' },
+  '/docs/poh': { title: 'PoH 文档 - DemoChain', description: '历史证明机制的原理解读与演示导览。' },
 };
 
 export function getPageSEO(pathname: string): SEOConfig {

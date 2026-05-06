@@ -23,7 +23,7 @@ export const DOC_NAV: DocNavGroup[] = [
         borderColor: 'border-orange-300 dark:border-orange-700',
         rootHref: '/docs/pow',
         items: [
-            {title: '哈希与难度', slug: ['pow', 'hash'], href: '/docs/pow/hash'},
+            {title: '哈希', slug: ['pow', 'hash'], href: '/docs/pow/hash'},
             {title: '区块结构', slug: ['pow', 'block'], href: '/docs/pow/block'},
             {title: '区块链', slug: ['pow', 'blockchain'], href: '/docs/pow/blockchain'},
             {title: '分布式挖矿', slug: ['pow', 'distribution'], href: '/docs/pow/distribution'},

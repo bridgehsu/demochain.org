@@ -1,6 +1,8 @@
 "use client"
 
 import React, {useCallback, useRef, useState} from 'react'
+import Link from "next/link"
+import { FiGlobe, FiShare2, FiArrowRight } from "react-icons/fi"
 import * as CryptoJS from 'crypto-js'
 import PoolCfg, {type PoolCfgRef} from '@/components/distribution/PoolCfg'
 import Computer from '@/components/coinbase/Computer'
@@ -316,101 +318,109 @@ export default function DistributionPage(): React.ReactElement {
     }
 
     return (
-        <div className="distribution-container px-4 py-8">
-            <div className="max-w-7xl mx-auto">
+        <div className="px-3 py-4 sm:px-4 sm:py-8">
+            <div className="max-w-7xl mx-auto space-y-6">
                 {/* 控制面板 */}
-                <div
-                    className="mb-6 p-4 rounded-lg border bg-white border-gray-200 dark:border-gray-700 dark:bg-gray-800">
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4">
-                        <h1 className="text-xl font-semibold text-gray-900 dark:text-white">分布式挖矿演示</h1>
-                        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-                            <div className="flex items-center gap-2">
-                                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">难度</label>
+                <div className="p-4 sm:p-6 rounded-2xl border bg-white border-gray-200 dark:border-gray-700/60 dark:bg-[#161616] shadow-sm">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gray-200 dark:border-gray-700/50 pb-4 sm:pb-6">
+                        <div className="flex items-center gap-3">
+                            <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                                🌐
+                            </span>
+                            <span className="text-lg font-bold text-gray-900 dark:text-gray-100">
+                                控制台
+                            </span>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-4 w-full sm:w-auto">
+                            <div className="flex items-center gap-2 w-full sm:w-auto bg-gray-50 dark:bg-black/20 p-2 sm:p-0 rounded-lg sm:bg-transparent">
+                                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 shrink-0">难度</label>
                                 <input
                                     type="range"
                                     min={0}
                                     max={7}
                                     value={difficulty}
                                     onChange={(e) => setDifficulty(Number(e.target.value))}
-                                    className="accent-yellow-500"
+                                    className="accent-yellow-500 flex-1 sm:w-32"
                                 />
-                                <span
-                                    className="w-6 text-right text-sm text-gray-700 dark:text-gray-300">{difficulty}</span>
+                                <span className="w-4 sm:w-6 text-right text-sm font-bold text-gray-700 dark:text-gray-300">{difficulty}</span>
                             </div>
                             <button
                                 onClick={reset}
                                 disabled={loading}
-                                className="px-3 py-1.5 rounded text-sm border bg-white text-gray-700 border-gray-200 hover:bg-gray-50 disabled:opacity-50 dark:bg-black/20 dark:border-white/20 dark:text-white"
-                            >重置链
-                            </button>
+                                className="flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-semibold border bg-white text-gray-700 border-gray-200 hover:bg-gray-50 hover:text-rose-600 hover:border-rose-200 transition-all disabled:opacity-50 dark:bg-black/20 dark:border-white/10 dark:text-gray-300 dark:hover:bg-rose-500/10 dark:hover:text-rose-400 dark:hover:border-rose-500/30"
+                            >重置环境</button>
                         </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-                            <div className="text-sm text-gray-600 dark:text-gray-300">
-                                <span>当前链长度: {blocks.length} | 下一区块高度: {blocks.length + 1}</span>
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 sm:pt-6">
+                        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                            <div className="flex items-center gap-3">
+                                <div className="text-sm font-medium text-gray-500 dark:text-gray-400 shrink-0">
+                                    竞争区块
+                                </div>
+                                <div className="px-3 py-1 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/50 rounded-md text-blue-700 dark:text-blue-400 font-mono text-sm font-bold shadow-inner">
+                                    #{blocks.length + 1}
+                                </div>
                             </div>
                             {winner !== null && (
                                 <div className="flex items-center gap-2">
-                  <span
-                      className="px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300">
-                    🏆 电脑{String.fromCharCode(65 + winner)}
-                  </span>
-                                    <span
-                                        className="px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">
-                    +{rewardAmount} Bells
-                  </span>
+                                    <span className="px-2 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800 dark:bg-green-900/40 dark:text-green-400 border border-green-200 dark:border-green-800">
+                                        🏆 电脑{String.fromCharCode(65 + winner)} 胜出
+                                    </span>
+                                    <span className="px-2 py-1 rounded-full text-xs font-bold bg-yellow-100 text-yellow-800 dark:bg-yellow-900/40 dark:text-yellow-400 border border-yellow-200 dark:border-yellow-800">
+                                        +{rewardAmount}
+                                    </span>
                                     {confirmations > 0 && (
-                                        <span
-                                            className="px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300">
-                      {confirmations}/6 确认
-                    </span>
+                                        <span className="px-2 py-1 rounded-full text-xs font-bold bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-400 border border-blue-200 dark:border-blue-800">
+                                            {confirmations}/6 确认
+                                        </span>
                                     )}
                                 </div>
                             )}
                         </div>
-                        <div className="flex flex-wrap items-center gap-2">
+                        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
                             <button
                                 onClick={mine}
                                 disabled={loading || !data.trim()}
-                                className="px-4 py-2 rounded text-sm border bg-white text-green-700 border-green-300 hover:bg-green-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors dark:bg-transparent dark:border-green-500 dark:text-green-500 dark:hover:bg-green-500/10"
-                            >{loading ? '⛏️ 挖矿中...' : '⛏️ 挖矿新区块'}</button>
-                            <button
-                                onClick={() => {
-                                    pausedRef.current = true;
-                                    setPaused(true);
-                                }}
-                                disabled={!loading || paused}
-                                className="px-3 py-1.5 rounded text-sm border bg-white text-gray-700 border-gray-200 hover:bg-gray-50 disabled:opacity-50 dark:bg-black/20 dark:border-white/20 dark:text-white"
-                            >暂停
-                            </button>
-                            <button
-                                onClick={() => {
-                                    pausedRef.current = false
-                                    setPaused(false)
-                                    // 继续挖矿逻辑需要在 mineTask 中处理
-                                }}
-                                disabled={!paused}
-                                className="px-3 py-1.5 rounded text-sm border bg-white text-gray-700 border-gray-200 hover:bg-gray-50 disabled:opacity-50 dark:bg-black/20 dark:border-white/20 dark:text-white"
-                            >继续
-                            </button>
-                            <button
-                                onClick={() => {
-                                    stopRef.current = true;
-                                    setPaused(false);
-                                }}
-                                disabled={!loading}
-                                className="px-3 py-1.5 rounded text-sm border bg-white text-gray-700 border-gray-200 hover:bg-gray-50 disabled:opacity-50 dark:bg-black/20 dark:border-white/20 dark:text-white"
-                            >停止
-                            </button>
+                                className={`flex-[2] sm:flex-none px-6 py-2 rounded-xl text-sm font-bold border transition-all shadow-sm ${
+                                    loading 
+                                        ? "bg-yellow-50 border-yellow-300 text-yellow-700 dark:bg-yellow-500/20 dark:border-yellow-500/50 dark:text-yellow-500 animate-pulse"
+                                        : "bg-emerald-500 text-white border-emerald-600 hover:bg-emerald-600 hover:-translate-y-0.5 dark:bg-emerald-600 dark:border-emerald-700 dark:hover:bg-emerald-500"
+                                } disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none`}
+                            >{loading ? "⛏️ 算力比拼中..." : "⛏️ 开始竞赛"}</button>
+                            <div className="flex gap-2 flex-1 sm:flex-none">
+                                <button
+                                    onClick={() => {
+                                        pausedRef.current = true;
+                                        setPaused(true);
+                                    }}
+                                    disabled={!loading || paused}
+                                    className="flex-1 sm:flex-none px-4 py-2 rounded-xl text-sm font-medium border bg-white text-gray-700 border-gray-200 hover:bg-gray-50 disabled:opacity-40 transition-all dark:bg-black/20 dark:border-white/10 dark:text-gray-300"
+                                >暂停</button>
+                                <button
+                                    onClick={() => {
+                                        pausedRef.current = false;
+                                        setPaused(false);
+                                    }}
+                                    disabled={!paused}
+                                    className="flex-1 sm:flex-none px-4 py-2 rounded-xl text-sm font-medium border bg-white text-gray-700 border-gray-200 hover:bg-gray-50 disabled:opacity-40 transition-all dark:bg-black/20 dark:border-white/10 dark:text-gray-300"
+                                >继续</button>
+                                <button
+                                    onClick={() => {
+                                        stopRef.current = true;
+                                        setPaused(false);
+                                    }}
+                                    disabled={!loading}
+                                    className="flex-1 sm:flex-none px-4 py-2 rounded-xl text-sm font-medium border bg-white text-gray-700 border-gray-200 hover:bg-rose-50 hover:text-rose-600 disabled:opacity-40 transition-all dark:bg-black/20 dark:border-white/10 dark:text-gray-300"
+                                >停止</button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 {/* 主要内容区域 */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-                    <div className="lg:col-span-1">
+                <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                    <div className="xl:col-span-1">
                         <PoolCfg
                             ref={cfgRef}
                             onGpuChange={({machine, gpu}) => {
@@ -421,33 +431,87 @@ export default function DistributionPage(): React.ReactElement {
                             onDataChange={(val) => setData(val)}
                         />
                     </div>
-                    <div className="lg:col-span-2">
+                    <div className="xl:col-span-2">
                         <Computer items={board} miningProgress={miningProgress}/>
                     </div>
                 </div>
 
                 {/* 公链展示 */}
-                <div
-                    className="rounded-lg border bg-white border-gray-200 dark:border-gray-700 dark:bg-gray-800 shadow-lg">
-                    <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-                        <h3 className="text-lg font-semibold text-red-500 dark:text-red-400">公链</h3>
+                <div className="rounded-xl border bg-white border-gray-200 dark:border-gray-700/60 dark:bg-[#161616] shadow-sm">
+                    <div className="p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700/50">
+                        <h3 className="text-lg font-bold text-gray-900 dark:text-white">网络账本同步 (公链)</h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">胜出者会将自己的账本广播给所有人，其他电脑验证无误后同步更新</p>
                     </div>
 
-                    <div className="p-4">
-                        <div className="space-y-4">
-                            {['电脑A', '电脑B', '电脑C'].map((label, i) => (
-                                <div key={i} className="border border-yellow-400 rounded-lg p-3">
-                                    <div className="flex items-center justify-between mb-3">
-                                        <span
-                                            className="text-sm font-medium text-green-600 dark:text-green-400">{label}</span>
+                    <div className="p-4 sm:p-6 space-y-4">
+                        {['电脑A', '电脑B', '电脑C'].map((label, i) => (
+                            <div key={i} className={`border rounded-xl p-3 sm:p-4 transition-all duration-300 ${
+                                winner === i 
+                                    ? 'border-green-400 bg-green-50/50 dark:border-green-500/30 dark:bg-green-900/10 shadow-[0_0_15px_rgba(74,222,128,0.1)]' 
+                                    : 'border-gray-200 dark:border-gray-700/50 bg-gray-50/50 dark:bg-black/20'
+                            }`}>
+                                <div className="flex items-center justify-between mb-3">
+                                    <div className="flex items-center gap-2">
+                                        <span className={`text-sm font-bold ${winner === i ? 'text-green-600 dark:text-green-400' : 'text-gray-700 dark:text-gray-300'}`}>
+                                            {label} 的本地账本
+                                        </span>
+                                        {winner === i && (
+                                            <span className="text-[10px] px-1.5 py-0.5 rounded bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-400 border border-green-200 dark:border-green-800">
+                                                广播者
+                                            </span>
+                                        )}
                                     </div>
+                                </div>
+                                <div className="overflow-x-auto custom-scrollbar pb-2">
                                     <BlockChain blocks={blocks}/>
                                 </div>
-                            ))}
-                        </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                {/* 科普与下一步 */}
+                <div className="mt-6 sm:mt-8 space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <FeatureCard 
+                            icon={<FiGlobe className="w-5 h-5 text-blue-500 dark:text-blue-400"/>}
+                            title="分布式算力竞争"
+                            desc="所有节点同时监听新交易并竞争打包。不同机器算力有强弱，但由于哈希碰撞的随机性，即使算力弱的节点也有机会碰巧挖出区块。"
+                        />
+                        <FeatureCard 
+                            icon={<FiShare2 className="w-5 h-5 text-purple-500 dark:text-purple-400"/>}
+                            title="最长链共识"
+                            desc="一旦某个节点挖出区块并广播，其他节点会验证并同步到本地。通过这种机制，整个网络最终会维持一致的共享账本（公链）。"
+                        />
+                    </div>
+
+                    <div className="flex justify-center pt-2 pb-8">
+                        <Link 
+                            href="/pow/token" 
+                            className="flex items-center gap-2 px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-blue-500/25"
+                        >
+                            下一步：使用代币进行转账
+                            <FiArrowRight className="w-5 h-5" />
+                        </Link>
                     </div>
                 </div>
             </div>
+        </div>
+    )
+}
+
+function FeatureCard({icon, title, desc}: {icon: React.ReactNode, title: string, desc: string}) {
+    return (
+        <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-700/60 bg-white/50 dark:bg-[#161616]/50 hover:bg-white dark:hover:bg-[#1a1a1a] transition-colors">
+            <div className="flex items-center gap-2 mb-2">
+                <div className="p-1.5 bg-gray-100 dark:bg-black/50 rounded-lg">
+                    {icon}
+                </div>
+                <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{title}</h3>
+            </div>
+            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                {desc}
+            </p>
         </div>
     )
 }

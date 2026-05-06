@@ -1,6 +1,8 @@
 "use client"
 
 import React, {useMemo, useRef, useState, useCallback} from 'react'
+import Link from "next/link"
+import { FiFileText, FiShield, FiArrowRight } from "react-icons/fi"
 import * as CryptoJS from 'crypto-js'
 import type {MiniBlock, Tx, ComputerBoard, StepStatus} from '@/types/block'
 import BlockChainFull from '@/components/coinbase/BlockChainFull'
@@ -185,72 +187,85 @@ export default function TokenPage(): React.ReactElement {
     }
 
     return (
-        <div className="px-4 py-8">
+        <div className="px-3 py-4 sm:px-4 sm:py-8">
             <div className="max-w-7xl mx-auto space-y-6">
                 {/* 控制面板 */}
-                <div
-                    className="mb-6 p-4 rounded-lg border bg-white border-gray-200 dark:border-gray-700 dark:bg-gray-800">
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-4">
-                        <h1 className="text-xl font-semibold text-gray-900 dark:text-white">代币转账演示</h1>
-                        <div className="flex flex-wrap items-center gap-2 sm:gap-4">
-                            <div className="flex items-center gap-2">
-                                <label className="text-sm font-medium text-gray-700 dark:text-gray-300">难度</label>
+                <div className="p-4 sm:p-6 rounded-2xl border bg-white border-gray-200 dark:border-gray-700/60 dark:bg-[#161616] shadow-sm">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gray-200 dark:border-gray-700/50 pb-4 sm:pb-6">
+                        <div className="flex items-center gap-3">
+                            <span className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400">
+                                🪙
+                            </span>
+                            <span className="text-lg font-bold text-gray-900 dark:text-gray-100">
+                                控制台
+                            </span>
+                        </div>
+                        <div className="flex flex-wrap items-center gap-2 sm:gap-4 w-full sm:w-auto">
+                            <div className="flex items-center gap-2 w-full sm:w-auto bg-gray-50 dark:bg-black/20 p-2 sm:p-0 rounded-lg sm:bg-transparent">
+                                <label className="text-sm font-medium text-gray-700 dark:text-gray-300 shrink-0">难度</label>
                                 <input
                                     type="range"
                                     min={0}
                                     max={7}
                                     value={difficulty}
                                     onChange={(e) => setDifficulty(Number(e.target.value))}
-                                    className="accent-yellow-500"
+                                    className="accent-yellow-500 flex-1 sm:w-32"
                                 />
-                                <span
-                                    className="w-6 text-right text-sm text-gray-700 dark:text-gray-300">{difficulty}</span>
+                                <span className="w-4 sm:w-6 text-right text-sm font-bold text-gray-700 dark:text-gray-300">{difficulty}</span>
                             </div>
                             <button
                                 onClick={reset}
-                                className="px-3 py-1.5 rounded text-sm border bg-white text-gray-700 border-gray-200 hover:bg-gray-50 disabled:opacity-50 dark:bg-black/20 dark:border-white/20 dark:text-white"
-                            >重置链
-                            </button>
+                                disabled={loading}
+                                className="flex-1 sm:flex-none px-4 py-1.5 rounded-lg text-sm font-semibold border bg-white text-gray-700 border-gray-200 hover:bg-gray-50 hover:text-rose-600 hover:border-rose-200 transition-all disabled:opacity-50 dark:bg-black/20 dark:border-white/10 dark:text-gray-300 dark:hover:bg-rose-500/10 dark:hover:text-rose-400 dark:hover:border-rose-500/30"
+                            >重置数据</button>
                         </div>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                        <div className="text-sm text-gray-600 dark:text-gray-300">
-                            <span>当前链长度: {blocks.length} | 下一区块高度: {nextHeight}</span>
-                        </div>
-                        <div className="flex flex-wrap items-center gap-2">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 sm:pt-6">
+                        <div className="flex items-center gap-3">
+                                <div className="text-sm font-medium text-gray-500 dark:text-gray-400 shrink-0">
+                                    即将打包区块
+                                </div>
+                                <div className="px-3 py-1 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/50 rounded-md text-blue-700 dark:text-blue-400 font-mono text-sm font-bold shadow-inner">
+                                    #{nextHeight}
+                                </div>
+                            </div>
+                        <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
                             <button
                                 onClick={runMine}
                                 disabled={loading || txs.length === 0}
-                                className="px-4 py-2 rounded text-sm border bg-white text-green-700 border-green-300 hover:bg-green-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors dark:bg-transparent dark:border-green-500 dark:text-green-500 dark:hover:bg-green-500/10"
-                            >{loading ? '⛏️ 打包中...' : '⛏️ 生成新区块'}</button>
-                            <button
-                                onClick={() => {
-                                    pausedRef.current = true;
-                                    setPaused(true);
-                                }}
-                                disabled={!loading || paused}
-                                className="px-3 py-1.5 rounded text-sm border bg-white text-gray-700 border-gray-200 hover:bg-gray-50 disabled:opacity-50 dark:bg-black/20 dark:border-white/20 dark:text-white"
-                            >暂停
-                            </button>
-                            <button
-                                onClick={() => {
-                                    pausedRef.current = false
-                                    setPaused(false)
-                                }}
-                                disabled={!paused}
-                                className="px-3 py-1.5 rounded text-sm border bg-white text-gray-700 border-gray-200 hover:bg-gray-50 disabled:opacity-50 dark:bg-black/20 dark:border-white/20 dark:text-white"
-                            >继续
-                            </button>
-                            <button
-                                onClick={() => {
-                                    stopRef.current = true;
-                                    setPaused(false);
-                                }}
-                                disabled={!loading}
-                                className="px-3 py-1.5 rounded text-sm border bg-white text-gray-700 border-gray-200 hover:bg-gray-50 disabled:opacity-50 dark:bg-black/20 dark:border-white/20 dark:text-white"
-                            >停止
-                            </button>
+                                className={`flex-[2] sm:flex-none px-6 py-2 rounded-xl text-sm font-bold border transition-all shadow-sm ${
+                                    loading 
+                                        ? "bg-yellow-50 border-yellow-300 text-yellow-700 dark:bg-yellow-500/20 dark:border-yellow-500/50 dark:text-yellow-500 animate-pulse"
+                                        : "bg-emerald-500 text-white border-emerald-600 hover:bg-emerald-600 hover:-translate-y-0.5 dark:bg-emerald-600 dark:border-emerald-700 dark:hover:bg-emerald-500"
+                                } disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none`}
+                            >{loading ? "⛏️ 打包计算中..." : "⛏️ 打包转账"}</button>
+                            <div className="flex gap-2 flex-1 sm:flex-none">
+                                <button
+                                    onClick={() => {
+                                        pausedRef.current = true;
+                                        setPaused(true);
+                                    }}
+                                    disabled={!loading || paused}
+                                    className="flex-1 sm:flex-none px-4 py-2 rounded-xl text-sm font-medium border bg-white text-gray-700 border-gray-200 hover:bg-gray-50 disabled:opacity-40 transition-all dark:bg-black/20 dark:border-white/10 dark:text-gray-300"
+                                >暂停</button>
+                                <button
+                                    onClick={() => {
+                                        pausedRef.current = false;
+                                        setPaused(false);
+                                    }}
+                                    disabled={!paused}
+                                    className="flex-1 sm:flex-none px-4 py-2 rounded-xl text-sm font-medium border bg-white text-gray-700 border-gray-200 hover:bg-gray-50 disabled:opacity-40 transition-all dark:bg-black/20 dark:border-white/10 dark:text-gray-300"
+                                >继续</button>
+                                <button
+                                    onClick={() => {
+                                        stopRef.current = true;
+                                        setPaused(false);
+                                    }}
+                                    disabled={!loading}
+                                    className="flex-1 sm:flex-none px-4 py-2 rounded-xl text-sm font-medium border bg-white text-gray-700 border-gray-200 hover:bg-rose-50 hover:text-rose-600 disabled:opacity-40 transition-all dark:bg-black/20 dark:border-white/10 dark:text-gray-300"
+                                >停止</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -271,24 +286,67 @@ export default function TokenPage(): React.ReactElement {
                     </div>
 
                     {/* 下排：区块链展示 */}
-                    <div
-                        className="rounded-lg border bg-white border-gray-200 dark:border-gray-700 dark:bg-gray-800 shadow-lg">
-                        <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-                            <h3 className="text-lg font-semibold text-red-500 dark:text-red-400">区块链</h3>
+                    <div className="rounded-xl border bg-white border-gray-200 dark:border-gray-700/60 dark:bg-[#161616] shadow-sm">
+                        <div className="p-4 sm:p-6 border-b border-gray-200 dark:border-gray-700/50">
+                            <h3 className="text-lg font-bold text-gray-900 dark:text-white">网络账本同步 (公链)</h3>
+                            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">包含所有有效代币转账记录的完整区块链</p>
                         </div>
 
-                        <div className="p-4">
-                            <div className="border border-yellow-400 rounded-lg p-3">
+                        <div className="p-4 sm:p-6">
+                            <div className="border border-yellow-400 rounded-xl p-3 sm:p-4 bg-gray-50/50 dark:bg-black/20">
                                 <div className="flex items-center justify-between mb-3">
-                                    <span
-                                        className="text-sm font-medium text-green-600 dark:text-green-400">代币演示链</span>
+                                    <span className="text-sm font-bold text-green-600 dark:text-green-400">代币演示链</span>
                                 </div>
-                                <BlockChainFull blocks={blocks}/>
+                                <div className="overflow-x-auto custom-scrollbar pb-2">
+                                    <BlockChainFull blocks={blocks}/>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                {/* 科普与下一步 */}
+                <div className="mt-6 sm:mt-8 space-y-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <FeatureCard 
+                            icon={<FiFileText className="w-5 h-5 text-blue-500 dark:text-blue-400"/>}
+                            title="交易就是数据"
+                            desc="我们把普通的文本内容，替换成了格式化的“张三转给李四”转账记录，这就构成了代币系统的基石。"
+                        />
+                        <FeatureCard 
+                            icon={<FiShield className="w-5 h-5 text-purple-500 dark:text-purple-400"/>}
+                            title="不可篡改的账本"
+                            desc="所有的代币转账都被包含在区块哈希的计算中，一旦被确认并同步，任何黑客都无法悄悄篡改某人的余额。"
+                        />
+                    </div>
+
+                    <div className="flex justify-center pt-2 pb-8">
+                        <Link 
+                            href="/pow/coinbase" 
+                            className="flex items-center gap-2 px-6 py-3.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-semibold transition-all hover:scale-105 active:scale-95 shadow-lg shadow-blue-500/25"
+                        >
+                            下一步：了解代币从何而来 (币基)
+                            <FiArrowRight className="w-5 h-5" />
+                        </Link>
+                    </div>
+                </div>
             </div>
+        </div>
+    )
+}
+
+function FeatureCard({icon, title, desc}: {icon: React.ReactNode, title: string, desc: string}) {
+    return (
+        <div className="p-4 rounded-xl border border-gray-200 dark:border-gray-700/60 bg-white/50 dark:bg-[#161616]/50 hover:bg-white dark:hover:bg-[#1a1a1a] transition-colors">
+            <div className="flex items-center gap-2 mb-2">
+                <div className="p-1.5 bg-gray-100 dark:bg-black/50 rounded-lg">
+                    {icon}
+                </div>
+                <h3 className="font-semibold text-gray-900 dark:text-gray-100 text-sm">{title}</h3>
+            </div>
+            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                {desc}
+            </p>
         </div>
     )
 }

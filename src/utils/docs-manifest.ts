@@ -24,7 +24,7 @@ export const DOC_NAV: DocNavGroup[] = [
         rootHref: '/docs/pow',
         items: [
             {title: '哈希', slug: ['pow', 'hash'], href: '/docs/pow/hash'},
-            {title: '区块结构', slug: ['pow', 'block'], href: '/docs/pow/block'},
+            {title: '区块', slug: ['pow', 'block'], href: '/docs/pow/block'},
             {title: '区块链', slug: ['pow', 'blockchain'], href: '/docs/pow/blockchain'},
             {title: '分布式挖矿', slug: ['pow', 'distribution'], href: '/docs/pow/distribution'},
             {title: '代币与转账', slug: ['pow', 'token'], href: '/docs/pow/token'},

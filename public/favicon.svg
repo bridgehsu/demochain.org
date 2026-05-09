@@ -1,10 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-        <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:1" />
-            <stop offset="100%" style="stop-color:#10B981;stop-opacity:1" />
-        </linearGradient>
-    </defs>
-    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z" fill="url(#logoGradient)" />
+<svg viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- 顶面 -->
+  <polygon points="256,72 82,180 256,288 430,180" fill="#FB923C"/>
+  <!-- 左面 -->
+  <polygon points="82,180 82,364 256,472 256,288" fill="#F97316"/>
+  <!-- 右面 -->
+  <polygon points="430,180 256,288 256,472 430,364" fill="#C2410C"/>
+  <!-- 边缘线 -->
+  <g stroke="#FFFFFF" stroke-width="8" stroke-linejoin="round" stroke-linecap="round" opacity="0.25">
+    <line x1="256" y1="72"  x2="82"  y2="180"/>
+    <line x1="256" y1="72"  x2="430" y2="180"/>
+    <line x1="82"  y1="180" x2="256" y2="288"/>
+    <line x1="430" y1="180" x2="256" y2="288"/>
+    <line x1="82"  y1="180" x2="82"  y2="364"/>
+    <line x1="430" y1="180" x2="430" y2="364"/>
+    <line x1="256" y1="288" x2="256" y2="472"/>
+    <line x1="82"  y1="364" x2="256" y2="472"/>
+    <line x1="430" y1="364" x2="256" y2="472"/>
+  </g>
 </svg>

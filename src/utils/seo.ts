@@ -12,6 +12,7 @@ export const defaultSEO: SEOConfig = {
   title: 'DemoChain - 区块链共识机制演示平台',
   description: 'DemoChain 是面向学习者的区块链共识机制可视化演示平台，支持 PoW、PoS、DPoS、PoA、BFT、Avalanche、PoH 七种共识，通过交互式演示帮助快速理解区块链原理。',
   keywords: '区块链,共识机制,POW,POS,DPoS,PoA,BFT,Avalanche,POH,哈希,区块,区块链演示,可视化,教育',
+  ogImage: 'https://demochain.org/og-image.svg',
 };
 
 export const pageSEO: Record<string, Partial<SEOConfig>> = {

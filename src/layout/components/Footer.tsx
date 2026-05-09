@@ -28,15 +28,9 @@ export default function Footer(): React.ReactElement {
 
                     {/* 右侧邮箱 + 社交 */}
                     <div className="flex flex-col md:flex-row items-center gap-3 md:gap-4">
-                        <a
-                            href="mailto:demochain@gmail.com"
-                            className="text-xs md:text-sm text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors duration-300"
-                        >
-                            联系邮箱：demochain@gmail.com
-                        </a>
                         <div className="flex items-center gap-3 justify-center">
                             <a
-                                href="https://x.com/thexiaokuige"
+                                href="https://x.com/thebridgehsu"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="Twitter"
@@ -45,7 +39,7 @@ export default function Footer(): React.ReactElement {
                                 <TwitterIcon className="h-4 w-4"/>
                             </a>
                             <a
-                                href="https://t.me/thexiaokuige"
+                                href="https://t.me/bridgehsu"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="Telegram"

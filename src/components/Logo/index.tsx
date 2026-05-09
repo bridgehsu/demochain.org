@@ -18,14 +18,12 @@ const Logo: React.FC<LogoProps> = ({ className }) => {
                 }
             }}
         >
-      <span className="shrink-0 inline-flex scale-90">
+      <span className="shrink-0 inline-flex">
         <LogoIcon />
       </span>
             <span
                 className="truncate max-w-[40vw] sm:max-w-[50vw] md:max-w-none text-lg md:text-xl font-bold tracking-wide leading-none select-none
-                   bg-gradient-to-r from-orange-500 to-purple-600
-                   dark:from-orange-400 dark:to-purple-400
-                   bg-clip-text text-transparent drop-shadow-sm"
+                   text-orange-500 dark:text-orange-400"
             >
         DemoChain
       </span>

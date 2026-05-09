@@ -8,14 +8,7 @@ class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8"/>
           
-          {/* 默认 SEO - 可被页面级覆盖 */}
-          <meta name="description" content="DemoChain - 区块链在线演示与学习平台，提供哈希、区块、区块链、POW/POS/DPoS/BFT/POH 等交互式演示"/>
-          <meta name="keywords" content="区块链,哈希,SHA-256,工作量证明,POW,POS,DPoS,BFT,POH,挖矿,代币,教学,演示"/>
           <meta name="author" content="DemoChain"/>
-          
-          {/* Open Graph 默认值 */}
-          <meta property="og:site_name" content="DemoChain"/>
-          <meta property="og:type" content="website"/>
           <meta property="og:locale" content="zh_CN"/>
           
           {/* 图标和资源 */}

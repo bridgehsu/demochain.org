@@ -26,14 +26,14 @@ function Application({Component, pageProps}: AppProps): React.ReactElement {
                 <meta property="og:description" content={seo.ogDescription || seo.description}/>
                 <meta property="og:url" content={seo.canonical}/>
                 {seo.ogImage && <meta property="og:image" content={seo.ogImage}/>}
+                {seo.ogImage && <meta property="og:image:width" content="1200"/>}
+                {seo.ogImage && <meta property="og:image:height" content="630"/>}
+                {seo.ogImage && <meta property="og:image:type" content="image/svg+xml"/>}
                 <meta name="twitter:card" content="summary_large_image"/>
                 <meta name="twitter:title" content={seo.ogTitle || seo.title}/>
                 <meta name="twitter:description" content={seo.ogDescription || seo.description}/>
                 {seo.ogImage && <meta name="twitter:image" content={seo.ogImage}/>}
-                <link rel="icon" href="/favicon.ico"/>
-                <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
-                <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
-                <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
+                <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
                 {seo.canonical && <link rel="canonical" href={seo.canonical}/>}
                 <script
                     type="application/ld+json"
@@ -43,11 +43,8 @@ function Application({Component, pageProps}: AppProps): React.ReactElement {
                             '@type': 'WebSite',
                             name: 'DemoChain',
                             url: 'https://demochain.org',
-                            potentialAction: {
-                                '@type': 'SearchAction',
-                                target: 'https://demochain.org/?q={search_term_string}',
-                                'query-input': 'required name=search_term_string',
-                            },
+                            description: 'DemoChain 是面向学习者的区块链共识机制可视化演示平台，支持 PoW、PoS、DPoS、PoA、BFT、Avalanche、PoH 七种共识。',
+                            inLanguage: 'zh-CN',
                         }),
                     }}
                 />

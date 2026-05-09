@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://wstool.example.com/sitemap.xml
+Sitemap: https://demochain.org/sitemap.xml

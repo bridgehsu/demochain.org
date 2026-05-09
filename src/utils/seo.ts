@@ -12,17 +12,16 @@ export const defaultSEO: SEOConfig = {
   title: 'DemoChain - 区块链共识机制演示平台',
   description: 'DemoChain 是面向学习者的区块链共识机制可视化演示平台，支持 PoW、PoS、DPoS、PoA、BFT、Avalanche、PoH 七种共识，通过交互式演示帮助快速理解区块链原理。',
   keywords: '区块链,共识机制,POW,POS,DPoS,PoA,BFT,Avalanche,POH,哈希,区块,区块链演示,可视化,教育',
-  ogImage: '/og-image.jpg',
 };
 
 export const pageSEO: Record<string, Partial<SEOConfig>> = {
   // PoW
   '/': { title: 'DemoChain - 区块链共识演示平台', description: '通过交互式演示理解 PoW、PoS、DPoS 等七种共识机制的运作原理。' },
-  '/block': { title: '区块 · PoW - DemoChain', description: '可视化区块结构与字段组成，理解区块如何链接与验证。' },
-  '/blockchain': { title: '区块链 · PoW - DemoChain', description: '观察区块串联、哈希难度与链一致性的动态变化。' },
-  '/distribution': { title: '分布式 · PoW - DemoChain', description: '模拟分布式挖矿网络，直观认识去中心化竞争出块。' },
-  '/token': { title: '代币 · PoW - DemoChain', description: '演示代币账户与交易模型，理解 UTXO 与转账机制。' },
-  '/coinbase': { title: '币基 · PoW - DemoChain', description: '理解出块奖励与币基交易发行机制。' },
+  '/pow/block': { title: '区块 · PoW - DemoChain', description: '可视化区块结构与字段组成，理解区块如何链接与验证。' },
+  '/pow/blockchain': { title: '区块链 · PoW - DemoChain', description: '观察区块串联、哈希难度与链一致性的动态变化。' },
+  '/pow/distribution': { title: '分布式 · PoW - DemoChain', description: '模拟分布式挖矿网络，直观认识去中心化竞争出块。' },
+  '/pow/token': { title: '代币 · PoW - DemoChain', description: '演示代币账户与交易模型，理解 UTXO 与转账机制。' },
+  '/pow/coinbase': { title: '币基 · PoW - DemoChain', description: '理解出块奖励与币基交易发行机制。' },
   // PoS
   '/pos': { title: '质押 · PoS - DemoChain', description: '演示 PoS 质押机制，理解权益权重与验证者参与流程。' },
   '/pos/validators': { title: '验证者 · PoS - DemoChain', description: '基于质押权重进行加权随机选择，直观理解出块概率。' },

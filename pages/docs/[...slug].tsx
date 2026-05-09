@@ -1,5 +1,6 @@
 import React from 'react';
 import {GetStaticPaths, GetStaticProps} from 'next';
+import Head from 'next/head';
 import Link from 'next/link';
 import DocsLayout from '@/layout/DocsLayout';
 import {getDocBySlug, getAllDocSlugs, DocData} from '@/utils/docs';
@@ -25,7 +26,15 @@ function getFlatNavItems() {
 }
 
 export default function DocPage({doc, prevDoc, nextDoc}: Props) {
+    const pageTitle = `${doc.title} - DemoChain`;
     return (
+        <>
+        <Head>
+            <title>{pageTitle}</title>
+            <meta name="description" content={doc.description}/>
+            <meta property="og:title" content={pageTitle}/>
+            <meta property="og:description" content={doc.description}/>
+        </Head>
         <DocsLayout demoHref={doc.demoHref} demoLabel={doc.demoLabel}>
             <article className="prose-docs">
                 <div dangerouslySetInnerHTML={{__html: doc.contentHtml}}/>
@@ -62,6 +71,7 @@ export default function DocPage({doc, prevDoc, nextDoc}: Props) {
                 </div>
             )}
         </DocsLayout>
+        </>
     );
 }
 

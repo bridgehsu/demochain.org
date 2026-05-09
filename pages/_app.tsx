@@ -8,7 +8,8 @@ import '../styles/globals.css';
 
 function Application({Component, pageProps}: AppProps): React.ReactElement {
     const router = useRouter();
-    const seo = getPageSEO(router.pathname);
+    const rawPath = router.asPath.split('?')[0];
+    const seo = getPageSEO(rawPath === '/' ? '/' : rawPath.replace(/\/$/, ''));
 
     return (
         <>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {useRouter} from 'next/router';
 import Link from 'next/link';
 import Logo from "@/components/Logo";
@@ -32,36 +32,41 @@ export default function Header(): React.ReactElement {
 
     const isDarkMode = isMounted ? (theme === 'dark' || (theme === 'system' && systemDark)) : null;
 
+    // 用 ref 存最新 theme，供系统主题变化的监听器读取，避免 stale closure
+    const themeRef = useRef(theme);
+    themeRef.current = theme;
+
+    // 应用主题（class + localStorage），在 theme 或 systemDark 变化时触发
     useEffect(() => {
         if (typeof window === 'undefined' || !isMounted) return;
-
         const root = document.documentElement;
-        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        setSystemDark(mediaQuery.matches);
-
-        const applyTheme = () => {
-            const isDark = theme === 'dark' || (theme === 'system' && mediaQuery.matches);
-            root.classList.toggle('dark', isDark);
-        };
-
-        applyTheme();
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        const isDark = theme === 'dark' || (theme === 'system' && mq.matches);
+        root.classList.toggle('dark', isDark);
         localStorage.setItem('theme', theme);
+    }, [theme, systemDark, isMounted]);
 
-        const handleSystemThemeChange = (e: MediaQueryListEvent) => {
+    // 系统主题变化监听器 — 只注册一次
+    useEffect(() => {
+        if (typeof window === 'undefined') return;
+        const mq = window.matchMedia('(prefers-color-scheme: dark)');
+        setSystemDark(mq.matches);
+
+        const handleChange = (e: MediaQueryListEvent) => {
             setSystemDark(e.matches);
-            if (theme === 'system') {
-                root.classList.toggle('dark', e.matches);
+            if (themeRef.current === 'system') {
+                document.documentElement.classList.toggle('dark', e.matches);
             }
         };
 
-        if (mediaQuery.addEventListener) {
-            mediaQuery.addEventListener('change', handleSystemThemeChange);
-            return () => mediaQuery.removeEventListener('change', handleSystemThemeChange);
+        if (mq.addEventListener) {
+            mq.addEventListener('change', handleChange);
+            return () => mq.removeEventListener('change', handleChange);
         } else {
-            mediaQuery.addListener(handleSystemThemeChange);
-            return () => mediaQuery.removeListener(handleSystemThemeChange);
+            mq.addListener(handleChange);
+            return () => mq.removeListener(handleChange);
         }
-    }, [theme, isMounted]);
+    }, []);
 
     const consensus = isMounted ? getActiveConsensus(currentPathname) : 'POW';
     const mobileMenuItems = ALL_MENUS[consensus];

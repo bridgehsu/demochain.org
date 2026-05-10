@@ -42,8 +42,8 @@ export default function Hash(): React.ReactElement {
                     setHash(h)
                     setDurationMs(Math.max(0, t1 - t0))
                 }
-            } catch {
-                // ignore
+            } catch (err) {
+                console.warn('[Hash] SHA-256 calculation failed:', err)
             }
         }, 200)
         return () => {
@@ -75,7 +75,7 @@ export default function Hash(): React.ReactElement {
                                         await navigator.clipboard.writeText(uppercase ? hash.toUpperCase() : hash)
                                         setCopied(true)
                                         setTimeout(() => setCopied(false), 1500)
-                                    } catch { /* ignore */ }
+                                    } catch (err) { console.warn('[Hash] Clipboard write failed:', err) }
                                 }}
                                 disabled={!hash}
                                 active={copied}
@@ -133,6 +133,8 @@ export default function Hash(): React.ReactElement {
                                             rows={2}
                                             value={uppercase ? hash.toUpperCase() : hash}
                                             readOnly
+                                            aria-label="SHA-256 哈希值"
+                                            aria-live="polite"
                                             className={`w-full px-3 py-2.5 rounded-lg font-mono text-[13px] leading-5 tracking-wide break-all border cursor-text select-all focus:outline-none focus:ring-2 focus:ring-blue-500/30 transition-all duration-300 ${
                                                 isFlashing 
                                                     ? 'bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-300 border-green-400 dark:border-green-500/50 shadow-[0_0_15px_rgba(74,222,128,0.2)]'
@@ -169,7 +171,7 @@ export default function Hash(): React.ReactElement {
                 }`}>
                     <div>
                         <h3 className="font-bold text-sm sm:text-base flex items-center gap-2 text-gray-900 dark:text-gray-100">
-                            <FiAward className={leadingZeros > 0 ? "text-yellow-500" : "text-gray-400"} />
+                            <FiAward aria-hidden="true" className={leadingZeros > 0 ? "text-yellow-500" : "text-gray-400"} />
                             微型挑战：这就是挖矿！
                         </h3>
                         <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400 mt-1">
@@ -178,31 +180,31 @@ export default function Hash(): React.ReactElement {
                     </div>
                     
                     {leadingZeros > 0 ? (
-                        <div className="shrink-0 text-center animate-in zoom-in spin-in-12">
-                            <div className="text-2xl sm:text-3xl">🎉</div>
+                        <div className="shrink-0 text-center animate-in zoom-in spin-in-12" aria-live="polite">
+                            <div className="text-2xl sm:text-3xl" aria-hidden="true">🎉</div>
                             <div className="text-[10px] font-bold text-yellow-600 dark:text-yellow-500 mt-1 uppercase tracking-wider">
                                 {leadingZeros === 1 ? '挖矿成功' : '极品矿石!'}
                             </div>
                         </div>
                     ) : (
-                        <div className="shrink-0 text-2xl sm:text-3xl opacity-20 grayscale">⛏️</div>
+                        <div className="shrink-0 text-2xl sm:text-3xl opacity-20 grayscale" aria-hidden="true">⛏️</div>
                     )}
                 </div>
 
                 {/* 科普说明区 */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-                    <FeatureCard 
-                        icon={<FiTarget className="w-5 h-5 text-blue-500 dark:text-blue-400"/>}
+                    <FeatureCard
+                        icon={<FiTarget aria-hidden="true" className="w-5 h-5 text-blue-500 dark:text-blue-400"/>}
                         title="确定性 (Deterministic)"
                         desc="无论计算多少次，相同的输入数据永远会得到完全相同的哈希输出。"
                     />
-                    <FeatureCard 
-                        icon={<FiShield className="w-5 h-5 text-purple-500 dark:text-purple-400"/>}
+                    <FeatureCard
+                        icon={<FiShield aria-hidden="true" className="w-5 h-5 text-purple-500 dark:text-purple-400"/>}
                         title="单向性 (One-way)"
                         desc="很容易从数据计算出哈希，但绝对无法从哈希值反向推导出原始数据。"
                     />
-                    <FeatureCard 
-                        icon={<FiZap className="w-5 h-5 text-orange-500 dark:text-orange-400"/>}
+                    <FeatureCard
+                        icon={<FiZap aria-hidden="true" className="w-5 h-5 text-orange-500 dark:text-orange-400"/>}
                         title="雪崩效应 (Avalanche Effect)"
                         desc="即使只改变输入数据的一个标点符号，计算出的哈希值也会面目全非。"
                     />

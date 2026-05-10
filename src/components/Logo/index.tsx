@@ -22,11 +22,11 @@ const Logo: React.FC<LogoProps> = ({ className }) => {
         <LogoIcon />
       </span>
             <span
-                className="truncate max-w-[40vw] sm:max-w-[50vw] md:max-w-none text-lg md:text-xl font-bold tracking-wide leading-none select-none
-                   text-orange-500 dark:text-orange-400"
+                className="truncate max-w-[40vw] sm:max-w-[50vw] md:max-w-none text-lg md:text-xl font-semibold tracking-tight leading-none select-none"
+                style={{fontFamily: "'Space Grotesk', sans-serif"}}
             >
-        DemoChain
-      </span>
+                <span className="text-gray-800 dark:text-gray-100">Demo</span><span className="text-orange-500 dark:text-orange-400">Chain</span>
+            </span>
         </Link>
     );
 };

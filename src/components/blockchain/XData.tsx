@@ -40,7 +40,7 @@ export default forwardRef(function XData(
           value={data}
           onChange={(e) => change(e.target.value)}
           placeholder="请输入任意文本数据作为模拟的区块链打包内容..."
-          className="w-full px-4 py-3 text-sm sm:text-base rounded-xl resize-none bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 focus:bg-white transition-all dark:bg-black/20 dark:border-gray-700/50 dark:text-gray-200 dark:focus:ring-blue-500/30 dark:focus:border-blue-500 dark:focus:bg-black/40"
+          className="w-full px-4 py-3 text-base sm:text-sm rounded-xl resize-none bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 focus:bg-white transition-all dark:bg-black/20 dark:border-gray-700/50 dark:text-gray-200 dark:focus:ring-blue-500/30 dark:focus:border-blue-500 dark:focus:bg-black/40"
         />
       </div>
     </div>

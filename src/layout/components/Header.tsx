@@ -74,7 +74,7 @@ export default function Header(): React.ReactElement {
 
     return (
         <header
-            className="sticky top-0 z-40 border-b border-gray-100 bg-white/85 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:border-gray-800 dark:bg-[#121212]/85">
+            className="sticky top-0 z-40 border-b border-gray-200/80 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75 dark:border-gray-800 dark:bg-[#121212]/85">
             <div
                 className="px-4 lg:px-12 max-w-screen-2xl mx-auto w-full relative flex justify-between items-center py-4">
                 <div className="flex items-center flex-1">
@@ -128,12 +128,12 @@ export default function Header(): React.ReactElement {
 
             {/* 移动端下拉导航面板 */}
             {mobileOpen && isMounted && (
-                <div className="md:hidden border-t border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-[#121212]/95 backdrop-blur">
-                    <div className="px-4 py-3 space-y-3">
+                <div className="md:hidden border-t border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-[#121212]/95 backdrop-blur shadow-lg shadow-black/5">
+                    <div className="px-3 py-3 space-y-2">
                         {/* 共识切换 */}
-                        <div>
-                            <p className="text-xs text-gray-400 dark:text-gray-500 px-1 mb-2">切换共识</p>
-                            <div className="grid grid-cols-4 gap-1.5">
+                        <div className="rounded-xl border border-gray-100 bg-gray-50/80 px-3 py-2.5 dark:border-gray-800 dark:bg-white/[0.03]">
+                            <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-2">切换共识</p>
+                            <div className="flex gap-1.5 overflow-x-auto pb-0.5 scrollbar-hide">
                                 {CONSENSUS_ORDER.map((c: Consensus) => {
                                     const cc = CONSENSUS_CONFIG[c];
                                     const isActive = c === consensus;
@@ -142,38 +142,24 @@ export default function Header(): React.ReactElement {
                                             key={c}
                                             href={CONSENSUS_ENTRY[c]}
                                             onClick={() => setMobileOpen(false)}
-                                            className={`flex items-center justify-center gap-1 px-2 py-2 rounded-lg text-xs font-medium transition-colors ${
+                                            className={`flex shrink-0 items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
                                                 isActive
-                                                    ? `${cc.switcherActive} bg-black/5 dark:bg-white/8`
-                                                    : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
+                                                    ? `${cc.switcherActive} bg-white shadow-sm ring-1 ring-black/5 dark:bg-[#1d1d1d] dark:ring-white/10`
+                                                    : 'text-gray-500 hover:text-gray-900 hover:bg-white/70 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/8'
                                             }`}
                                         >
-                                            {isActive && <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${cc.dot}`}/>}
+                                            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isActive ? cc.dot : 'bg-gray-300 dark:bg-gray-600'}`}/>
                                             {cc.label}
                                         </Link>
                                     );
                                 })}
                             </div>
                         </div>
-                        {/* 文档入口 */}
-                        <div>
-                            <Link
-                                href="/docs"
-                                onClick={() => setMobileOpen(false)}
-                                className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                                    currentPathname.startsWith('/docs')
-                                        ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10'
-                                        : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'
-                                }`}
-                            >
-                                <FiBook className="w-4 h-4"/>
-                                文档中心
-                            </Link>
-                        </div>
-                        {/* 当前共识的页面导航 */}
-                        <div>
-                            <p className="text-xs text-gray-400 dark:text-gray-500 px-1 mb-2">页面导航</p>
-                            <div className="grid grid-cols-3 gap-1.5">
+
+                        {/* 当前共识的页面导航 + 文档入口，合并在一个卡片 */}
+                        <div className="rounded-xl border border-gray-100 bg-gray-50/80 px-2 py-1.5 dark:border-gray-800 dark:bg-white/[0.03]">
+                            <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 px-1 mb-1">页面导航</p>
+                            <div className="space-y-0.5">
                                 {mobileMenuItems.map(item => {
                                     const isActive = currentPathname === item.href;
                                     return (
@@ -181,17 +167,34 @@ export default function Header(): React.ReactElement {
                                             key={item.href}
                                             href={item.href}
                                             onClick={() => setMobileOpen(false)}
-                                            className={`flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                                            className={`flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium transition-all ${
                                                 isActive
-                                                    ? `${mobileCfg.accent} bg-black/5 dark:bg-white/8`
-                                                    : 'text-gray-600 hover:text-gray-900 hover:bg-black/5 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/8'
+                                                    ? `${mobileCfg.accent} bg-white shadow-sm ring-1 ring-black/5 dark:bg-[#1d1d1d] dark:ring-white/10`
+                                                    : 'text-gray-600 hover:text-gray-900 hover:bg-white/70 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/8'
                                             }`}
                                         >
-                                            {item.icon}
+                                            <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-xs ${isActive ? 'opacity-100' : 'opacity-50'}`}>
+                                                {item.icon}
+                                            </span>
                                             {item.name}
                                         </Link>
                                     );
                                 })}
+                                <div className="my-1 border-t border-gray-100 dark:border-gray-800"/>
+                                <Link
+                                    href="/docs"
+                                    onClick={() => setMobileOpen(false)}
+                                    className={`flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium transition-all ${
+                                        currentPathname.startsWith('/docs')
+                                            ? 'text-blue-600 dark:text-blue-400 bg-white shadow-sm ring-1 ring-black/5 dark:bg-blue-500/10 dark:ring-white/10'
+                                            : 'text-gray-600 hover:text-gray-900 hover:bg-white/70 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/8'
+                                    }`}
+                                >
+                                    <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-xs ${currentPathname.startsWith('/docs') ? 'opacity-100' : 'opacity-50'}`}>
+                                        <FiBook className="w-3.5 h-3.5"/>
+                                    </span>
+                                    文档中心
+                                </Link>
                             </div>
                         </div>
                     </div>

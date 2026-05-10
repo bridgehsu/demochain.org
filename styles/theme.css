@@ -2,8 +2,8 @@
 
 /* 浅色模式 (默认) */
 :root {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f9fafb;
+  --bg-primary: #edf0f5;
+  --bg-secondary: #f3f5f9;
   --text-primary: #111827;
   --text-secondary: #4b5563;
   --border-color: #e5e7eb;

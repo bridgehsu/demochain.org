@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {AppProps} from 'next/app';
 import {useRouter} from 'next/router';
 import Head from 'next/head';
@@ -6,13 +6,52 @@ import Layout from '@/layout';
 import {getPageSEO} from '@/utils/seo';
 import '../styles/globals.css';
 
+function RouteProgress(): React.ReactElement {
+    const router = useRouter();
+
+    useEffect(() => {
+        const bar = document.getElementById('route-progress');
+        if (!bar) return;
+
+        const start = () => {
+            bar.className = 'loading';
+        };
+        const done = () => {
+            bar.className = 'done';
+            const t = setTimeout(() => { bar.className = ''; }, 500);
+            return () => clearTimeout(t);
+        };
+
+        router.events.on('routeChangeStart', start);
+        router.events.on('routeChangeComplete', done);
+        router.events.on('routeChangeError', done);
+
+        return () => {
+            router.events.off('routeChangeStart', start);
+            router.events.off('routeChangeComplete', done);
+            router.events.off('routeChangeError', done);
+        };
+    }, [router.events]);
+
+    return <div id="route-progress"/>;
+}
+
 function Application({Component, pageProps}: AppProps): React.ReactElement {
     const router = useRouter();
+    const [pageKey, setPageKey] = useState(router.asPath);
+
+    useEffect(() => {
+        const handleComplete = (url: string) => setPageKey(url);
+        router.events.on('routeChangeComplete', handleComplete);
+        return () => router.events.off('routeChangeComplete', handleComplete);
+    }, [router.events]);
+
     const rawPath = router.asPath.split('?')[0];
     const seo = getPageSEO(rawPath === '/' ? '/' : rawPath.replace(/\/$/, ''));
 
     return (
         <>
+            <RouteProgress/>
             <Head>
                 <title>{seo.title}</title>
                 <meta name="description" content={seo.description}/>
@@ -52,7 +91,9 @@ function Application({Component, pageProps}: AppProps): React.ReactElement {
             </Head>
 
             <Layout fullWidth={router.pathname.startsWith('/docs')}>
-                <Component {...pageProps} />
+                <div key={pageKey} className="page-transition">
+                    <Component {...pageProps} />
+                </div>
             </Layout>
         </>
     );

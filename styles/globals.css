@@ -5,6 +5,50 @@
 /* 导入主题样式 */
 @import './theme.css';
 
+/* ── 页面切换动画 ── */
+@keyframes page-enter {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.page-transition {
+    animation: page-enter 0.22s ease-out both;
+}
+
+/* ── 顶部路由进度条 ── */
+#route-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    z-index: 9999;
+    pointer-events: none;
+    background: linear-gradient(90deg, #3b82f6, #6366f1, #8b5cf6);
+    transform-origin: left;
+    transform: scaleX(0);
+    transition: transform 0.3s ease, opacity 0.4s ease;
+    opacity: 0;
+}
+
+#route-progress.loading {
+    opacity: 1;
+    transform: scaleX(0.85);
+    transition: transform 8s cubic-bezier(0.05, 0.8, 0.3, 1), opacity 0.2s ease;
+}
+
+#route-progress.done {
+    transform: scaleX(1);
+    transition: transform 0.15s ease, opacity 0.3s ease 0.15s;
+    opacity: 0;
+}
+
 @layer base {
     html {
         -webkit-font-smoothing: antialiased;
@@ -99,7 +143,7 @@
     }
 
     .card {
-        @apply relative bg-white p-4 rounded-xl border border-gray-200 transition-shadow hover:shadow-md dark:bg-[#1e1e1e] dark:border-[#2d2d30] dark:text-gray-200;
+        @apply relative bg-white p-4 rounded-xl border border-gray-200 shadow-sm shadow-black/5 transition-shadow hover:shadow-md dark:bg-[#1e1e1e] dark:border-[#2d2d30] dark:text-gray-200 dark:shadow-none;
     }
 
     /* 隐藏滚动条但保持滚动功能 */

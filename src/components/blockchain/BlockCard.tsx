@@ -94,12 +94,12 @@ export default function BlockCard({
           <div className="space-y-1.5">
             <label className="block text-xs font-semibold text-gray-600 dark:text-gray-400">高度</label>
             <div className="flex items-center">
-              <span className="inline-flex items-center h-9 px-3 bg-gray-50 border border-r-0 border-gray-300 text-gray-600 text-sm rounded-l-lg dark:bg-black/30 dark:border-gray-700 dark:text-gray-400">#</span>
+              <span className="inline-flex items-center h-11 sm:h-9 px-3 bg-gray-50 border border-r-0 border-gray-300 text-gray-600 text-base sm:text-sm rounded-l-lg dark:bg-black/30 dark:border-gray-700 dark:text-gray-400">#</span>
               <input
                 type="number"
                 value={block.height}
                 disabled={readonly}
-                className="flex-1 h-9 px-3 text-sm rounded-r-lg bg-white border border-gray-300 text-gray-700 focus:outline-none dark:bg-black/20 dark:border-gray-700 dark:text-gray-200"
+                className="flex-1 h-11 sm:h-9 px-3 text-base sm:text-sm rounded-r-lg bg-white border border-gray-300 text-gray-700 focus:outline-none dark:bg-black/20 dark:border-gray-700 dark:text-gray-200"
               />
             </div>
           </div>
@@ -110,7 +110,7 @@ export default function BlockCard({
               type="number"
               value={block.nonce}
               disabled={readonly}
-              className="w-full h-9 px-3 text-sm rounded-lg bg-white border border-gray-300 text-gray-700 focus:outline-none dark:bg-black/20 dark:border-gray-700 dark:text-gray-200"
+              className="w-full h-11 sm:h-9 px-3 text-base sm:text-sm rounded-lg bg-white border border-gray-300 text-gray-700 focus:outline-none dark:bg-black/20 dark:border-gray-700 dark:text-gray-200"
             />
           </div>
 
@@ -120,7 +120,7 @@ export default function BlockCard({
               type="text"
               value={formattedTime}
               disabled
-              className="w-full h-9 px-3 text-xs bg-gray-50 border border-gray-300 text-gray-500 rounded-lg cursor-not-allowed dark:bg-black/40 dark:border-gray-700 dark:text-gray-500"
+              className="w-full h-11 sm:h-9 px-3 text-xs sm:text-sm bg-gray-50 border border-gray-300 text-gray-500 rounded-lg cursor-not-allowed dark:bg-black/40 dark:border-gray-700 dark:text-gray-500"
             />
           </div>
 
@@ -130,7 +130,7 @@ export default function BlockCard({
               rows={3}
               value={block.data}
               disabled={readonly}
-              className="w-full px-3 py-2 text-sm bg-white border border-gray-300 text-gray-700 rounded-lg resize-none focus:outline-none dark:bg-black/20 dark:border-gray-700 dark:text-gray-200"
+              className="w-full px-3 py-2 sm:py-2.5 text-base sm:text-sm bg-white border border-gray-300 text-gray-700 rounded-lg resize-none focus:outline-none dark:bg-black/20 dark:border-gray-700 dark:text-gray-200 min-h-[4.5rem]"
             />
             <div className="text-xs text-gray-500 dark:text-gray-500 flex items-center gap-3">
               <span>字符: <b className="text-gray-700 dark:text-gray-400">{block.data.length}</b></span>
@@ -144,7 +144,7 @@ export default function BlockCard({
               type="text"
               value={block.previous}
               disabled={readonly}
-              className="w-full h-9 px-3 text-xs bg-gray-50 border border-gray-300 text-gray-600 rounded-lg font-mono cursor-not-allowed dark:bg-black/40 dark:border-gray-700 dark:text-gray-400"
+              className="w-full h-11 sm:h-9 px-3 text-xs bg-gray-50 border border-gray-300 text-gray-600 rounded-lg font-mono cursor-not-allowed dark:bg-black/40 dark:border-gray-700 dark:text-gray-400"
             />
           </div>
 

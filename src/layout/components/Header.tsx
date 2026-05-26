@@ -73,7 +73,7 @@ export default function Header({hideLogo}: HeaderProps): React.ReactElement {
 
     return (
         <header
-            className="fixed top-0 right-0 left-0 md:left-64 z-40 border-b border-gray-100/80 dark:border-[#1c1e25] bg-white/70 dark:bg-[#0d0e12]/80 backdrop-blur-xl transition-colors duration-500">
+            className="sticky top-0 z-40 border-b border-gray-100/80 dark:border-[#1c1e25] bg-white/70 dark:bg-[#0d0e12]/80 backdrop-blur-xl transition-colors duration-500">
             <div
                 className="px-4 lg:px-8 w-full relative flex justify-between items-center h-16">
                 <div className={`flex items-center flex-1${hideLogo ? ' md:hidden' : ''}`}>

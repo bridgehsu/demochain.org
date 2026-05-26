@@ -2,11 +2,15 @@ import React, {useEffect, useRef, useState} from 'react';
 import {useRouter} from 'next/router';
 import Link from 'next/link';
 import Logo from "@/components/Logo";
-import Menu, {MENUS, ALL_MENUS, getActiveConsensus, CONSENSUS_CONFIG, CONSENSUS_ORDER, CONSENSUS_ENTRY, type Consensus} from './Menu';
+import {ALL_MENUS, getActiveConsensus, CONSENSUS_CONFIG, CONSENSUS_ORDER, CONSENSUS_ENTRY, type Consensus} from './Menu';
 import Theme from "@/layout/components/Theme";
 import {FiBook} from 'react-icons/fi';
 
-export default function Header(): React.ReactElement {
+interface HeaderProps {
+    hideLogo?: boolean;
+}
+
+export default function Header({hideLogo}: HeaderProps): React.ReactElement {
     const [theme, setTheme] = useState<'light' | 'dark' | 'system'>(() => {
         if (typeof window === 'undefined') return 'system';
         return (localStorage.getItem('theme') as 'light' | 'dark' | 'system') || 'system';
@@ -18,8 +22,6 @@ export default function Header(): React.ReactElement {
     const [mobileOpen, setMobileOpen] = useState(false);
 
     const router = useRouter();
-
-    const menuItems = MENUS;
 
     useEffect(() => {
         setIsMounted(true);
@@ -74,19 +76,12 @@ export default function Header(): React.ReactElement {
 
     return (
         <header
-            className="sticky top-0 z-40 border-b border-gray-200/80 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75 dark:border-gray-800 dark:bg-[#121212]/85">
+            className="sticky top-0 z-40 border-b border-gray-200/80 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75 dark:border-[#1c1e25] dark:bg-[#0d0e12]/95">
             <div
                 className="px-4 lg:px-12 max-w-screen-2xl mx-auto w-full relative flex justify-between items-center py-4">
-                <div className="flex items-center flex-1">
+                {/* Logo — 移动端始终显示；桌面端仅在无侧边栏时显示 */}
+                <div className={`flex items-center flex-1${hideLogo ? ' md:hidden' : ''}`}>
                     <Logo/>
-                    <div className="hidden md:flex flex-1 justify-end mr-6">
-                        {isMounted && (
-                            <Menu
-                                currentPathname={currentPathname}
-                                menuItems={menuItems}
-                            />
-                        )}
-                    </div>
                 </div>
                 <div className="flex items-center space-x-1 md:space-x-2">
                     {/* 文档入口 — 桌面端 */}
@@ -128,10 +123,10 @@ export default function Header(): React.ReactElement {
 
             {/* 移动端下拉导航面板 */}
             {mobileOpen && isMounted && (
-                <div className="md:hidden border-t border-gray-100 dark:border-gray-800 bg-white/95 dark:bg-[#121212]/95 backdrop-blur shadow-lg shadow-black/5">
+                <div className="md:hidden border-t border-gray-100 dark:border-[#1c1e25] bg-white/95 dark:bg-[#0d0e12]/98 backdrop-blur shadow-lg shadow-black/10">
                     <div className="px-3 py-3 space-y-2">
                         {/* 共识切换 */}
-                        <div className="rounded-xl border border-gray-100 bg-gray-50/80 px-3 py-2.5 dark:border-gray-800 dark:bg-white/[0.03]">
+                        <div className="rounded-xl border border-gray-100 bg-gray-50/80 px-3 py-2.5 dark:border-[#1c1e25] dark:bg-white/[0.03]">
                             <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-2">切换共识</p>
                             <div className="flex gap-1.5 overflow-x-auto pb-0.5 scrollbar-hide">
                                 {CONSENSUS_ORDER.map((c: Consensus) => {
@@ -157,7 +152,7 @@ export default function Header(): React.ReactElement {
                         </div>
 
                         {/* 当前共识的页面导航 + 文档入口，合并在一个卡片 */}
-                        <div className="rounded-xl border border-gray-100 bg-gray-50/80 px-2 py-1.5 dark:border-gray-800 dark:bg-white/[0.03]">
+                        <div className="rounded-xl border border-gray-100 bg-gray-50/80 px-2 py-1.5 dark:border-[#1c1e25] dark:bg-white/[0.03]">
                             <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 px-1 mb-1">页面导航</p>
                             <div className="space-y-0.5">
                                 {mobileMenuItems.map(item => {

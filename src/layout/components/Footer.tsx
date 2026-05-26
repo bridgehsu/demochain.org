@@ -7,11 +7,11 @@ export default function Footer(): React.ReactElement {
     const currentYear = new Date().getFullYear();
 
     const socialLinkClass =
-        "inline-flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-gray-600 dark:border-[#2a2c31] dark:text-gray-300 transition-all duration-300 transform hover:scale-110";
+        "inline-flex h-8 w-8 items-center justify-center rounded-full border border-gray-200 text-gray-600 dark:border-[#1c1e25] dark:text-gray-400 transition-all duration-300 transform hover:scale-110";
 
     return (
         <footer
-            className="mt-8 border-t border-gray-200 dark:border-[#1f232b] bg-gradient-to-r from-white/60 via-white/30 to-white/10 dark:from-[#111317]/70 dark:via-[#111317]/50 dark:to-[#111317]/30 backdrop-blur"
+            className="mt-8 border-t border-gray-200 dark:border-[#1c1e25] bg-gradient-to-r from-white/60 via-white/30 to-white/10 dark:from-[#0d0e12]/80 dark:via-[#0d0e12]/50 dark:to-[#0d0e12]/20 backdrop-blur"
         >
             <div className="px-4 lg:px-12 max-w-screen-2xl mx-auto py-6">
                 <div

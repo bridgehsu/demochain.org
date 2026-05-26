@@ -62,14 +62,15 @@ export const CONSENSUS_CONFIG: Record<Consensus, {
     accent: string;      // active link color
     dot: string;         // indicator dot color
     switcherActive: string; // switcher active bg
+    activeBg: string;       // active link bg
 }> = {
-    POW:       {label: 'PoW',       accent: 'text-orange-500 dark:text-orange-400',  dot: 'bg-orange-500',  switcherActive: 'text-orange-600 dark:text-orange-400'},
-    POS:       {label: 'PoS',       accent: 'text-blue-500 dark:text-blue-400',      dot: 'bg-blue-500',    switcherActive: 'text-blue-600 dark:text-blue-400'},
-    DPOS:      {label: 'DPoS',      accent: 'text-purple-500 dark:text-purple-400',  dot: 'bg-purple-500',  switcherActive: 'text-purple-600 dark:text-purple-400'},
-    POA:       {label: 'PoA',       accent: 'text-green-500 dark:text-green-400',    dot: 'bg-green-500',   switcherActive: 'text-green-600 dark:text-green-400'},
-    BFT:       {label: 'BFT',       accent: 'text-red-500 dark:text-red-400',        dot: 'bg-red-500',     switcherActive: 'text-red-600 dark:text-red-400'},
-    AVALANCHE: {label: 'Avalanche', accent: 'text-cyan-500 dark:text-cyan-400',      dot: 'bg-cyan-500',    switcherActive: 'text-cyan-600 dark:text-cyan-400'},
-    POH:       {label: 'PoH',       accent: 'text-amber-500 dark:text-amber-400',    dot: 'bg-amber-500',   switcherActive: 'text-amber-600 dark:text-amber-400'},
+    POW:       {label: 'PoW',       accent: 'text-orange-600 dark:text-orange-400',  dot: 'bg-orange-500',  switcherActive: 'text-orange-700 dark:text-orange-400', activeBg: 'bg-orange-50/80 dark:bg-white/[0.05]'},
+    POS:       {label: 'PoS',       accent: 'text-blue-600 dark:text-blue-400',      dot: 'bg-blue-500',    switcherActive: 'text-blue-700 dark:text-blue-400',   activeBg: 'bg-blue-50/80 dark:bg-white/[0.05]'},
+    DPOS:      {label: 'DPoS',      accent: 'text-purple-600 dark:text-purple-400',  dot: 'bg-purple-500',  switcherActive: 'text-purple-700 dark:text-purple-400', activeBg: 'bg-purple-50/80 dark:bg-white/[0.05]'},
+    POA:       {label: 'PoA',       accent: 'text-green-600 dark:text-green-400',    dot: 'bg-green-500',   switcherActive: 'text-green-700 dark:text-green-400',  activeBg: 'bg-green-50/80 dark:bg-white/[0.05]'},
+    BFT:       {label: 'BFT',       accent: 'text-red-600 dark:text-red-400',        dot: 'bg-red-500',     switcherActive: 'text-red-700 dark:text-red-400',    activeBg: 'bg-red-50/80 dark:bg-white/[0.05]'},
+    AVALANCHE: {label: 'Avalanche', accent: 'text-cyan-600 dark:text-cyan-400',      dot: 'bg-cyan-500',    switcherActive: 'text-cyan-700 dark:text-cyan-400',  activeBg: 'bg-cyan-50/80 dark:bg-white/[0.05]'},
+    POH:       {label: 'PoH',       accent: 'text-amber-600 dark:text-amber-400',    dot: 'bg-amber-500',   switcherActive: 'text-amber-700 dark:text-amber-400', activeBg: 'bg-amber-50/80 dark:bg-white/[0.05]'},
 };
 
 export const CONSENSUS_ORDER: Consensus[] = ['POW', 'POS', 'DPOS', 'POA', 'BFT', 'AVALANCHE', 'POH'];
@@ -126,8 +127,8 @@ export default function Menu({currentPathname}: MenuProps): React.ReactElement {
                 href={item.href}
                 className={`flex items-center gap-2 px-3.5 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 ${
                     isActive
-                        ? `${cfg.accent} bg-black/5 dark:bg-white/10 shadow-sm`
-                        : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-800/50'
+                        ? `${cfg.accent} ${cfg.activeBg} shadow-sm ring-1 ring-black/5`
+                        : 'text-gray-500 hover:text-gray-900 hover:bg-gray-100/80 dark:text-gray-400 dark:hover:text-white dark:hover:bg-gray-800/50'
                 }`}
             >
                 {item.icon}

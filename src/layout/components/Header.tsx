@@ -34,11 +34,9 @@ export default function Header({hideLogo}: HeaderProps): React.ReactElement {
 
     const isDarkMode = isMounted ? (theme === 'dark' || (theme === 'system' && systemDark)) : null;
 
-    // 用 ref 存最新 theme，供系统主题变化的监听器读取，避免 stale closure
     const themeRef = useRef(theme);
     themeRef.current = theme;
 
-    // 应用主题（class + localStorage），在 theme 或 systemDark 变化时触发
     useEffect(() => {
         if (typeof window === 'undefined' || !isMounted) return;
         const root = document.documentElement;
@@ -48,7 +46,6 @@ export default function Header({hideLogo}: HeaderProps): React.ReactElement {
         localStorage.setItem('theme', theme);
     }, [theme, systemDark, isMounted]);
 
-    // 系统主题变化监听器 — 只注册一次
     useEffect(() => {
         if (typeof window === 'undefined') return;
         const mq = window.matchMedia('(prefers-color-scheme: dark)');
@@ -76,21 +73,19 @@ export default function Header({hideLogo}: HeaderProps): React.ReactElement {
 
     return (
         <header
-            className="sticky top-0 z-40 border-b border-gray-200/80 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/75 dark:border-[#1c1e25] dark:bg-[#0d0e12]/95">
+            className="fixed top-0 right-0 left-0 md:left-64 z-40 border-b border-gray-100/80 dark:border-[#1c1e25] bg-white/70 dark:bg-[#0d0e12]/80 backdrop-blur-xl transition-colors duration-500">
             <div
-                className="px-4 lg:px-12 max-w-screen-2xl mx-auto w-full relative flex justify-between items-center py-4">
-                {/* Logo — 移动端始终显示；桌面端仅在无侧边栏时显示 */}
+                className="px-4 lg:px-8 w-full relative flex justify-between items-center h-16">
                 <div className={`flex items-center flex-1${hideLogo ? ' md:hidden' : ''}`}>
                     <Logo/>
                 </div>
                 <div className="flex items-center space-x-1 md:space-x-2 ml-auto">
-                    {/* 文档入口 — 桌面端 */}
                     <Link
                         href="/docs"
-                        className={`hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                        className={`hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all hover:scale-105 active:scale-95 ${
                             currentPathname.startsWith('/docs')
-                                ? 'text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10'
-                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/5 dark:hover:bg-white/8'
+                                ? 'text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-500/10 ring-1 ring-blue-100 dark:ring-blue-500/20 shadow-sm'
+                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/[0.03] dark:hover:bg-white/10'
                         }`}
                     >
                         <FiBook className="w-4 h-4"/>
@@ -101,34 +96,31 @@ export default function Header({hideLogo}: HeaderProps): React.ReactElement {
                         setTheme={setTheme}
                         isDarkMode={isDarkMode}
                     />
-                    {/* 汉堡按钮 — 仅手机端显示 */}
                     <button
-                        className="md:hidden p-2 rounded-md text-gray-600 hover:text-gray-900 hover:bg-black/5 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/8 transition-colors"
+                        className="md:hidden p-2.5 rounded-xl text-gray-500 hover:text-gray-900 hover:bg-black/[0.04] dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/10 transition-all active:scale-90"
                         onClick={() => setMobileOpen(v => !v)}
                         aria-label={mobileOpen ? '关闭菜单' : '打开菜单'}
                         aria-expanded={mobileOpen}
                     >
                         {mobileOpen ? (
                             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"/>
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
                         ) : (
                             <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"/>
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 6h16M4 12h16M4 18h16"/>
                             </svg>
                         )}
                     </button>
                 </div>
             </div>
 
-            {/* 移动端下拉导航面板 */}
             {mobileOpen && isMounted && (
-                <div className="md:hidden border-t border-gray-100 dark:border-[#1c1e25] bg-white/95 dark:bg-[#0d0e12]/98 backdrop-blur shadow-lg shadow-black/10">
-                    <div className="px-3 py-3 space-y-2">
-                        {/* 共识切换 */}
-                        <div className="rounded-xl border border-gray-100 bg-gray-50/80 px-3 py-2.5 dark:border-[#1c1e25] dark:bg-white/[0.03]">
-                            <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 mb-2">切换共识</p>
-                            <div className="flex gap-1.5 overflow-x-auto pb-0.5 scrollbar-hide">
+                <div className="md:hidden border-t border-gray-100 dark:border-[#1c1e25] bg-white/95 dark:bg-[#0d0e12]/98 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-300 animate-in slide-in-from-top-2">
+                    <div className="px-4 py-4 space-y-3">
+                        <div className="rounded-2xl border border-gray-100 bg-gray-50/50 p-3 dark:border-white/5 dark:bg-white/[0.02]">
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2.5 px-1">切换宇宙</p>
+                            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
                                 {CONSENSUS_ORDER.map((c: Consensus) => {
                                     const cc = CONSENSUS_CONFIG[c];
                                     const isActive = c === consensus;
@@ -137,13 +129,13 @@ export default function Header({hideLogo}: HeaderProps): React.ReactElement {
                                             key={c}
                                             href={CONSENSUS_ENTRY[c]}
                                             onClick={() => setMobileOpen(false)}
-                                            className={`flex shrink-0 items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all ${
+                                            className={`flex shrink-0 items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all ${
                                                 isActive
-                                                    ? `${cc.switcherActive} bg-white shadow-sm ring-1 ring-black/5 dark:bg-[#1d1d1d] dark:ring-white/10`
-                                                    : 'text-gray-500 hover:text-gray-900 hover:bg-white/70 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/8'
+                                                    ? `${cc.switcherActive} bg-white shadow-md ring-1 ring-black/5 dark:bg-[#1a1a1a] dark:ring-white/10 scale-105`
+                                                    : 'text-gray-500 bg-white/40 hover:text-gray-900 hover:bg-white dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/5'
                                             }`}
                                         >
-                                            <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${isActive ? cc.dot : 'bg-gray-300 dark:bg-gray-600'}`}/>
+                                            <span className={`w-2 h-2 rounded-full shrink-0 ${isActive ? cc.dot : 'bg-gray-300 dark:bg-gray-600'}`}/>
                                             {cc.label}
                                         </Link>
                                     );
@@ -151,10 +143,9 @@ export default function Header({hideLogo}: HeaderProps): React.ReactElement {
                             </div>
                         </div>
 
-                        {/* 当前共识的页面导航 + 文档入口，合并在一个卡片 */}
-                        <div className="rounded-xl border border-gray-100 bg-gray-50/80 px-2 py-1.5 dark:border-[#1c1e25] dark:bg-white/[0.03]">
-                            <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400 dark:text-gray-500 px-1 mb-1">页面导航</p>
-                            <div className="space-y-0.5">
+                        <div className="rounded-2xl border border-gray-100 bg-gray-50/50 p-2 dark:border-white/5 dark:bg-white/[0.02]">
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 px-2 mb-1.5">探索模块</p>
+                            <div className="grid grid-cols-2 gap-1.5">
                                 {mobileMenuItems.map(item => {
                                     const isActive = currentPathname === item.href;
                                     return (
@@ -162,35 +153,33 @@ export default function Header({hideLogo}: HeaderProps): React.ReactElement {
                                             key={item.href}
                                             href={item.href}
                                             onClick={() => setMobileOpen(false)}
-                                            className={`flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium transition-all ${
+                                            className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-bold transition-all ${
                                                 isActive
-                                                    ? `${mobileCfg.accent} bg-white shadow-sm ring-1 ring-black/5 dark:bg-[#1d1d1d] dark:ring-white/10`
-                                                    : 'text-gray-600 hover:text-gray-900 hover:bg-white/70 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/8'
+                                                    ? `${mobileCfg.accent} bg-white shadow-sm ring-1 ring-black/5 dark:bg-[#1a1a1a] dark:ring-white/10`
+                                                    : 'text-gray-600 hover:text-gray-900 hover:bg-white/60 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/5'
                                             }`}
                                         >
-                                            <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-xs ${isActive ? 'opacity-100' : 'opacity-50'}`}>
+                                            <span className={`flex h-5 w-5 shrink-0 items-center justify-center text-sm ${isActive ? 'opacity-100 scale-110' : 'opacity-40'}`}>
                                                 {item.icon}
                                             </span>
                                             {item.name}
                                         </Link>
                                     );
                                 })}
-                                <div className="my-1 border-t border-gray-100 dark:border-gray-800"/>
-                                <Link
-                                    href="/docs"
-                                    onClick={() => setMobileOpen(false)}
-                                    className={`flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium transition-all ${
-                                        currentPathname.startsWith('/docs')
-                                            ? 'text-blue-600 dark:text-blue-400 bg-white shadow-sm ring-1 ring-black/5 dark:bg-blue-500/10 dark:ring-white/10'
-                                            : 'text-gray-600 hover:text-gray-900 hover:bg-white/70 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/8'
-                                    }`}
-                                >
-                                    <span className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-xs ${currentPathname.startsWith('/docs') ? 'opacity-100' : 'opacity-50'}`}>
-                                        <FiBook className="w-3.5 h-3.5"/>
-                                    </span>
-                                    文档中心
-                                </Link>
                             </div>
+                            <div className="my-2 border-t border-gray-100 dark:border-white/5 mx-2"/>
+                            <Link
+                                href="/docs"
+                                onClick={() => setMobileOpen(false)}
+                                className={`flex items-center justify-center gap-2 px-3 py-3 rounded-xl text-sm font-bold transition-all ${
+                                    currentPathname.startsWith('/docs')
+                                        ? 'text-blue-600 bg-blue-50/80 shadow-sm ring-1 ring-blue-100 dark:bg-blue-500/20 dark:ring-blue-500/20'
+                                        : 'text-gray-600 bg-white/40 hover:text-gray-900 hover:bg-white dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/5'
+                                }`}
+                            >
+                                <FiBook className="w-4 h-4"/>
+                                文档中心
+                            </Link>
                         </div>
                     </div>
                 </div>

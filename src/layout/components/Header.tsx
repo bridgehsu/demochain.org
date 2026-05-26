@@ -83,7 +83,7 @@ export default function Header({hideLogo}: HeaderProps): React.ReactElement {
                 <div className={`flex items-center flex-1${hideLogo ? ' md:hidden' : ''}`}>
                     <Logo/>
                 </div>
-                <div className="flex items-center space-x-1 md:space-x-2">
+                <div className="flex items-center space-x-1 md:space-x-2 ml-auto">
                     {/* 文档入口 — 桌面端 */}
                     <Link
                         href="/docs"

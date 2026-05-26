@@ -9,7 +9,9 @@ export default function Sidebar(): React.ReactElement {
     const router = useRouter();
     const [pathname, setPathname] = useState('');
     const [isMounted, setIsMounted] = useState(false);
-    const [expanded, setExpanded] = useState<Partial<Record<Consensus, boolean>>>({});
+    const [expanded, setExpanded] = useState<Partial<Record<Consensus, boolean>>>(
+        () => Object.fromEntries(CONSENSUS_ORDER.map(c => [c, true])) as Record<Consensus, boolean>
+    );
 
     useEffect(() => {
         setIsMounted(true);
@@ -30,7 +32,7 @@ export default function Sidebar(): React.ReactElement {
     return (
         <aside className="hidden md:flex flex-col w-56 shrink-0 fixed left-0 top-0 h-full z-30 border-r border-gray-200/80 dark:border-[#1c1e25] bg-white/95 dark:bg-[#0d0e12] backdrop-blur">
             {/* Logo 区域 — 与右侧 header 等高 */}
-            <div className="h-[57px] flex items-center px-4 border-b border-gray-200/80 dark:border-[#1c1e25] shrink-0">
+            <div className="flex items-center px-4 py-4 border-b border-gray-200/80 dark:border-[#1c1e25] shrink-0">
                 <Logo/>
             </div>
 

@@ -94,7 +94,7 @@ export default function Header({hideLogo}: HeaderProps): React.ReactElement {
                         }`}
                     >
                         <FiBook className="w-4 h-4"/>
-                        文档
+                        文档中心
                     </Link>
                     <Theme
                         theme={theme}

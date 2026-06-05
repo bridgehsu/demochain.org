@@ -9,7 +9,6 @@ interface DocsLayoutProps {
     demoHref?: string | null;
     demoLabel?: string | null;
 }
-
 function SidebarGroup({group, currentPath}: {group: DocNavGroup; currentPath: string}) {
     const isGroupActive = currentPath.startsWith(group.rootHref);
     const [open, setOpen] = useState(isGroupActive);
@@ -62,7 +61,7 @@ function SidebarGroup({group, currentPath}: {group: DocNavGroup; currentPath: st
     );
 }
 
-function Sidebar({currentPath}: {currentPath: string}) {
+function DocsSidebar({currentPath}: {currentPath: string}) {
     return (
         <nav className="space-y-0.5">
             {/* 首页 */}
@@ -91,55 +90,52 @@ export default function DocsLayout({children, demoHref, demoLabel}: DocsLayoutPr
     const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
     return (
-        <div className="min-h-screen">
-            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                <div className="flex gap-6 xl:gap-8">
-                    {/* 桌面端侧边栏 */}
-                    <aside className="hidden lg:block w-56 shrink-0">
-                        <div className="sticky top-24">
-                            <Sidebar currentPath={currentPath}/>
+        <div className="flex gap-6 xl:gap-8">
+            {/* 主内容区 */}
+            <main className="flex-1 min-w-0">
+                {/* 移动端目录按钮 */}
+                <div className="lg:hidden mb-4">
+                    <button
+                        onClick={() => setMobileSidebarOpen(v => !v)}
+                        className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+                    >
+                        <FiBook className="w-4 h-4"/>
+                        文档目录
+                        <FiChevronDown className={`w-4 h-4 opacity-50 transition-transform ${mobileSidebarOpen ? 'rotate-180' : ''}`}/>
+                    </button>
+                    {mobileSidebarOpen && (
+                        <div className="mt-2 p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-lg">
+                            <DocsSidebar currentPath={currentPath}/>
                         </div>
-                    </aside>
-
-                    {/* 主内容区 */}
-                    <main className="flex-1 min-w-0">
-                        {/* 移动端目录按钮 */}
-                        <div className="lg:hidden mb-4">
-                            <button
-                                onClick={() => setMobileSidebarOpen(v => !v)}
-                                className="flex items-center gap-2 px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 text-sm text-gray-700 dark:text-gray-300 bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
-                            >
-                                <FiBook className="w-4 h-4"/>
-                                文档目录
-                                <FiChevronDown className={`w-4 h-4 opacity-50 transition-transform ${mobileSidebarOpen ? 'rotate-180' : ''}`}/>
-                            </button>
-                            {mobileSidebarOpen && (
-                                <div className="mt-2 p-4 rounded-xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-lg">
-                                    <Sidebar currentPath={currentPath}/>
-                                </div>
-                            )}
-                        </div>
-
-                        {/* 文档正文 */}
-                        <article className="prose-docs">
-                            {children}
-                        </article>
-
-                        {/* 去演示按钮 */}
-                        {demoHref && (
-                            <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
-                                <Link
-                                    href={demoHref}
-                                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-medium hover:bg-gray-700 dark:hover:bg-gray-100 transition-colors"
-                                >
-                                    <FiExternalLink className="w-4 h-4"/>
-                                    {demoLabel || '去演示'}
-                                </Link>
-                            </div>
-                        )}
-                    </main>
+                    )}
                 </div>
-            </div>
+
+                {/* 文档正文 */}
+                <div>
+                    {children}
+                </div>
+
+                {/* 去演示按钮 */}
+                {demoHref && (
+                    <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
+                        <Link
+                            href={demoHref}
+                            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-gray-900 dark:bg-white text-white dark:text-gray-900 text-sm font-medium hover:bg-gray-700 dark:hover:bg-gray-100 transition-colors"
+                        >
+                            <FiExternalLink className="w-4 h-4"/>
+                            {demoLabel || '去演示'}
+                        </Link>
+                    </div>
+                )}
+            </main>
+
+            {/* 右侧文档目录导航 */}
+            <aside className="hidden lg:block w-56 shrink-0">
+                <div className="sticky top-24">
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 px-3 mb-2">文档目录</p>
+                    <DocsSidebar currentPath={currentPath}/>
+                </div>
+            </aside>
         </div>
     );
 }

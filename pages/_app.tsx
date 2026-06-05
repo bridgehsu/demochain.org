@@ -3,6 +3,7 @@ import {AppProps} from 'next/app';
 import {useRouter} from 'next/router';
 import Head from 'next/head';
 import Layout from '@/layout';
+import DocsLayout from '@/layout/DocsLayout';
 import {getPageSEO} from '@/utils/seo';
 import '../styles/globals.css';
 
@@ -38,6 +39,7 @@ function RouteProgress(): React.ReactElement {
 
 function Application({Component, pageProps}: AppProps): React.ReactElement {
     const router = useRouter();
+    const isDocsRoute = router.pathname.startsWith('/docs');
     const [pageKey, setPageKey] = useState(router.asPath);
 
     useEffect(() => {
@@ -90,10 +92,21 @@ function Application({Component, pageProps}: AppProps): React.ReactElement {
                 />
             </Head>
 
-            <Layout fullWidth={router.pathname.startsWith('/docs')}>
-                <div key={pageKey} className="page-transition">
-                    <Component {...pageProps} />
-                </div>
+            <Layout>
+                {isDocsRoute ? (
+                    <DocsLayout
+                        demoHref={pageProps.doc?.demoHref ?? null}
+                        demoLabel={pageProps.doc?.demoLabel ?? null}
+                    >
+                        <div key={pageKey} className="page-transition">
+                            <Component {...pageProps} />
+                        </div>
+                    </DocsLayout>
+                ) : (
+                    <div key={pageKey} className="page-transition">
+                        <Component {...pageProps} />
+                    </div>
+                )}
             </Layout>
         </>
     );

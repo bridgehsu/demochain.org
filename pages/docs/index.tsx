@@ -2,7 +2,6 @@ import React from 'react';
 import {GetStaticProps} from 'next';
 import Head from 'next/head';
 import Link from 'next/link';
-import DocsLayout from '@/layout/DocsLayout';
 import {getDocBySlug, DocData} from '@/utils/docs';
 import {DOC_NAV} from '@/utils/docs-manifest';
 
@@ -14,13 +13,12 @@ export default function DocsIndexPage({doc}: Props) {
     const pageTitle = `${doc.title} - DemoChain`;
     return (
         <>
-        <Head>
-            <title>{pageTitle}</title>
-            <meta name="description" content={doc.description}/>
-            <meta property="og:title" content={pageTitle}/>
-            <meta property="og:description" content={doc.description}/>
-        </Head>
-        <DocsLayout>
+            <Head>
+                <title>{pageTitle}</title>
+                <meta name="description" content={doc.description}/>
+                <meta property="og:title" content={pageTitle}/>
+                <meta property="og:description" content={doc.description}/>
+            </Head>
             <article className="prose-docs">
                 <div dangerouslySetInnerHTML={{__html: doc.contentHtml}}/>
             </article>
@@ -53,7 +51,6 @@ export default function DocsIndexPage({doc}: Props) {
                     </Link>
                 ))}
             </div>
-        </DocsLayout>
         </>
     );
 }

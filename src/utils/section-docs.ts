@@ -7,7 +7,7 @@ import remarkHtml from 'remark-html';
 import {type SectionKey} from './section-manifest';
 
 const getSectionDir = (section: SectionKey) => (
-    path.join(process.cwd(), 'content', section)
+    path.join(process.cwd(), section)
 );
 
 export interface DocFrontmatter {

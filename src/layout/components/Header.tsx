@@ -4,7 +4,7 @@ import Link from 'next/link';
 import Logo from "@/components/Logo";
 import {ALL_MENUS, getActiveConsensus, CONSENSUS_CONFIG, CONSENSUS_ORDER, CONSENSUS_ENTRY, type Consensus} from './Menu';
 import Theme from "@/layout/components/Theme";
-import {FiBook} from 'react-icons/fi';
+import {FiBook, FiEdit3} from 'react-icons/fi';
 import {SECTION_SWITCHER} from '@/utils/section-manifest';
 
 interface HeaderProps {
@@ -76,7 +76,9 @@ export default function Header({hideLogo}: HeaderProps): React.ReactElement {
 
     return (
         <header
-            className="sticky top-0 z-40 border-b border-gray-100/80 dark:border-[#1c1e25] bg-white/70 dark:bg-[#0d0e12]/80 backdrop-blur-xl transition-colors duration-500">
+            className="sticky top-0 z-40 bg-white/75 dark:bg-[#0d0e12]/85 backdrop-blur-xl transition-colors duration-500 [box-shadow:0_1px_0_0_transparent]">
+            {/* 渐变底线 */}
+            <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-400/60 to-transparent dark:via-blue-500/40 pointer-events-none"/>
             <div
                 className="px-4 lg:px-8 w-full relative flex justify-between items-center h-16">
                 <div className={`flex items-center flex-1${hideLogo ? ' md:hidden' : ''}`}>
@@ -87,16 +89,27 @@ export default function Header({hideLogo}: HeaderProps): React.ReactElement {
                         <Link
                             key={section.key}
                             href={section.homePath}
-                            className={`hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-semibold transition-all hover:scale-105 active:scale-95 ${
+                            className={`hidden md:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-105 active:scale-95 ${
                                 isSectionLinkActive(section.homePath)
-                                    ? 'text-blue-600 dark:text-blue-400 bg-blue-50/80 dark:bg-blue-500/10 ring-1 ring-blue-100 dark:ring-blue-500/20 shadow-sm'
-                                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/[0.03] dark:hover:bg-white/10'
+                                    ? 'text-white bg-gradient-to-r from-blue-500 to-violet-500 shadow-md shadow-blue-500/30 dark:shadow-blue-500/20'
+                                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/[0.05] dark:hover:bg-white/10'
                             }`}
                         >
-                            <FiBook className="w-4 h-4"/>
+                            <FiBook className="w-3.5 h-3.5"/>
                             {section.label}
                         </Link>
                     ))}
+                    <Link
+                        href="/blog"
+                        className={`hidden md:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-105 active:scale-95 ${
+                            isSectionLinkActive('/blog')
+                                ? 'text-white bg-gradient-to-r from-pink-500 to-orange-400 shadow-md shadow-pink-500/30 dark:shadow-pink-500/20'
+                                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/[0.05] dark:hover:bg-white/10'
+                        }`}
+                    >
+                        <FiEdit3 className="w-3.5 h-3.5"/>
+                        博客
+                    </Link>
                     <Theme
                         theme={theme}
                         setTheme={setTheme}
@@ -189,7 +202,7 @@ export default function Header({hideLogo}: HeaderProps): React.ReactElement {
                                     onClick={() => setMobileOpen(false)}
                                     className={`flex items-center justify-center gap-2 px-3 py-3 rounded-xl text-sm font-bold transition-all ${
                                         isSectionLinkActive(section.homePath)
-                                            ? 'text-blue-600 bg-blue-50/80 shadow-sm ring-1 ring-blue-100 dark:bg-blue-500/20 dark:ring-blue-500/20'
+                                            ? 'text-white bg-gradient-to-r from-blue-500 to-violet-500 shadow-md shadow-blue-500/25'
                                             : 'text-gray-600 bg-white/40 hover:text-gray-900 hover:bg-white dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/5'
                                     }`}
                                 >
@@ -197,6 +210,18 @@ export default function Header({hideLogo}: HeaderProps): React.ReactElement {
                                     {section.label}
                                 </Link>
                             ))}
+                            <Link
+                                href="/blog"
+                                onClick={() => setMobileOpen(false)}
+                                className={`flex items-center justify-center gap-2 px-3 py-3 rounded-xl text-sm font-bold transition-all ${
+                                    isSectionLinkActive('/blog')
+                                        ? 'text-white bg-gradient-to-r from-pink-500 to-orange-400 shadow-md shadow-pink-500/25'
+                                        : 'text-gray-600 bg-white/40 hover:text-gray-900 hover:bg-white dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/5'
+                                }`}
+                            >
+                                <FiEdit3 className="w-4 h-4"/>
+                                博客
+                            </Link>
                         </div>
                     </div>
                 </div>

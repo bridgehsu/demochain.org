@@ -11,7 +11,8 @@ const Layout = ({children, fullWidth}: LayoutProps) => {
     const [collapsed, setCollapsed] = useState(false);
     const currentPath = router.pathname;
     const isCoinexRoute = currentPath.startsWith('/coinex');
-    const showSidebar = !fullWidth;
+    const isBlogRoute = currentPath.startsWith('/blog');
+    const showSidebar = !fullWidth && !isBlogRoute;
     const contentOffset = showSidebar ? (collapsed ? ' md:pl-14' : ' md:pl-64') : '';
 
     return (

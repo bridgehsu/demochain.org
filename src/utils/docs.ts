@@ -5,7 +5,7 @@ import {remark} from 'remark';
 import remarkGfm from 'remark-gfm';
 import remarkHtml from 'remark-html';
 
-const docsDir = path.join(process.cwd(), 'content', 'docs');
+const docsDir = path.join(process.cwd(), 'docs');
 
 export interface DocFrontmatter {
     title: string;

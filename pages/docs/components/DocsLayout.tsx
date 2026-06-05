@@ -8,7 +8,7 @@ const DocsLayout = ({children, demoHref, demoLabel}: DocsLayoutProps) => {
     const router = useRouter();
     const currentPath = router.asPath.split('?')[0];
     const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-
+    
     return (
         <div className="flex gap-6 xl:gap-8">
             <main className="flex-1 min-w-0">

@@ -8,15 +8,15 @@ type AppPageProps = AppProps['pageProps'];
 type AppContentProps = {
     Component: AppComponent;
     pageProps: AppPageProps;
-    isDocsRoute: boolean;
+    isSectionRoute: boolean;
 };
 
 const AppContent = ({
     Component,
     pageProps,
-    isDocsRoute,
+    isSectionRoute,
 }: AppContentProps): React.ReactElement => {
-    if (!isDocsRoute) {
+    if (!isSectionRoute) {
         return <Component {...pageProps} />;
     }
 

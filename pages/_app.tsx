@@ -5,11 +5,12 @@ import AppContent from '@/components/app/AppContent';
 import Layout from '@/layout';
 import RouteProgress from '@/components/app/RouteProgress';
 import SeoHead from '@/components/seo/SeoHead';
+import {isSectionRoute} from '@/utils/section-manifest';
 import '../styles/globals.css';
 
 const Application = ({Component, pageProps}: AppProps): React.ReactElement => {
     const router = useRouter();
-    const isDocsRoute = router.pathname.startsWith('/docs');
+    const sectionRoute = isSectionRoute(router.pathname);
     const [pageKey, setPageKey] = useState(router.asPath);
 
     useEffect(() => {
@@ -30,7 +31,7 @@ const Application = ({Component, pageProps}: AppProps): React.ReactElement => {
                     <AppContent
                         Component={Component}
                         pageProps={pageProps}
-                        isDocsRoute={isDocsRoute}
+                        isSectionRoute={sectionRoute}
                     />
                 </div>
             </Layout>

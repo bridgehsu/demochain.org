@@ -1,20 +1,27 @@
 import React, {useState} from 'react';
+import {useRouter} from 'next/router';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
 import {LayoutProps} from '@/types/layout';
 
 const Layout = ({children, fullWidth}: LayoutProps) => {
+    const router = useRouter();
     const [collapsed, setCollapsed] = useState(false);
+    const currentPath = router.pathname;
+    const hideAppSidebar = currentPath.startsWith('/coinex');
+    const showSidebar = !fullWidth && !hideAppSidebar;
+    const contentOffset = showSidebar ? (collapsed ? ' md:pl-14' : ' md:pl-64') : '';
+
     return (
         <div
             className="flex min-h-screen bg-[#f8fafc] dark:bg-[#060708] text-slate-900 dark:text-gray-100 selection:bg-blue-500/30 selection:text-white transition-colors duration-500">
-            {!fullWidth && (
+            {showSidebar && (
                 <Sidebar collapsed={collapsed} onToggle={() => setCollapsed(v => !v)}/>
             )}
 
             <div
-                className={`flex flex-col flex-1 min-w-0 transition-all duration-300${!fullWidth ? (collapsed ? ' md:pl-14' : ' md:pl-64') : ''} bg-gradient-to-br from-white via-transparent to-blue-50/20 dark:from-transparent dark:to-transparent`}>
+                className={`flex flex-col flex-1 min-w-0 transition-all duration-300${contentOffset} bg-gradient-to-br from-white via-transparent to-blue-50/20 dark:from-transparent dark:to-transparent`}>
                 <Header hideLogo={!fullWidth}/>
                 <main className="flex-1 min-w-0">
                     {fullWidth ? (

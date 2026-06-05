@@ -92,8 +92,8 @@ export default function DocsLayout({children, demoHref, demoLabel}: DocsLayoutPr
 
     return (
         <div className="min-h-screen">
-            <div className="max-w-screen-xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                <div className="flex gap-8">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+                <div className="flex gap-6 xl:gap-8">
                     {/* 桌面端侧边栏 */}
                     <aside className="hidden lg:block w-56 shrink-0">
                         <div className="sticky top-24">

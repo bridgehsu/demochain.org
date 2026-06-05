@@ -93,20 +93,18 @@ function Application({Component, pageProps}: AppProps): React.ReactElement {
             </Head>
 
             <Layout>
-                {isDocsRoute ? (
-                    <DocsLayout
-                        demoHref={pageProps.doc?.demoHref ?? null}
-                        demoLabel={pageProps.doc?.demoLabel ?? null}
-                    >
-                        <div key={pageKey} className="page-transition">
+                <div key={pageKey} className="page-transition">
+                    {isDocsRoute ? (
+                        <DocsLayout
+                            demoHref={pageProps.doc?.demoHref}
+                            demoLabel={pageProps.doc?.demoLabel}
+                        >
                             <Component {...pageProps} />
-                        </div>
-                    </DocsLayout>
-                ) : (
-                    <div key={pageKey} className="page-transition">
+                        </DocsLayout>
+                    ) : (
                         <Component {...pageProps} />
-                    </div>
-                )}
+                    )}
+                </div>
             </Layout>
         </>
     );

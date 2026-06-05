@@ -91,9 +91,7 @@ export default function DocsLayout({children, demoHref, demoLabel}: DocsLayoutPr
 
     return (
         <div className="flex gap-6 xl:gap-8">
-            {/* 主内容区 */}
             <main className="flex-1 min-w-0">
-                {/* 移动端目录按钮 */}
                 <div className="lg:hidden mb-4">
                     <button
                         onClick={() => setMobileSidebarOpen(v => !v)}
@@ -110,12 +108,8 @@ export default function DocsLayout({children, demoHref, demoLabel}: DocsLayoutPr
                     )}
                 </div>
 
-                {/* 文档正文 */}
-                <div>
-                    {children}
-                </div>
+                {children}
 
-                {/* 去演示按钮 */}
                 {demoHref && (
                     <div className="mt-8 pt-6 border-t border-gray-200 dark:border-gray-700">
                         <Link
@@ -129,7 +123,6 @@ export default function DocsLayout({children, demoHref, demoLabel}: DocsLayoutPr
                 )}
             </main>
 
-            {/* 右侧文档目录导航 */}
             <aside className="hidden lg:block w-56 shrink-0">
                 <div className="sticky top-24">
                     <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 px-3 mb-2">文档目录</p>

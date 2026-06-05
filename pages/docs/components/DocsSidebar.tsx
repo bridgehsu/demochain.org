@@ -1,16 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import Link from 'next/link';
 import {FiBook, FiChevronDown, FiChevronRight} from 'react-icons/fi';
-import {getSectionManifestByPath, SECTION_SWITCHER} from '@/utils/section-manifest';
+import {getSectionManifestByPath} from '@/utils/section-manifest';
 import {
     CurrentPathProps,
     DOCS_HOME_LINK_BASE_CLASS,
     DOCS_HOME_LINK_IDLE_CLASS,
     MOBILE_TOGGLE_CLASS,
     MobileSidebarProps,
-    SECTION_SWITCHER_LINK_ACTIVE_CLASS,
-    SECTION_SWITCHER_LINK_IDLE_CLASS,
-    SECTION_SWITCHER_TITLE,
     SIDEBAR_BUTTON_BASE_CLASS,
     SIDEBAR_BUTTON_IDLE_CLASS,
     SIDEBAR_ITEM_BASE_CLASS,
@@ -120,34 +117,11 @@ const DocsHomeLink = ({currentPath}: CurrentPathProps) => {
     );
 };
 
-const SectionSwitcher = ({currentPath}: CurrentPathProps) => (
-    <div className="mb-3">
-        <p className="px-1 mb-2 text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500">
-            {SECTION_SWITCHER_TITLE}
-        </p>
-        <div className="grid grid-cols-2 gap-2">
-            {SECTION_SWITCHER.map(section => {
-                const className = currentPath.startsWith(section.homePath)
-                    ? SECTION_SWITCHER_LINK_ACTIVE_CLASS
-                    : SECTION_SWITCHER_LINK_IDLE_CLASS;
-
-                return (
-                    <Link key={section.key} href={section.homePath} className={className}>
-                        {section.label}
-                    </Link>
-                );
-            })}
-        </div>
-    </div>
-);
-
 export const DocsSidebar = ({currentPath}: CurrentPathProps) => {
     const section = getSectionManifestByPath(currentPath);
-    const showSectionSwitcher = section.key !== 'docs';
 
     return (
         <nav className="space-y-0.5">
-            {showSectionSwitcher && <SectionSwitcher currentPath={currentPath}/>}
             <DocsHomeLink currentPath={currentPath}/>
             <div className="h-px bg-gray-200 dark:bg-gray-700 mb-2"/>
             {section.nav.map(group => (

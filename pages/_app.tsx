@@ -27,13 +27,21 @@ const Application = ({Component, pageProps}: AppProps): React.ReactElement => {
             <RouteProgress/>
             <SeoHead path={router.asPath}/>
             <Layout>
-                <div key={pageKey} className="page-transition">
+                {sectionRoute ? (
                     <AppContent
                         Component={Component}
                         pageProps={pageProps}
                         isSectionRoute={sectionRoute}
                     />
-                </div>
+                ) : (
+                    <div key={pageKey} className="page-transition">
+                        <AppContent
+                            Component={Component}
+                            pageProps={pageProps}
+                            isSectionRoute={sectionRoute}
+                        />
+                    </div>
+                )}
             </Layout>
         </>
     );

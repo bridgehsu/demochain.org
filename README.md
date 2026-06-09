@@ -89,3 +89,9 @@ public/             # 静态资源
 - Next.js 自动代码分割，按需加载页面 chunk
 - 构建后自动清理 cache、server 等无用文件
 - CDN 边缘节点分发，全球低延迟访问
+
+## 部署NGINX
+```text
+docker run --name nginx --restart=always -p 443:443 -p 80:80 -d -v /usr/local/nginx/nginx.conf:/etc/nginx/nginx.conf -v /usr/local/web:/usr/local/web -v /usr/local/upload:/usr/local/upload nginx
+
+```

@@ -1,6 +1,6 @@
 import React from 'react';
 import type {AppProps} from 'next/app';
-import DocsLayout from '../../../pages/docs/components/DocsLayout';
+import DocsLayout from '@/components/docs/DocsLayout';
 
 type AppComponent = AppProps['Component'];
 type AppPageProps = AppProps['pageProps'];

@@ -25,7 +25,7 @@ const Layout = ({children, fullWidth}: LayoutProps) => {
             )}
             <div
                 className={`flex flex-col flex-1 min-w-0 transition-all duration-300${contentOffset} bg-gradient-to-br from-white via-transparent to-blue-50/20 dark:from-transparent dark:to-transparent`}>
-                <Header hideLogo={showSidebar}/>
+                <Header hideLogo={showSidebar} showSidebar={showSidebar} collapsed={collapsed} onToggle={() => setCollapsed(v => !v)}/>
                 <main className="flex-1 min-w-0">
                     {fullWidth ? (
                         children

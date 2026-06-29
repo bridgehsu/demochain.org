@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {
-    FiChevronRight, FiChevronsLeft, FiChevronsRight,
+    FiChevronRight,
     FiCpu, FiLock, FiUsers, FiKey, FiShield, FiShuffle, FiClock
 } from 'react-icons/fi';
 import {
@@ -222,62 +222,6 @@ export default function Sidebar({collapsed, onToggle}: SidebarProps): React.Reac
                 </nav>
             </div>
 
-            {/* 底部区域：社交 + 收缩按钮 */}
-            <div className="px-3 py-3 mt-auto border-t border-gray-100 dark:border-white/[0.03]">
-                {collapsed ? (
-                    /* 收缩态：图标竖排，展开按钮居中 */
-                    <div className="flex flex-col items-center gap-2">
-                        <a href="https://x.com/thebridgehsu" target="_blank" rel="noopener noreferrer"
-                           className="flex items-center justify-center w-8 h-8 rounded-lg text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/[0.06] transition-all"
-                           title="X (Twitter)">
-                            <svg viewBox="0 0 24 24" aria-hidden="true" className="w-3.5 h-3.5 fill-current">
-                                <path
-                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                            </svg>
-                        </a>
-                        <a href="https://t.me/bridgehsu" target="_blank" rel="noopener noreferrer"
-                           className="flex items-center justify-center w-8 h-8 rounded-lg text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/[0.06] transition-all"
-                           title="Telegram">
-                            <svg viewBox="0 0 24 24" aria-hidden="true" className="w-3.5 h-3.5 fill-current">
-                                <path
-                                    d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.493l-3.002-2.21-1.449 1.394c-.16.16-.295.295-.605.295l.216-3.057 5.563-5.027c.242-.215-.053-.334-.376-.12l-6.877 4.33-2.962-.924c-.643-.204-.657-.643.135-.952l11.57-4.46c.536-.196 1.004.17 1.841.748z"/>
-                            </svg>
-                        </a>
-                        <button onClick={onToggle}
-                                className="flex items-center justify-center w-8 h-8 rounded-lg text-gray-400 hover:text-gray-700 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/[0.06] transition-all"
-                                title="展开菜单">
-                            <FiChevronsRight className="w-4 h-4"/>
-                        </button>
-                    </div>
-                ) : (
-                    /* 展开态：社交在左，收缩按钮在右 */
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-1.5">
-                            <a href="https://x.com/thebridgehsu" target="_blank" rel="noopener noreferrer"
-                               className="flex items-center justify-center w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/[0.03] text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all hover:scale-110 border border-gray-100 dark:border-white/[0.05]"
-                               title="X (Twitter)">
-                                <svg viewBox="0 0 24 24" aria-hidden="true" className="w-3.5 h-3.5 fill-current">
-                                    <path
-                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                                </svg>
-                            </a>
-                            <a href="https://t.me/bridgehsu" target="_blank" rel="noopener noreferrer"
-                               className="flex items-center justify-center w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/[0.03] text-gray-400 hover:text-gray-900 dark:hover:text-white transition-all hover:scale-110 border border-gray-100 dark:border-white/[0.05]"
-                               title="Telegram">
-                                <svg viewBox="0 0 24 24" aria-hidden="true" className="w-3.5 h-3.5 fill-current">
-                                    <path
-                                        d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.493l-3.002-2.21-1.449 1.394c-.16.16-.295.295-.605.295l.216-3.057 5.563-5.027c.242-.215-.053-.334-.376-.12l-6.877 4.33-2.962-.924c-.643-.204-.657-.643.135-.952l11.57-4.46c.536-.196 1.004.17 1.841.748z"/>
-                                </svg>
-                            </a>
-                        </div>
-                        <button onClick={onToggle}
-                                className="flex items-center justify-center w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/[0.03] text-gray-400 hover:text-gray-700 dark:hover:text-white transition-all hover:scale-110 border border-gray-100 dark:border-white/[0.05]"
-                                title="收起菜单">
-                            <FiChevronsLeft className="w-4 h-4"/>
-                        </button>
-                    </div>
-                )}
-            </div>
         </aside>
     );
 }

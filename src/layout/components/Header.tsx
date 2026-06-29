@@ -4,14 +4,17 @@ import Link from 'next/link';
 import Logo from "@/components/Logo";
 import {ALL_MENUS, getActiveConsensus, CONSENSUS_CONFIG, CONSENSUS_ORDER, CONSENSUS_ENTRY, type Consensus} from './Menu';
 import Theme from "@/layout/components/Theme";
-import {FiBook, FiEdit3} from 'react-icons/fi';
+import {FiBook, FiEdit3, FiChevronsLeft, FiChevronsRight} from 'react-icons/fi';
 import {SECTION_SWITCHER} from '@/utils/section-manifest';
 
 interface HeaderProps {
     hideLogo?: boolean;
+    showSidebar?: boolean;
+    collapsed?: boolean;
+    onToggle?: () => void;
 }
 
-export default function Header({hideLogo}: HeaderProps): React.ReactElement {
+export default function Header({hideLogo, showSidebar, collapsed, onToggle}: HeaderProps): React.ReactElement {
     const [theme, setTheme] = useState<'light' | 'dark' | 'system'>(() => {
         if (typeof window === 'undefined') return 'system';
         return (localStorage.getItem('theme') as 'light' | 'dark' | 'system') || 'system';
@@ -84,6 +87,15 @@ export default function Header({hideLogo}: HeaderProps): React.ReactElement {
                 <div className={`flex items-center flex-1${hideLogo ? ' md:hidden' : ''}`}>
                     <Logo/>
                 </div>
+                {showSidebar && (
+                    <button
+                        onClick={onToggle}
+                        className="hidden md:flex items-center justify-center w-7 h-7 rounded-lg bg-gray-50 dark:bg-white/[0.03] text-gray-400 hover:text-gray-700 dark:hover:text-white transition-all hover:scale-110 border border-gray-100 dark:border-white/[0.05] mr-2"
+                        title={collapsed ? '展开菜单' : '收起菜单'}
+                    >
+                        {collapsed ? <FiChevronsRight className="w-4 h-4"/> : <FiChevronsLeft className="w-4 h-4"/>}
+                    </button>
+                )}
                 <div className="flex items-center space-x-1 md:space-x-2 ml-auto">
                     {SECTION_SWITCHER.map(section => (
                         <Link

@@ -7,7 +7,7 @@
 - **框架**: Next.js 13 + React 18 + TypeScript
 - **样式**: Tailwind CSS 3
 - **图标**: react-icons (Feather Icons)
-- **部署**: Cloudflare Pages（静态导出）
+- **部署**: GitHub Pages（静态导出）
 - **字体**: Inter (UI) + Fira Code (代码)
 
 ## ✨ 支持的共识机制
@@ -43,23 +43,17 @@ pnpm build
 
 产物输出到 `dist/`。本地预览：`pnpm preview`。
 
-## ☁ Cloudflare Pages 自动部署
+## ☁ GitHub Pages 自动部署
 
-推送到 GitHub 后由 Cloudflare Pages 自动构建发布，无需自建服务器。
+推送到 `main` 后由 GitHub Actions 构建并发布到 GitHub Pages，无需自建服务器。
 
-1. 打开 [Cloudflare Dashboard](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**
-2. 授权并选择本仓库 `demochain.org`
-3. 构建配置：
+1. 打开仓库 **Settings → Pages**
+2. **Build and deployment → Source** 选择 **GitHub Actions**
+3. 推送代码后查看 **Actions** 工作流 `Deploy GitHub Pages`
+4. 默认地址：`https://bridgehsu.github.io/demochain.org/`
+5. 自定义域名：仓库已含 `public/CNAME`（`demochain.org`）。在 Pages 设置里确认 Custom domain，并把域名 DNS 指到 GitHub Pages（通常是 `A`/`CNAME` 记录）
 
-| 项 | 值 |
-|---|---|
-| Framework preset | None |
-| Build command | `pnpm install && pnpm build` |
-| Build output directory | `dist` |
-| Node version | `20`（仓库已含 `.nvmrc`） |
-
-4. 部署完成后，在 **Custom domains** 绑定 `demochain.org` / `www.demochain.org`
-5. 之后每次 `git push` 到默认分支都会自动重新部署
+> 使用自定义域名 `demochain.org` 时路径在站点根目录；若只用 `*.github.io/demochain.org` 且资源 404，需要再配置 Next.js `basePath`。
 
 ### 部署包体积
 

@@ -74,7 +74,6 @@ export default function Header({hideLogo, showSidebar, collapsed, onToggle}: Hea
     const consensus = isMounted ? getActiveConsensus(currentPathname) : 'POW';
     const mobileMenuItems = ALL_MENUS[consensus];
     const mobileCfg = CONSENSUS_CONFIG[consensus];
-    const isCoinexRoute = currentPathname.startsWith('/coinex');
     const isSectionLinkActive = (href: string) => currentPathname.startsWith(href);
 
     return (
@@ -150,63 +149,55 @@ export default function Header({hideLogo, showSidebar, collapsed, onToggle}: Hea
                 <div className="md:hidden border-t border-gray-100 dark:border-[#1c1e25] bg-white/95 dark:bg-[#0d0e12]/98 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.1)] transition-all duration-300 animate-in slide-in-from-top-2">
                     <div className="px-4 py-4 space-y-3">
                         <div className="rounded-2xl border border-gray-100 bg-gray-50/50 p-3 dark:border-white/5 dark:bg-white/[0.02]">
-                            {!isCoinexRoute && (
-                                <>
-                                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2.5 px-1">切换宇宙</p>
-                                    <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
-                                        {CONSENSUS_ORDER.map((c: Consensus) => {
-                                            const cc = CONSENSUS_CONFIG[c];
-                                            const isActive = c === consensus;
-                                            return (
-                                                <Link
-                                                    key={c}
-                                                    href={CONSENSUS_ENTRY[c]}
-                                                    onClick={() => setMobileOpen(false)}
-                                                    className={`flex shrink-0 items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all ${
-                                                        isActive
-                                                            ? `${cc.switcherActive} bg-white shadow-md ring-1 ring-black/5 dark:bg-[#1a1a1a] dark:ring-white/10 scale-105`
-                                                            : 'text-gray-500 bg-white/40 hover:text-gray-900 hover:bg-white dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/5'
-                                                    }`}
-                                                >
-                                                    <span className={`w-2 h-2 rounded-full shrink-0 ${isActive ? cc.dot : 'bg-gray-300 dark:bg-gray-600'}`}/>
-                                                    {cc.label}
-                                                </Link>
-                                            );
-                                        })}
-                                    </div>
-                                </>
-                            )}
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 mb-2.5 px-1">切换宇宙</p>
+                            <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+                                {CONSENSUS_ORDER.map((c: Consensus) => {
+                                    const cc = CONSENSUS_CONFIG[c];
+                                    const isActive = c === consensus;
+                                    return (
+                                        <Link
+                                            key={c}
+                                            href={CONSENSUS_ENTRY[c]}
+                                            onClick={() => setMobileOpen(false)}
+                                            className={`flex shrink-0 items-center gap-2 px-4 py-2 rounded-full text-xs font-bold transition-all ${
+                                                isActive
+                                                    ? `${cc.switcherActive} bg-white shadow-md ring-1 ring-black/5 dark:bg-[#1a1a1a] dark:ring-white/10 scale-105`
+                                                    : 'text-gray-500 bg-white/40 hover:text-gray-900 hover:bg-white dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/5'
+                                            }`}
+                                        >
+                                            <span className={`w-2 h-2 rounded-full shrink-0 ${isActive ? cc.dot : 'bg-gray-300 dark:bg-gray-600'}`}/>
+                                            {cc.label}
+                                        </Link>
+                                    );
+                                })}
+                            </div>
                         </div>
 
                         <div className="rounded-2xl border border-gray-100 bg-gray-50/50 p-2 dark:border-white/5 dark:bg-white/[0.02]">
-                            {!isCoinexRoute && (
-                                <>
-                                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 px-2 mb-1.5">探索模块</p>
-                                    <div className="grid grid-cols-2 gap-1.5">
-                                        {mobileMenuItems.map(item => {
-                                            const isActive = currentPathname === item.href;
-                                            return (
-                                                <Link
-                                                    key={item.href}
-                                                    href={item.href}
-                                                    onClick={() => setMobileOpen(false)}
-                                                    className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-bold transition-all ${
-                                                        isActive
-                                                            ? `${mobileCfg.accent} bg-white shadow-sm ring-1 ring-black/5 dark:bg-[#1a1a1a] dark:ring-white/10`
-                                                            : 'text-gray-600 hover:text-gray-900 hover:bg-white/60 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/5'
-                                                    }`}
-                                                >
-                                                    <span className={`flex h-5 w-5 shrink-0 items-center justify-center text-sm ${isActive ? 'opacity-100 scale-110' : 'opacity-40'}`}>
-                                                        {item.icon}
-                                                    </span>
-                                                    {item.name}
-                                                </Link>
-                                            );
-                                        })}
-                                    </div>
-                                    <div className="my-2 border-t border-gray-100 dark:border-white/5 mx-2"/>
-                                </>
-                            )}
+                            <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 px-2 mb-1.5">探索模块</p>
+                            <div className="grid grid-cols-2 gap-1.5">
+                                {mobileMenuItems.map(item => {
+                                    const isActive = currentPathname === item.href;
+                                    return (
+                                        <Link
+                                            key={item.href}
+                                            href={item.href}
+                                            onClick={() => setMobileOpen(false)}
+                                            className={`flex items-center gap-2.5 px-3 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                                                isActive
+                                                    ? `${mobileCfg.accent} bg-white shadow-sm ring-1 ring-black/5 dark:bg-[#1a1a1a] dark:ring-white/10`
+                                                    : 'text-gray-600 hover:text-gray-900 hover:bg-white/60 dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/5'
+                                            }`}
+                                        >
+                                            <span className={`flex h-5 w-5 shrink-0 items-center justify-center text-sm ${isActive ? 'opacity-100 scale-110' : 'opacity-40'}`}>
+                                                {item.icon}
+                                            </span>
+                                            {item.name}
+                                        </Link>
+                                    );
+                                })}
+                            </div>
+                            <div className="my-2 border-t border-gray-100 dark:border-white/5 mx-2"/>
                             {SECTION_SWITCHER.map(section => (
                                 <Link
                                     key={section.key}

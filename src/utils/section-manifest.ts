@@ -1,7 +1,6 @@
-import {COINEX_NAV} from './coinex-manifest';
 import {DOC_NAV, type DocNavGroup} from './docs-manifest';
 
-export type SectionKey = 'docs' | 'coinex';
+export type SectionKey = 'docs';
 
 export interface SectionManifest {
     key: SectionKey;
@@ -19,28 +18,18 @@ export const SECTION_MANIFESTS: Record<SectionKey, SectionManifest> = {
         homePath: '/docs',
         nav: DOC_NAV,
     },
-    coinex: {
-        key: 'coinex',
-        label: 'CoinEX',
-        homeLabel: 'CoinEX 首页',
-        homePath: '/coinex',
-        nav: COINEX_NAV,
-    },
 };
 
 export const SECTION_SWITCHER = [
     SECTION_MANIFESTS.docs,
-    SECTION_MANIFESTS.coinex,
 ];
 
-export const getSectionKeyByPath = (path: string): SectionKey => (
-    path.startsWith('/coinex') ? 'coinex' : 'docs'
-);
+export const getSectionKeyByPath = (_path: string): SectionKey => 'docs';
 
 export const getSectionManifestByPath = (path: string): SectionManifest => (
     SECTION_MANIFESTS[getSectionKeyByPath(path)]
 );
 
 export const isSectionRoute = (path: string): boolean => (
-    path.startsWith('/docs') || path.startsWith('/coinex')
+    path.startsWith('/docs')
 );

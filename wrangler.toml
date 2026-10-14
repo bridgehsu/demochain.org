@@ -1,0 +1,5 @@
+# Cloudflare Pages
+# Dashboard 连接 GitHub 后使用：Build command = pnpm install && pnpm build
+name = "demochain-org"
+compatibility_date = "2025-10-14"
+pages_build_output_dir = "dist"

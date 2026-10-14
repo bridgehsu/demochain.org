@@ -17,7 +17,14 @@ node_modules
 
 # Misc
 .DS_Store
+
+# Certificates / secrets
+cert/
 *.pem
+*.key
+*.crt
+*.p12
+*.pfx
 
 # Debug
 npm-debug.log*
@@ -27,9 +34,12 @@ yarn-error.log*
 # Local env files
 .env*.local
 .env
+.dev.vars
 
-# Vercel
+# Cloudflare / local deploy
+.wrangler
 .vercel
+nginx.conf
 
 # TypeScript
 *.tsbuildinfo

@@ -7,8 +7,10 @@
     "dev": "next dev ",
     "build": "next build",
     "postbuild": "rm -rf dist/cache dist/server dist/trace dist/react-loadable-manifest.json dist/build-manifest.json dist/prerender-manifest.json dist/server-reference-manifest.json dist/images-manifest.json dist/export-marker.json dist/next-server.js.nft.json dist/package.json dist/required-server-files.json",
-    "lint": "next lint"
+    "lint": "next lint",
+    "preview": "npx --yes serve dist"
   },
+  "packageManager": "pnpm@9.15.0",
   "keywords": [
     "api",
     "mock",
@@ -45,7 +47,7 @@
     "typescript": "^5.9.2"
   },
   "engines": {
-    "node": ">=14.0.0"
+    "node": ">=18.0.0"
   },
   "browserslist": {
     "production": [

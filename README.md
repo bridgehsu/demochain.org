@@ -7,7 +7,7 @@
 - **框架**: Next.js 13 + React 18 + TypeScript
 - **样式**: Tailwind CSS 3
 - **图标**: react-icons (Feather Icons)
-- **部署**: 静态导出 (Static Export)
+- **部署**: Cloudflare Pages（静态导出）
 - **字体**: Inter (UI) + Fira Code (代码)
 
 ## ✨ 支持的共识机制
@@ -34,17 +34,32 @@ npm run dev
 
 访问 http://localhost:3000
 
-## 📦 构建部署
+## 📦 构建
 
 ```bash
-npm run build
+pnpm install
+pnpm build
 ```
 
-构建产物输出到 `dist/` 目录，可直接部署到任何静态托管平台：
+产物输出到 `dist/`。本地预览：`pnpm preview`。
 
-- 阿里云/腾讯云 OSS + CDN
-- Vercel / Cloudflare Pages / GitHub Pages
-- Nginx / Apache
+## ☁ Cloudflare Pages 自动部署
+
+推送到 GitHub 后由 Cloudflare Pages 自动构建发布，无需自建服务器。
+
+1. 打开 [Cloudflare Dashboard](https://dash.cloudflare.com) → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**
+2. 授权并选择本仓库 `demochain.org`
+3. 构建配置：
+
+| 项 | 值 |
+|---|---|
+| Framework preset | None |
+| Build command | `pnpm install && pnpm build` |
+| Build output directory | `dist` |
+| Node version | `20`（仓库已含 `.nvmrc`） |
+
+4. 部署完成后，在 **Custom domains** 绑定 `demochain.org` / `www.demochain.org`
+5. 之后每次 `git push` 到默认分支都会自动重新部署
 
 ### 部署包体积
 
@@ -89,9 +104,3 @@ public/             # 静态资源
 - Next.js 自动代码分割，按需加载页面 chunk
 - 构建后自动清理 cache、server 等无用文件
 - CDN 边缘节点分发，全球低延迟访问
-
-## 部署NGINX
-```text
-docker run --name nginx --restart=always -p 443:443 -p 80:80 -d -v /usr/local/nginx/nginx.conf:/etc/nginx/nginx.conf -v /usr/local/web:/usr/local/web -v /usr/local/upload:/usr/local/upload nginx
-
-```

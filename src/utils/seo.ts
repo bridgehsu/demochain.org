@@ -60,11 +60,6 @@ export const pageSEO: Record<string, Partial<SEOConfig>> = {
   '/docs/bft': { title: 'BFT 文档 - DemoChain', description: '拜占庭容错共识机制的原理解读与演示导览。' },
   '/docs/avalanche': { title: 'Avalanche 文档 - DemoChain', description: 'Avalanche 雪崩协议的原理解读与演示导览。' },
   '/docs/poh': { title: 'PoH 文档 - DemoChain', description: '历史证明机制的原理解读与演示导览。' },
-  '/coinex': { title: 'CoinEX 文档 - DemoChain', description: 'CoinEX 交易所项目文档与开发手册。' },
-  '/coinex/quick-start': { title: '快速开始 - CoinEX', description: 'CoinEX 项目的简介、上手与致谢信息。' },
-  '/coinex/backend-manual': { title: '后端手册 - CoinEX', description: 'CoinEX 后端模块、权限、缓存与运维文档。' },
-  '/coinex/frontend-manual': { title: '前端手册 - CoinEX', description: 'CoinEX 前端路由、组件与异常处理文档。' },
-  '/coinex/deployment': { title: '部署项目 - CoinEX', description: 'CoinEX 常规部署与容器部署方案。' },
 };
 
 export function getPageSEO(pathname: string): SEOConfig {

@@ -5,7 +5,6 @@ import {remark} from 'remark';
 import remarkGfm from 'remark-gfm';
 import remarkHtml from 'remark-html';
 
-const docsDir = path.join(process.cwd(), 'docs');
 
 export interface DocFrontmatter {
     title: string;
@@ -21,7 +20,8 @@ export interface DocData extends DocFrontmatter {
     contentHtml: string;
 }
 
-export async function getDocBySlug(slug: string[]): Promise<DocData> {
+export async function getDocBySlug(slug: string[], contentRoot = 'docs'): Promise<DocData> {
+    const docsDir = path.join(process.cwd(), contentRoot);
     // Try exact file first: pow/hash.md
     let filePath = path.join(docsDir, ...slug) + '.md';
     if (!fs.existsSync(filePath)) {
@@ -50,7 +50,8 @@ export async function getDocBySlug(slug: string[]): Promise<DocData> {
 }
 
 /** Returns all slug arrays for getStaticPaths, excluding root index (handled by pages/docs/index.tsx) */
-export function getAllDocSlugs(): string[][] {
+export function getAllDocSlugs(contentRoot = 'docs'): string[][] {
+    const docsDir = path.join(process.cwd(), contentRoot);
     const slugs: string[][] = [];
 
     function scan(dir: string, prefix: string[]) {

@@ -14,6 +14,8 @@ import {
     type Consensus
 } from './Menu';
 import {DOC_NAV} from '@/utils/docs-manifest';
+import {DocsSidebar} from '@/components/docs/DocsSidebar';
+import {getSectionManifestByPath, getSectionKeyByPath} from '@/utils/section-manifest';
 import Logo from '@/components/Logo';
 import LogoIcon from '@/components/Icons/LogoIcon';
 
@@ -56,6 +58,18 @@ export default function Sidebar({collapsed, onToggle}: SidebarProps): React.Reac
     const toggle = (c: Consensus) => {
         setExpanded(prev => ({...prev, [c]: !prev[c]}));
     };
+
+    const section = getSectionManifestByPath(router.pathname);
+    if (getSectionKeyByPath(router.pathname) !== 'docs') {
+        return (
+            <aside className={`hidden md:flex flex-col fixed left-0 top-0 h-full z-30 border-r border-gray-100 dark:border-gray-800 bg-white dark:bg-[#0d0e12] ${collapsed ? 'w-14' : 'w-64'}`}>
+                <div className="p-4 border-b border-gray-100 dark:border-gray-800">{collapsed ? <LogoIcon className="w-6 h-6"/> : <Logo/>}</div>
+                <div className="flex-1 overflow-y-auto p-3">
+                    {collapsed ? <Link href={section.homePath} title={section.homeLabel} className="text-xs font-bold text-cyan-600 break-all">{section.label}</Link> : <DocsSidebar currentPath={router.asPath.split(/[?#]/)[0]}/>}
+                </div>
+            </aside>
+        );
+    }
 
     return (
         <aside

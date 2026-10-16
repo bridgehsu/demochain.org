@@ -51,6 +51,9 @@ export const pageSEO: Record<string, Partial<SEOConfig>> = {
   '/poh': { title: '序列 · PoH - DemoChain', description: '演示连续 SHA256 哈希序列作为可验证时钟。' },
   '/poh/timeline': { title: '时序 · PoH - DemoChain', description: '在哈希序列中插入事件，理解 PoH 时间戳证明。' },
   '/poh/chain': { title: '链 · PoH - DemoChain', description: '查看 Solana 风格 PoH Slot 的完整链视图。' },
+  '/tgex': { title: 'TGEX 文档中心 - DemoChain', description: 'TGEX 核心流程与服务解析，涵盖现货撮合、合约撮合、资产钱包、行情推送和运行维护。' },
+  '/asset-monitor': { title: 'EVM 资产监测与策略系统 - DemoChain', description: '多链信号接入、CA 地址识别、Adapter、策略状态机、交易执行及结果追踪的模块文档。' },
+  '/quant-trading': { title: '策略交易系统（量化交易） - DemoChain', description: '基于 Golang、Spring Boot 和 React 的中心化交易所策略平台，解析机器人框架、任务调度、订单状态机和收益统计。' },
   // 文档
   '/docs': { title: '文档 - DemoChain', description: '七种区块链共识机制的原理讲解与演示导览。' },
   '/docs/pow': { title: 'PoW 文档 - DemoChain', description: '工作量证明共识机制的原理解读与演示导览。' },

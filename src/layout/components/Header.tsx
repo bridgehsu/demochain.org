@@ -7,6 +7,8 @@ import Theme from "@/layout/components/Theme";
 import {FiBook, FiEdit3, FiChevronsLeft, FiChevronsRight} from 'react-icons/fi';
 import {SECTION_SWITCHER} from '@/utils/section-manifest';
 
+const SECTION_ACTIVE_CLASS = 'text-sky-800 bg-sky-50 ring-1 ring-inset ring-sky-200/80 dark:text-sky-200 dark:bg-sky-400/10 dark:ring-sky-400/20';
+
 interface HeaderProps {
     hideLogo?: boolean;
     showSidebar?: boolean;
@@ -102,7 +104,7 @@ export default function Header({hideLogo, showSidebar, collapsed, onToggle}: Hea
                             href={section.homePath}
                             className={`hidden md:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-105 active:scale-95 ${
                                 isSectionLinkActive(section.homePath)
-                                    ? 'text-white bg-gradient-to-r from-blue-500 to-violet-500 shadow-md shadow-blue-500/30 dark:shadow-blue-500/20'
+                                    ? SECTION_ACTIVE_CLASS
                                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/[0.05] dark:hover:bg-white/10'
                             }`}
                         >
@@ -205,7 +207,7 @@ export default function Header({hideLogo, showSidebar, collapsed, onToggle}: Hea
                                     onClick={() => setMobileOpen(false)}
                                     className={`flex items-center justify-center gap-2 px-3 py-3 rounded-xl text-sm font-bold transition-all ${
                                         isSectionLinkActive(section.homePath)
-                                            ? 'text-white bg-gradient-to-r from-blue-500 to-violet-500 shadow-md shadow-blue-500/25'
+                                            ? SECTION_ACTIVE_CLASS
                                             : 'text-gray-600 bg-white/40 hover:text-gray-900 hover:bg-white dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/5'
                                     }`}
                                 >

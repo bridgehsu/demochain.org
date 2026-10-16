@@ -4,9 +4,9 @@ export const QUANT_TRADING_NAV: DocNavGroup[] = [
     {
         "consensus": "quant-trading",
         "label": "量化交易系统",
-        "color": "text-violet-600 dark:text-violet-400",
-        "activeBg": "bg-violet-50 dark:bg-violet-500/10",
-        "borderColor": "border-violet-300 dark:border-violet-700",
+        "color": "text-sky-700 dark:text-sky-300",
+        "activeBg": "bg-sky-50 dark:bg-sky-400/10",
+        "borderColor": "border-sky-200 dark:border-sky-800",
         "rootHref": "/quant-trading",
         "items": [
             {

@@ -25,7 +25,7 @@ function getFlatNavItems() {
 }
 
 export default function DocPage({doc, prevDoc, nextDoc}: Props) {
-    const pageTitle = `${doc.title} · 多链策略 - DemoChain`;
+    const pageTitle = `${doc.title} · 多链策略系统 - DemoChain`;
     return (
         <>
             <Head>

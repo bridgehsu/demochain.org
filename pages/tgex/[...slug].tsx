@@ -25,7 +25,7 @@ function getFlatNavItems() {
 }
 
 export default function DocPage({doc, prevDoc, nextDoc}: Props) {
-    const pageTitle = `${doc.title} · TGEX - DemoChain`;
+    const pageTitle = `${doc.title} · 数字货币系统 - DemoChain`;
     return (
         <>
             <Head>

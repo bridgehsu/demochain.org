@@ -1,6 +1,6 @@
 ---
 title: "服务地图与模块边界"
-description: "以实际 Maven 模块为索引定位 TGEX 服务。"
+description: "以实际 Maven 模块为索引定位 数字货币系统 服务。"
 ---
 
 # 服务地图与模块边界

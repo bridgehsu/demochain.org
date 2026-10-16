@@ -15,9 +15,9 @@ export interface SectionManifest {
 }
 
 export const SECTION_MANIFESTS: Record<SectionKey, SectionManifest> = {
-    'quant-trading': {key: 'quant-trading', label: '量化交易', homeLabel: '量化交易系统文档', homePath: '/quant-trading', nav: QUANT_TRADING_NAV},
-    'asset-monitor': {key: 'asset-monitor', label: '多链策略', homeLabel: '资产监测文档首页', homePath: '/asset-monitor', nav: ASSET_MONITOR_NAV},
-    tgex: {key: 'tgex', label: 'TGEX', homeLabel: 'TGEX 文档首页', homePath: '/tgex', nav: TGEX_NAV},
+    'quant-trading': {key: 'quant-trading', label: '量化交易系统', homeLabel: '量化交易系统文档', homePath: '/quant-trading', nav: QUANT_TRADING_NAV},
+    'asset-monitor': {key: 'asset-monitor', label: '多链策略系统', homeLabel: '多链策略系统文档', homePath: '/asset-monitor', nav: ASSET_MONITOR_NAV},
+    tgex: {key: 'tgex', label: '数字货币系统', homeLabel: '数字货币系统文档', homePath: '/tgex', nav: TGEX_NAV},
     docs: {
         key: 'docs',
         label: '文档中心',

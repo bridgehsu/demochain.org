@@ -7,7 +7,7 @@ description: "从 Disruptor 处理顺序到订单簿分支解析现货撮合。"
 
 ## 模块与职责
 
-源码模块为 `match-new-cxex-release1.1.1`，实现位于 `matching-provider/src/main/java/com/exch/matching`。撮合处理并非只有价格比较：前置事件处理还接收账户变动和配置变化。
+源码模块为 `coinex-match`，实现位于 `matching-provider/src/main/java/com/exch/matching`。撮合处理并非只有价格比较：前置事件处理还接收账户变动和配置变化。
 
 ## 已确认的处理顺序
 

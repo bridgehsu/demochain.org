@@ -7,7 +7,7 @@ description: "合约普通委托、强制撤单和止盈止损的源码入口。
 
 ## 已确认的服务入口
 
-`ContractMatchEngineService` 包含 `addOrder`、两种 cancelOrder 参数形式、`forceCancelOrder`、`addTpslOrder` 和 `cancelTpslOrder`。相关委托业务模块为 `contract-entrust-new-cxex-release1.1.1`。
+`ContractMatchEngineService` 包含 `addOrder`、两种 cancelOrder 参数形式、`forceCancelOrder`、`addTpslOrder` 和 `cancelTpslOrder`。相关委托业务模块为 `coinex-contract-entrust`。
 
 ## 阅读时区分三类请求
 

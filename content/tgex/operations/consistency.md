@@ -7,7 +7,7 @@ description: "消息与一致性的模块索引、流程阅读方法与验证场
 
 ## 模块索引
 
-`match、contract-match 及其 mq、enums、disruptor 目录`。完整目录名见[服务地图](/tgex/guide/services/)。
+`coinex-match、coinex-contract-match 及其 mq、enums、disruptor 目录`。完整目录名见[服务地图](/tgex/guide/services/)。
 
 ## 当前核对范围
 

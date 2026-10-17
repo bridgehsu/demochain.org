@@ -7,7 +7,7 @@ description: "账户与资金流水的模块索引、流程阅读方法与验证
 
 ## 模块索引
 
-`account、match、contract-match`。完整目录名见[服务地图](/tgex/guide/services/)。
+`coinex-account、coinex-match、coinex-contract-match`。完整目录名见[服务地图](/tgex/guide/services/)。
 
 ## 当前核对范围
 

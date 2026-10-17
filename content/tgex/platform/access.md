@@ -7,7 +7,7 @@ description: "接入、用户与权限的模块索引、流程阅读方法与验
 
 ## 模块索引
 
-`api、api_v2、web、web-app、app、user、security-start-master、ca-server`。完整目录名见[服务地图](/tgex/guide/services/)。
+`coinex-app、coinex-applet、coinex-admin、coinex-partner-admin、coinex-user`。完整目录名见[服务地图](/tgex/guide/services/)。
 
 ## 当前核对范围
 

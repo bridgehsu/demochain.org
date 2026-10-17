@@ -7,11 +7,11 @@ description: "充值、提现与钱包的模块索引、流程阅读方法与验
 
 ## 模块索引
 
-`wallet-server、wallet-driver、wallet-admin、pay-server、tgpay`。完整目录名见[服务地图](/tgex/guide/services/)。
+`coinex-wallet、coinex-pay`。完整目录名见[服务地图](/tgex/guide/services/)。
 
 ## 当前核对范围
 
-这些模块提供钱包和支付相关源码入口。链上充值、平台内部划转和撮合账户事件应分别追踪。当前未核对具体币种驱动与回调协议。
+当前工作空间的钱包工程包含 wallet-api 与 wallet-provider，不将其他代码库的独立 wallet-driver、wallet-server 当作本工程目录。这些模块提供钱包和支付相关源码入口。链上充值、平台内部划转和撮合账户事件应分别追踪。当前未核对具体币种驱动与回调协议。
 
 ## 核心流程阅读方法
 

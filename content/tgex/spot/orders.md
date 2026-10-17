@@ -7,7 +7,7 @@ description: "现货委托入口与撮合查询的阅读边界。"
 
 ## 服务边界
 
-已发现 `entrust-new-cxex-release1.1.1`、`entrust-k8s-new-cxex-release1.1.1` 和 `match-new-cxex-release1.1.1`。前两者的部署与路由关系尚未核对，不应把两个目录视为同时参与每笔订单。
+委托业务位于 `coinex-entrust`，撮合业务位于 `coinex-match`。本工作空间一级目录没有独立的 entrust-k8s 工程，不将其列为现货必经服务。
 
 撮合 provider 内的 `MatchingEntrustService` 暴露缓存委托查询，包括 `selectCacheEntrustById`、`selectCacheEntrustByClientOrderId` 以及批量与分页查询。它是已核对的查询入口，不能作为下单入口使用。
 

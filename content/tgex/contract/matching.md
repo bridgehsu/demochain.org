@@ -7,7 +7,7 @@ description: "合约事件分支与现货撮合的实现差异。"
 
 ## 独立模块
 
-合约撮合位于 `contract-match-new-cxex-release1.1.1/contract-match-provider/src/main/java/com/exch/contract/match`，使用 `ContractMatchEntrustDTO` 和 `MatchEngineManager`。不能直接把现货 DTO 和事件字段套用到合约。
+合约撮合位于 `coinex-contract-match/contract-match-provider/src/main/java/com/exch/contract/match`，使用 `ContractMatchEntrustDTO` 和 `MatchEngineManager`。不能直接把现货 DTO 和事件字段套用到合约。
 
 ## 已核对的处理分支
 

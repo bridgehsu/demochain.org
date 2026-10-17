@@ -1,13 +1,13 @@
 ---
-title: "现货与合约行情"
-description: "现货与合约行情的模块索引、流程阅读方法与验证场景。"
+title: "现货、合约与期权行情"
+description: "现货、合约与期权行情的模块索引、流程阅读方法与验证场景。"
 ---
 
-# 现货与合约行情
+# 现货、合约与期权行情
 
 ## 模块索引
 
-`market、contract-market、market3rd、contract-option-market-*`。完整目录名见[服务地图](/tgex/guide/services/)。
+`coinex-market、coinex-contract-market、coinex-market3rd、coinex-contract-option-market、coinex-contract-option-market-new-new、coinex-contract-option-market-touch`。完整目录名见[服务地图](/tgex/guide/services/)。
 
 ## 当前核对范围
 

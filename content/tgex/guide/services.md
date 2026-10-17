@@ -1,101 +1,99 @@
 ---
 title: "服务地图与模块边界"
-description: "以实际 Maven 模块为索引定位 数字货币系统 服务。"
+description: "服务地图与模块边界：依据 coinex-workspace 源码核对模块与流程。"
 ---
 
 # 服务地图与模块边界
 
-## 先区分业务域
+## 源码依据
 
-| 业务域 | 已发现的模块前缀 | 阅读重点 |
+数字货币系统对应 `coinex-workspace` 工作空间。下表由该工作空间的实际一级目录整理，路径相对于工作空间根目录。文档站点是独立的 `demochain.org` 工程。
+
+## 三类核心交易业务
+
+| 业务域 | 业务工程 | 配套行情工程 |
 | --- | --- | --- |
-| 现货交易 | entrust、entrust-k8s、match | 委托入口、引擎执行、订单状态 |
-| 合约交易 | contract-entrust、contract-match | 合约委托、仓位、保证金与风险 |
-| 资产钱包 | account、wallet-server、wallet-driver、wallet-admin | 账户变动、链上交互、运营入口 |
-| 行情 | market、contract-market、market3rd | 行情生成、聚合与外部数据 |
-| 接入与推送 | api、api_v2、web、app、netty-*、user-data-socket | 外部请求与实时结果 |
-| 平台及扩展 | user、coin、sysconfig、otc、lever、margin-trade、contract-option-* | 基础资料及独立业务 |
+| 现货交易 | coinex-entrust、coinex-match | coinex-market、coinex-market3rd |
+| 合约交易 | coinex-contract-entrust、coinex-contract-match | coinex-contract-market |
+| 期权交易 | coinex-contract-option-new-cxex、coinex-contract-option-new-new、coinex-contract-option-touch | coinex-contract-option-market、coinex-contract-option-market-new-new、coinex-contract-option-market-touch |
 
-模块存在不等于生产环境全部启用。服务职责先由命名归类，实际调用关系需继续沿接口实现、注入和消费者核对。
+期权独立包含期次、购买、交割和账户处理，不能简单套用现货或合约订单簿链路。三套期权实现需要分别核对，不由目录名称推断生产启用关系。
 
-## 实际模块索引
+## 基础服务与客户端
 
-以下清单来自本地源码目录中具有 `pom.xml` 的一级模块。路径相对于 `tgex-backend`；它是源码入口清单，不是启动顺序。
+账户与资产入口包括 `coinex-account`、`coinex-wallet`、`coinex-pay`；基础资料包括 `coinex-user`、`coinex-coin`、`coinex-sysconfig`。接入与运营入口包括 `coinex-app`、`coinex-applet`、`coinex-admin`、`coinex-partner-admin`，客户端分为 `coinex-ui-pc`、`coinex-ui-app`、`coinex-ui-admin`、`coinex-ui-partner`。
 
-| 模块目录 | 构建入口 |
-| --- | --- |
-| `account-new-cxex-release1.1.1` | `account-new-cxex-release1.1.1/pom.xml` |
-| `activity-new-cxex-release1.1.1` | `activity-new-cxex-release1.1.1/pom.xml` |
-| `admin-new-cxex-release1.1.1` | `admin-new-cxex-release1.1.1/pom.xml` |
-| `agent-admin-master` | `agent-admin-master/pom.xml` |
-| `agent-master` | `agent-master/pom.xml` |
-| `api-new-cxex-release1.1.1` | `api-new-cxex-release1.1.1/pom.xml` |
-| `api_v2-new-cxex-release1.1.1` | `api_v2-new-cxex-release1.1.1/pom.xml` |
-| `app-new-cxex-release1.1.1` | `app-new-cxex-release1.1.1/pom.xml` |
-| `applet-new-cxex-release1.1.1` | `applet-new-cxex-release1.1.1/pom.xml` |
-| `base-log-new-cxex-release1.1.1` | `base-log-new-cxex-release1.1.1/pom.xml` |
-| `ca-server-new-cxex-release1.1.1` | `ca-server-new-cxex-release1.1.1/pom.xml` |
-| `chainexplorer-new-cxex-release1.1.1` | `chainexplorer-new-cxex-release1.1.1/pom.xml` |
-| `cms-new-cxex-release1.1.1` | `cms-new-cxex-release1.1.1/pom.xml` |
-| `coin-new-cxex-release1.1.1` | `coin-new-cxex-release1.1.1/pom.xml` |
-| `contract-entrust-new-cxex-release1.1.1` | `contract-entrust-new-cxex-release1.1.1/pom.xml` |
-| `contract-market-new-cxex-release1.1.1` | `contract-market-new-cxex-release1.1.1/pom.xml` |
-| `contract-match-new-cxex-release1.1.1` | `contract-match-new-cxex-release1.1.1/pom.xml` |
-| `contract-option-market-new-cxex-release1.1.1` | `contract-option-market-new-cxex-release1.1.1/pom.xml` |
-| `contract-option-market-new-new-cxex-release1.1.1` | `contract-option-market-new-new-cxex-release1.1.1/pom.xml` |
-| `contract-option-market-touch-cxex-release1.1.1` | `contract-option-market-touch-cxex-release1.1.1/pom.xml` |
-| `contract-option-new-cxex-release1.1.1` | `contract-option-new-cxex-release1.1.1/pom.xml` |
-| `contract-option-new-new-cxex-release1.1.1` | `contract-option-new-new-cxex-release1.1.1/pom.xml` |
-| `contract-option-touch-cxex-release1.1.1` | `contract-option-touch-cxex-release1.1.1/pom.xml` |
-| `devops-new-cxex-release1.1.1` | `devops-new-cxex-release1.1.1/pom.xml` |
-| `devops-platform-new-cxex-release1.1.1` | `devops-platform-new-cxex-release1.1.1/pom.xml` |
-| `entrust-k8s-new-cxex-release1.1.1` | `entrust-k8s-new-cxex-release1.1.1/pom.xml` |
-| `entrust-new-cxex-release1.1.1` | `entrust-new-cxex-release1.1.1/pom.xml` |
-| `excel-new-cxex-release1.1.1` | `excel-new-cxex-release1.1.1/pom.xml` |
-| `excloud-admin-new-cxex-release1.1.1` | `excloud-admin-new-cxex-release1.1.1/pom.xml` |
-| `excloud-new-cxex-release1.1.1` | `excloud-new-cxex-release1.1.1/pom.xml` |
-| `fmz-api-new-cxex-release1.1.1` | `fmz-api-new-cxex-release1.1.1/pom.xml` |
-| `futures3rd-new-cxex-release1.1.1` | `futures3rd-new-cxex-release1.1.1/pom.xml` |
-| `hft-new-cxex-release1.1.1` | `hft-new-cxex-release1.1.1/pom.xml` |
-| `i18n-new-cxex-release1.1.1` | `i18n-new-cxex-release1.1.1/pom.xml` |
-| `idworker-new-cxex-release1.1.1` | `idworker-new-cxex-release1.1.1/pom.xml` |
-| `imserver-new-cxex-release1.1.1` | `imserver-new-cxex-release1.1.1/pom.xml` |
-| `lever-new-cxex-release1.1.1` | `lever-new-cxex-release1.1.1/pom.xml` |
-| `log-new-cxex-release1.1.1` | `log-new-cxex-release1.1.1/pom.xml` |
-| `mail-new-cxex-release1.1.1` | `mail-new-cxex-release1.1.1/pom.xml` |
-| `margin-trade-new-cxex-release1.1.1` | `margin-trade-new-cxex-release1.1.1/pom.xml` |
-| `market-new-cxex-release1.1.1` | `market-new-cxex-release1.1.1/pom.xml` |
-| `market3rd-new-cxex-release1.1.1` | `market3rd-new-cxex-release1.1.1/pom.xml` |
-| `match-new-cxex-release1.1.1` | `match-new-cxex-release1.1.1/pom.xml` |
-| `msg-new-cxex-release1.1.1` | `msg-new-cxex-release1.1.1/pom.xml` |
-| `netty-client-new-cxex-release1.1.1` | `netty-client-new-cxex-release1.1.1/pom.xml` |
-| `netty-protocol-new-cxex-release1.1.1` | `netty-protocol-new-cxex-release1.1.1/pom.xml` |
-| `netty-server-new-cxex-release1.1.1` | `netty-server-new-cxex-release1.1.1/pom.xml` |
-| `otc-new-cxex-release1.1.1` | `otc-new-cxex-release1.1.1/pom.xml` |
-| `partner-admin-new-cxex-release1.1.1` | `partner-admin-new-cxex-release1.1.1/pom.xml` |
-| `partner-new-cxex-release1.1.1` | `partner-new-cxex-release1.1.1/pom.xml` |
-| `pay-server-new-cxex-release1.1.1` | `pay-server-new-cxex-release1.1.1/pom.xml` |
-| `quantize-new-cxex-release1.1.1` | `quantize-new-cxex-release1.1.1/pom.xml` |
-| `raward-new-cxex-release1.1.1` | `raward-new-cxex-release1.1.1/pom.xml` |
-| `report-new-cxex-release1.1.1` | `report-new-cxex-release1.1.1/pom.xml` |
-| `robot-new-cxex-release1.1.1` | `robot-new-cxex-release1.1.1/pom.xml` |
-| `scm-new-cxex-release1.1.1` | `scm-new-cxex-release1.1.1/pom.xml` |
-| `security-start-master` | `security-start-master/pom.xml` |
-| `slider-new-cxex-develop` | `slider-new-cxex-develop/pom.xml` |
-| `sms-new-cxex-release1.1.1` | `sms-new-cxex-release1.1.1/pom.xml` |
-| `sysconfig-new-cxex-release1.1.1` | `sysconfig-new-cxex-release1.1.1/pom.xml` |
-| `tgpay-new-cxex-release1.1.1` | `tgpay-new-cxex-release1.1.1/pom.xml` |
-| `upload-new-cxex-release1.1.1` | `upload-new-cxex-release1.1.1/pom.xml` |
-| `user-data-socket-new-cxex-release1.1.1` | `user-data-socket-new-cxex-release1.1.1/pom.xml` |
-| `user-new-cxex-release1.1.1` | `user-new-cxex-release1.1.1/pom.xml` |
-| `user-relation-new-cxex-release1.1.1` | `user-relation-new-cxex-release1.1.1/pom.xml` |
-| `vex_migrate-new-cxex-release1.1.1` | `vex_migrate-new-cxex-release1.1.1/pom.xml` |
-| `wallet-admin-new-cxex-release1.1.1` | `wallet-admin-new-cxex-release1.1.1/pom.xml` |
-| `wallet-driver-new-cxex-release1.1.1` | `wallet-driver-new-cxex-release1.1.1/pom.xml` |
-| `wallet-server-new-cxex-release1.1.1` | `wallet-server-new-cxex-release1.1.1/pom.xml` |
-| `web-app-new-cxex-release1.1.1` | `web-app-new-cxex-release1.1.1/pom.xml` |
-| `web-new-cxex-release1.1.1` | `web-new-cxex-release1.1.1/pom.xml` |
+目录存在只说明有相应源码，实际职责需继续沿 Controller、接口实现和调用方确认。未将其他代码库里的 api_v2、独立 wallet-driver、user-data-socket、lever 等名称列为本工作空间一级工程。
 
-## 如何确认边界
+## 实际一级目录清单
 
-从模块 POM 的依赖开始，找到启动类和暴露的接口，再定位调用方、Mapper 与消息处理器。保留 API 定义和 provider 实现之间的区别；不能仅凭一个服务引用就认定调用已经发生。
+| 目录 | 类型 | 入口 |
+| --- | --- | --- |
+| `coinex` | Maven 工程 | `coinex/pom.xml` |
+| `coinex-account` | Maven 工程 | `coinex-account/pom.xml` |
+| `coinex-activity` | Maven 工程 | `coinex-activity/pom.xml` |
+| `coinex-admin` | Maven 工程 | `coinex-admin/pom.xml` |
+| `coinex-app` | Maven 工程 | `coinex-app/pom.xml` |
+| `coinex-applet` | Maven 工程 | `coinex-applet/pom.xml` |
+| `coinex-base-log` | Maven 工程 | `coinex-base-log/pom.xml` |
+| `coinex-cms` | Maven 工程 | `coinex-cms/pom.xml` |
+| `coinex-coin` | Maven 工程 | `coinex-coin/pom.xml` |
+| `coinex-common` | Maven 工程 | `coinex-common/pom.xml` |
+| `coinex-contract` | 工作目录 / 聚合目录 | `coinex-contract/` |
+| `coinex-contract-entrust` | Maven 工程 | `coinex-contract-entrust/pom.xml` |
+| `coinex-contract-market` | Maven 工程 | `coinex-contract-market/pom.xml` |
+| `coinex-contract-match` | Maven 工程 | `coinex-contract-match/pom.xml` |
+| `coinex-contract-option-market` | Maven 工程 | `coinex-contract-option-market/pom.xml` |
+| `coinex-contract-option-market-new-new` | Maven 工程 | `coinex-contract-option-market-new-new/pom.xml` |
+| `coinex-contract-option-market-touch` | Maven 工程 | `coinex-contract-option-market-touch/pom.xml` |
+| `coinex-contract-option-new-cxex` | Maven 工程 | `coinex-contract-option-new-cxex/pom.xml` |
+| `coinex-contract-option-new-new` | Maven 工程 | `coinex-contract-option-new-new/pom.xml` |
+| `coinex-contract-option-touch` | Maven 工程 | `coinex-contract-option-touch/pom.xml` |
+| `coinex-cskefu` | 工作目录 / 聚合目录 | `coinex-cskefu/` |
+| `coinex-devops` | 工作目录 / 聚合目录 | `coinex-devops/` |
+| `coinex-entrust` | Maven 工程 | `coinex-entrust/pom.xml` |
+| `coinex-excel` | Maven 工程 | `coinex-excel/pom.xml` |
+| `coinex-excloud` | Maven 工程 | `coinex-excloud/pom.xml` |
+| `coinex-futures3rd` | Maven 工程 | `coinex-futures3rd/pom.xml` |
+| `coinex-hft` | Maven 工程 | `coinex-hft/pom.xml` |
+| `coinex-i18n` | Maven 工程 | `coinex-i18n/pom.xml` |
+| `coinex-idworker` | Maven 工程 | `coinex-idworker/pom.xml` |
+| `coinex-log` | Maven 工程 | `coinex-log/pom.xml` |
+| `coinex-mail` | Maven 工程 | `coinex-mail/pom.xml` |
+| `coinex-market` | Maven 工程 | `coinex-market/pom.xml` |
+| `coinex-market3rd` | Maven 工程 | `coinex-market3rd/pom.xml` |
+| `coinex-match` | Maven 工程 | `coinex-match/pom.xml` |
+| `coinex-msg` | Maven 工程 | `coinex-msg/pom.xml` |
+| `coinex-netty-client` | Maven 工程 | `coinex-netty-client/pom.xml` |
+| `coinex-netty-protocol` | Maven 工程 | `coinex-netty-protocol/pom.xml` |
+| `coinex-netty-server` | Maven 工程 | `coinex-netty-server/pom.xml` |
+| `coinex-option` | 工作目录 / 聚合目录 | `coinex-option/` |
+| `coinex-otc` | Maven 工程 | `coinex-otc/pom.xml` |
+| `coinex-parent` | 工作目录 / 聚合目录 | `coinex-parent/` |
+| `coinex-partner` | Maven 工程 | `coinex-partner/pom.xml` |
+| `coinex-partner-admin` | Maven 工程 | `coinex-partner-admin/pom.xml` |
+| `coinex-pay` | Maven 工程 | `coinex-pay/pom.xml` |
+| `coinex-quantize` | Maven 工程 | `coinex-quantize/pom.xml` |
+| `coinex-raward` | Maven 工程 | `coinex-raward/pom.xml` |
+| `coinex-report` | Maven 工程 | `coinex-report/pom.xml` |
+| `coinex-robot` | Maven 工程 | `coinex-robot/pom.xml` |
+| `coinex-scm` | Maven 工程 | `coinex-scm/pom.xml` |
+| `coinex-sms` | Maven 工程 | `coinex-sms/pom.xml` |
+| `coinex-sysconfig` | Maven 工程 | `coinex-sysconfig/pom.xml` |
+| `coinex-tasks` | 工作目录 / 聚合目录 | `coinex-tasks/` |
+| `coinex-ui-admin` | 前端 / Node 工程 | `coinex-ui-admin/package.json` |
+| `coinex-ui-app` | 前端 / Node 工程 | `coinex-ui-app/package.json` |
+| `coinex-ui-partner` | 前端 / Node 工程 | `coinex-ui-partner/package.json` |
+| `coinex-ui-pc` | 前端 / Node 工程 | `coinex-ui-pc/package.json` |
+| `coinex-upload` | Maven 工程 | `coinex-upload/pom.xml` |
+| `coinex-user` | Maven 工程 | `coinex-user/pom.xml` |
+| `coinex-user-relation` | Maven 工程 | `coinex-user-relation/pom.xml` |
+| `coinex-wallet` | Maven 工程 | `coinex-wallet/pom.xml` |
+
+## 聚合目录与重复源码
+
+`coinex-option` 内还存在六个 release 命名的期权及行情目录；工作空间同时有顶层 `coinex-contract-option-*` 工程。不能把它们相加当作十二套正在运行的独立服务。部署采用哪个 checkout、哪些版本同时启用，需通过构建和部署配置核实。
+
+## 核对范围
+
+现货与合约撮合关键处理器、现货引擎管理器及合约引擎服务已在当前工作空间重新核对；期权章节核对了新版购买入口、结算调度及触碰结算分支。外围服务保留阅读指南属性，不把目录归类当成完整调用链证明。

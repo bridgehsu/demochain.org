@@ -7,7 +7,7 @@ description: "用户数据与实时推送的模块索引、流程阅读方法与
 
 ## 模块索引
 
-`user-data-socket、netty-server、netty-client、netty-protocol`。完整目录名见[服务地图](/tgex/guide/services/)。
+`coinex-netty-server、coinex-netty-client、coinex-netty-protocol`。完整目录名见[服务地图](/tgex/guide/services/)。
 
 ## 当前核对范围
 

@@ -51,7 +51,7 @@ export const pageSEO: Record<string, Partial<SEOConfig>> = {
   '/poh': { title: '序列 · PoH - DemoChain', description: '演示连续 SHA256 哈希序列作为可验证时钟。' },
   '/poh/timeline': { title: '时序 · PoH - DemoChain', description: '在哈希序列中插入事件，理解 PoH 时间戳证明。' },
   '/poh/chain': { title: '链 · PoH - DemoChain', description: '查看 Solana 风格 PoH Slot 的完整链视图。' },
-  '/tgex': { title: '数字货币系统 - DemoChain', description: '数字货币系统核心流程与服务解析，涵盖现货撮合、合约撮合、资产钱包、行情推送和运行维护。' },
+  '/tgex': { title: '数字货币系统 - DemoChain', description: '数字货币系统核心流程与服务解析，涵盖现货交易、合约交易、期权交易、资产钱包、行情推送和运行维护。' },
   '/asset-monitor': { title: '多链策略系统 - DemoChain', description: '多链信号接入、CA 地址识别、Adapter、策略状态机、交易执行及结果追踪的模块文档。' },
   '/quant-trading': { title: '量化交易系统 - DemoChain', description: '基于 Golang、Spring Boot 和 React 的中心化交易所策略平台，解析机器人框架、任务调度、订单状态机和收益统计。' },
   // 文档

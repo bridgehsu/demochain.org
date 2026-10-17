@@ -104,6 +104,56 @@ export const TGEX_NAV: DocNavGroup[] = [
         ]
     },
     {
+        "consensus": "option",
+        "label": "期权交易",
+        "color": "text-cyan-600 dark:text-cyan-400",
+        "activeBg": "bg-cyan-50 dark:bg-cyan-500/10",
+        "borderColor": "border-cyan-300 dark:border-cyan-700",
+        "rootHref": "/tgex/option",
+        "items": [
+            {
+                "title": "模块与版本边界",
+                "slug": [
+                    "option",
+                    "modules"
+                ],
+                "href": "/tgex/option/modules"
+            },
+            {
+                "title": "期次与购买流程",
+                "slug": [
+                    "option",
+                    "orders"
+                ],
+                "href": "/tgex/option/orders"
+            },
+            {
+                "title": "交割结算与账户处理",
+                "slug": [
+                    "option",
+                    "settlement"
+                ],
+                "href": "/tgex/option/settlement"
+            },
+            {
+                "title": "触碰期权判定",
+                "slug": [
+                    "option",
+                    "touch"
+                ],
+                "href": "/tgex/option/touch"
+            },
+            {
+                "title": "期权行情与周期数据",
+                "slug": [
+                    "option",
+                    "market"
+                ],
+                "href": "/tgex/option/market"
+            }
+        ]
+    },
+    {
         "consensus": "assets",
         "label": "资产与钱包",
         "color": "text-cyan-600 dark:text-cyan-400",
@@ -138,7 +188,7 @@ export const TGEX_NAV: DocNavGroup[] = [
         "rootHref": "/tgex/market",
         "items": [
             {
-                "title": "现货与合约行情",
+                "title": "现货、合约与期权行情",
                 "slug": [
                     "market",
                     "quotes"

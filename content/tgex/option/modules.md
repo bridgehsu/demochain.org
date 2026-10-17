@@ -5,6 +5,12 @@ description: "模块与版本边界：依据 coinex-workspace 源码核对模块
 
 # 模块与版本边界
 
+## 三版本文档
+
+- [版本一：阈值型二元期权](/tgex/option/threshold/)
+- [版本二：涨跌型二元期权](/tgex/option/direction/)
+- [版本三：触碰型二元期权](/tgex/option/touch/)
+
 ## 顶层工程
 
 | 业务实现 | Java 包 | 配套行情工程 |

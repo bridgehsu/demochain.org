@@ -105,7 +105,7 @@ export const TGEX_NAV: DocNavGroup[] = [
     },
     {
         "consensus": "option",
-        "label": "期权交易",
+        "label": "期权交易 · 版本对照",
         "color": "text-cyan-600 dark:text-cyan-400",
         "activeBg": "bg-cyan-50 dark:bg-cyan-500/10",
         "borderColor": "border-cyan-300 dark:border-cyan-700",
@@ -120,36 +120,123 @@ export const TGEX_NAV: DocNavGroup[] = [
                 "href": "/tgex/option/modules"
             },
             {
-                "title": "期次与购买流程",
-                "slug": [
-                    "option",
-                    "orders"
-                ],
-                "href": "/tgex/option/orders"
-            },
-            {
-                "title": "交割结算与账户处理",
-                "slug": [
-                    "option",
-                    "settlement"
-                ],
-                "href": "/tgex/option/settlement"
-            },
-            {
-                "title": "触碰期权判定",
-                "slug": [
-                    "option",
-                    "touch"
-                ],
-                "href": "/tgex/option/touch"
-            },
-            {
                 "title": "期权行情与周期数据",
                 "slug": [
                     "option",
                     "market"
                 ],
                 "href": "/tgex/option/market"
+            }
+        ]
+    },
+    {
+        "consensus": "option-threshold",
+        "label": "版本一 · 阈值型二元期权",
+        "color": "text-cyan-600 dark:text-cyan-400",
+        "activeBg": "bg-cyan-50 dark:bg-cyan-500/10",
+        "borderColor": "border-cyan-300 dark:border-cyan-700",
+        "rootHref": "/tgex/option/threshold",
+        "items": [
+            {
+                "title": "期次与购买流程",
+                "slug": [
+                    "option",
+                    "threshold",
+                    "orders"
+                ],
+                "href": "/tgex/option/threshold/orders"
+            },
+            {
+                "title": "结果判定与结算",
+                "slug": [
+                    "option",
+                    "threshold",
+                    "settlement"
+                ],
+                "href": "/tgex/option/threshold/settlement"
+            },
+            {
+                "title": "行情与数据边界",
+                "slug": [
+                    "option",
+                    "threshold",
+                    "market"
+                ],
+                "href": "/tgex/option/threshold/market"
+            }
+        ]
+    },
+    {
+        "consensus": "option-direction",
+        "label": "版本二 · 涨跌型二元期权",
+        "color": "text-cyan-600 dark:text-cyan-400",
+        "activeBg": "bg-cyan-50 dark:bg-cyan-500/10",
+        "borderColor": "border-cyan-300 dark:border-cyan-700",
+        "rootHref": "/tgex/option/direction",
+        "items": [
+            {
+                "title": "期次与购买流程",
+                "slug": [
+                    "option",
+                    "direction",
+                    "orders"
+                ],
+                "href": "/tgex/option/direction/orders"
+            },
+            {
+                "title": "结果判定与结算",
+                "slug": [
+                    "option",
+                    "direction",
+                    "settlement"
+                ],
+                "href": "/tgex/option/direction/settlement"
+            },
+            {
+                "title": "行情与数据边界",
+                "slug": [
+                    "option",
+                    "direction",
+                    "market"
+                ],
+                "href": "/tgex/option/direction/market"
+            }
+        ]
+    },
+    {
+        "consensus": "option-touch",
+        "label": "版本三 · 触碰型二元期权",
+        "color": "text-cyan-600 dark:text-cyan-400",
+        "activeBg": "bg-cyan-50 dark:bg-cyan-500/10",
+        "borderColor": "border-cyan-300 dark:border-cyan-700",
+        "rootHref": "/tgex/option/touch",
+        "items": [
+            {
+                "title": "期次与购买流程",
+                "slug": [
+                    "option",
+                    "touch",
+                    "orders"
+                ],
+                "href": "/tgex/option/touch/orders"
+            },
+            {
+                "title": "结果判定与结算",
+                "slug": [
+                    "option",
+                    "touch",
+                    "settlement"
+                ],
+                "href": "/tgex/option/touch/settlement"
+            },
+            {
+                "title": "行情与数据边界",
+                "slug": [
+                    "option",
+                    "touch",
+                    "market"
+                ],
+                "href": "/tgex/option/touch/market"
             }
         ]
     },

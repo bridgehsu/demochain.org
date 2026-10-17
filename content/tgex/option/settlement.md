@@ -5,6 +5,8 @@ description: "交割结算与账户处理：依据 coinex-workspace 源码核对
 
 # 交割结算与账户处理
 
+> 本文对应[版本二：涨跌型二元期权交割流程](/tgex/option/direction/settlement/)。完整版本导航见[期权三版本总览](/tgex/option/)。
+
 ## 已核对的调度入口
 
 新版 provider 的 `scheduled/OptionCycleScheduled.java` 中，`statementOrder()` 在 `TestJobConfig.getEnableRunJob()` 为真时调用 `IOptionOrderService.statementOrder()`。源码注解为 `@Scheduled(cron="10/20 * * * * ?")`；旁边的“每分钟”注释与该表达式并不一致，不能把注释当作实际频率。

@@ -5,6 +5,8 @@ description: "期次与购买流程：依据 coinex-workspace 源码核对模块
 
 # 期次与购买流程
 
+> 本文对应[版本二：涨跌型二元期权购买流程](/tgex/option/direction/orders/)。完整版本导航见[期权三版本总览](/tgex/option/)。
+
 ## 核对入口
 
 `coinex-contract-option-new-new/contract-option-new-provider/src/main/java/com/exch/contract/optionnew/service/OptionOrderServiceImpl.java` 的 `add(OptionOrder)`。

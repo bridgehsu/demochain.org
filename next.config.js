@@ -1,3 +1,5 @@
+const {PHASE_DEVELOPMENT_SERVER} = require('next/constants');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -11,4 +13,8 @@ const nextConfig = {
   trailingSlash: true,
 };
 
-module.exports = nextConfig;
+module.exports = (phase) => ({
+  ...nextConfig,
+  // 开发缓存与静态构建隔离，避免构建时破坏正在运行的开发服务。
+  distDir: phase === PHASE_DEVELOPMENT_SERVER ? '.next' : 'dist',
+});

@@ -14,11 +14,11 @@ export default function LogoIcon({className}: LogoProps): React.ReactElement {
                 xmlns="http://www.w3.org/2000/svg"
             >
                 {/* 顶面 - 最亮 */}
-                <polygon points="256,72 82,180 256,288 430,180" fill="#FB923C"/>
+                <polygon points="256,72 82,180 256,288 430,180" fill="#f5654a"/>
                 {/* 左面 - 中等 */}
-                <polygon points="82,180 82,364 256,472 256,288" fill="#F97316"/>
+                <polygon points="82,180 82,364 256,472 256,288" fill="#e05540"/>
                 {/* 右面 - 最深 */}
-                <polygon points="430,180 256,288 256,472 430,364" fill="#C2410C"/>
+                <polygon points="430,180 256,288 256,472 430,364" fill="#b23a28"/>
                 {/* 边缘线，增强立体感 */}
                 <g stroke="#FFFFFF" strokeWidth="8" strokeLinejoin="round" strokeLinecap="round" opacity="0.25">
                     <line x1="256" y1="72"  x2="82"  y2="180"/>

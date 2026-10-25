@@ -1,6 +1,8 @@
 import React, {useRef, useEffect, useState} from 'react';
 
 interface ThemeSelectorProps {
+    placement?: 'top' | 'bottom';
+    showLabel?: boolean;
     theme: 'light' | 'dark' | 'system';
     setTheme: (theme: 'light' | 'dark' | 'system') => void;
     isDarkMode: boolean | null;
@@ -9,7 +11,9 @@ interface ThemeSelectorProps {
 export default function Theme({
                                   theme,
                                   setTheme,
-                                  isDarkMode
+                                  isDarkMode,
+                                  placement = 'bottom',
+                                  showLabel = false
                               }: ThemeSelectorProps) {
     const menuRef = useRef<HTMLDivElement | null>(null);
     const [menuOpen, setMenuOpen] = useState(false);
@@ -34,7 +38,7 @@ export default function Theme({
         <div className="relative" ref={menuRef}>
             <button
                 onClick={() => setMenuOpen(!menuOpen)}
-                className="h-8 w-8 flex items-center justify-center transition-colors md:block"
+                className={`h-8 flex items-center justify-center gap-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/[0.05] transition-colors ${showLabel ? 'px-2 text-sm text-gray-600 dark:text-gray-300' : 'w-8'}`}
                 aria-label="主题/设置"
                 aria-expanded={menuOpen}
                 aria-haspopup="menu"
@@ -57,13 +61,14 @@ export default function Theme({
                               d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
                     </svg>
                 )}
+                {showLabel && <span>主题切换</span>}
             </button>
 
             {menuOpen && (
                 <div
                     role="menu"
                     aria-label="主题切换"
-                    className="absolute right-0 mt-2 w-56 rounded-2xl border bg-white backdrop-blur-sm shadow-lg ring-1 ring-black/5 p-2 border-gray-200 dark:bg-[#1e1e1e] dark:border-[#2d2d30] dark:ring-white/5 dark:text-gray-200 z-50"
+                    className={`absolute ${placement === 'top' ? 'bottom-full left-0 mb-2' : 'right-0 mt-2'} w-56 rounded-2xl border bg-white backdrop-blur-sm shadow-lg ring-1 ring-black/5 p-2 border-gray-200 dark:bg-[#202024] dark:border-[#303034] dark:ring-white/5 dark:text-gray-200 z-50`}
                 >
                     {themeOptions.map((option, index) => (
                         <React.Fragment key={option.key}>
@@ -85,7 +90,7 @@ export default function Theme({
                                 <span className="flex-1 text-left">{option.label}</span>
                                 {theme === option.key && (
                                     <span aria-hidden
-                                          className="ml-2 inline-block h-1.5 w-1.5 rounded-full bg-emerald-500"/>
+                                          className="ml-2 inline-block h-1.5 w-1.5 rounded-full bg-sea-400"/>
                                 )}
                             </button>
                             {index < themeOptions.length - 1 && (

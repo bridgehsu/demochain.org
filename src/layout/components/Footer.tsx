@@ -6,7 +6,7 @@ export default function Footer(): React.ReactElement {
 
     return (
         <footer
-            className="mt-8 border-t border-gray-200 dark:border-[#1c1e25] bg-gradient-to-r from-white/60 via-white/30 to-white/10 dark:from-[#0d0e12]/80 dark:via-[#0d0e12]/50 dark:to-[#0d0e12]/20 backdrop-blur"
+            className="mt-8 border-t border-gray-200 dark:border-[#303034] bg-gradient-to-r from-white/60 via-white/30 to-white/10 dark:from-[#19191c]/80 dark:via-[#19191c]/50 dark:to-[#19191c]/20 backdrop-blur"
         >
             <div className="px-4 lg:px-12 max-w-screen-2xl mx-auto py-6">
                 <div className="flex items-center justify-between w-full">

@@ -7,6 +7,7 @@ import RouteProgress from '@/components/app/RouteProgress';
 import SeoHead from '@/components/seo/SeoHead';
 import {isSectionRoute} from '@/utils/section-manifest';
 import '../styles/globals.css';
+import '../styles/theme.css';
 
 const Application = ({Component, pageProps}: AppProps): React.ReactElement => {
     const router = useRouter();

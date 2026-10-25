@@ -19,11 +19,11 @@ const Layout = ({children, fullWidth}: LayoutProps) => {
         <div
             className="flex min-h-screen bg-[color:var(--bg-primary)] text-[color:var(--text-primary)] selection:bg-brand-400/30 transition-colors duration-500">
             {showSidebar && (
-                <Sidebar themeControls={themeControls} collapsed={collapsed} onToggle={() => setCollapsed(v => !v)}/>
+                <Sidebar collapsed={collapsed}/>
             )}
             <div
                 className={`flex flex-col flex-1 min-w-0 transition-all duration-300${contentOffset}`}>
-                <Header hideLogo={showSidebar} showSidebar={showSidebar} themeControls={themeControls}/>
+                <Header hideLogo={showSidebar} showSidebar={showSidebar} collapsed={collapsed} onToggle={() => setCollapsed(v => !v)} themeControls={themeControls}/>
                 <main className="flex-1 min-w-0">
                     {fullWidth ? (
                         children

@@ -5,16 +5,18 @@ import Logo from "@/components/Logo";
 import {ALL_MENUS, getActiveConsensus, CONSENSUS_CONFIG, CONSENSUS_ORDER, CONSENSUS_ENTRY, type Consensus} from './Menu';
 import useTheme from './useTheme';
 import Theme from "@/layout/components/Theme";
-import {FiBook, FiEdit3} from 'react-icons/fi';
+import {FiBook, FiEdit3, FiChevronsLeft, FiChevronsRight} from 'react-icons/fi';
 import {SECTION_SWITCHER} from '@/utils/section-manifest';
 
 interface HeaderProps {
     hideLogo?: boolean;
     showSidebar?: boolean;
+    collapsed: boolean;
+    onToggle: () => void;
     themeControls: ReturnType<typeof useTheme>;
 }
 
-export default function Header({hideLogo, showSidebar, themeControls}: HeaderProps): React.ReactElement {
+export default function Header({hideLogo, showSidebar, collapsed, onToggle, themeControls}: HeaderProps): React.ReactElement {
     const [isMounted, setIsMounted] = useState(false);
     const [currentPathname, setCurrentPathname] = useState('');
     const [mobileOpen, setMobileOpen] = useState(false);
@@ -44,6 +46,18 @@ export default function Header({hideLogo, showSidebar, themeControls}: HeaderPro
                 <div className={`flex items-center flex-1${hideLogo ? ' md:hidden' : ''}`}>
                     <Logo/>
                 </div>
+                {showSidebar && (
+                    <button
+                        type="button"
+                        onClick={onToggle}
+                        aria-label={collapsed ? '展开菜单' : '收起菜单'}
+                        aria-expanded={!collapsed}
+                        title={collapsed ? '展开菜单' : '收起菜单'}
+                        className="hidden md:flex items-center justify-center w-8 h-8 shrink-0 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-white/[0.05] transition-colors"
+                    >
+                        {collapsed ? <FiChevronsRight className="w-4 h-4"/> : <FiChevronsLeft className="w-4 h-4"/>}
+                    </button>
+                )}
                 <div className="flex items-center space-x-1 md:space-x-2 ml-auto">
                     {SECTION_SWITCHER.map(section => (
                         <Link
@@ -70,9 +84,6 @@ export default function Header({hideLogo, showSidebar, themeControls}: HeaderPro
                         <FiEdit3 className="w-3.5 h-3.5"/>
                         博客
                     </Link>
-                    <div className={showSidebar ? 'md:hidden' : ''}>
-                        <Theme {...themeControls}/>
-                    </div>
                     <button
                         className="md:hidden p-2.5 rounded-xl text-gray-500 hover:text-gray-900 hover:bg-black/[0.04] dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/10 transition-all active:scale-90"
                         onClick={() => setMobileOpen(v => !v)}
@@ -89,6 +100,7 @@ export default function Header({hideLogo, showSidebar, themeControls}: HeaderPro
                             </svg>
                         )}
                     </button>
+                    <Theme {...themeControls}/>
                 </div>
             </div>
 

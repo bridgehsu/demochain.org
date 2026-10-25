@@ -4,7 +4,7 @@
   "description": "DemoChain - 区块链共识平台",
   "private": true,
   "scripts": {
-    "dev": "next dev ",
+    "dev": "next dev -p 3000",
     "build": "next build",
     "postbuild": "rm -rf dist/cache dist/server dist/trace dist/react-loadable-manifest.json dist/build-manifest.json dist/prerender-manifest.json dist/server-reference-manifest.json dist/images-manifest.json dist/export-marker.json dist/next-server.js.nft.json dist/package.json dist/required-server-files.json",
     "lint": "next lint",

@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Link from 'next/link';
 import {useRouter} from 'next/router';
 import {
-    FiChevronRight, FiChevronsLeft, FiChevronsRight,
+    FiChevronRight,
     FiCpu, FiLock, FiUsers, FiKey, FiShield, FiShuffle, FiClock
 } from 'react-icons/fi';
 import {
@@ -14,15 +14,11 @@ import {
     type Consensus
 } from './Menu';
 import {DOC_NAV} from '@/utils/docs-manifest';
-import Theme from './Theme';
-import useTheme from './useTheme';
 import Logo from '@/components/Logo';
 import LogoIcon from '@/components/Icons/LogoIcon';
 
 interface SidebarProps {
-    themeControls: ReturnType<typeof useTheme>;
     collapsed: boolean;
-    onToggle: () => void;
 }
 
 const CONSENSUS_ICONS: Record<Consensus, React.ReactNode> = {
@@ -35,7 +31,7 @@ const CONSENSUS_ICONS: Record<Consensus, React.ReactNode> = {
     POH: <FiClock className="w-4 h-4"/>,
 };
 
-export default function Sidebar({collapsed, onToggle, themeControls}: SidebarProps): React.ReactElement {
+export default function Sidebar({collapsed}: SidebarProps): React.ReactElement {
     const router = useRouter();
     const [pathname, setPathname] = useState('');
     const [isMounted, setIsMounted] = useState(false);
@@ -66,7 +62,7 @@ export default function Sidebar({collapsed, onToggle, themeControls}: SidebarPro
 
             {/* Logo 区域 */}
             <div
-                className={`flex items-center shrink-0 py-4 border-b border-gray-100 dark:border-[#303034] ${collapsed ? 'justify-center px-2' : 'px-4'}`}>
+                className={`flex h-16 items-center shrink-0 border-b border-gray-100 dark:border-[#303034] ${collapsed ? 'justify-center px-2' : 'px-4'}`}>
                 {collapsed ? <LogoIcon className="w-8 h-8"/> : <Logo/>}
             </div>
 
@@ -225,19 +221,6 @@ export default function Sidebar({collapsed, onToggle, themeControls}: SidebarPro
                 </nav>
             </div>
 
-            <div className={`shrink-0 border-t border-gray-100 dark:border-[#303034] p-2 flex gap-2 ${collapsed ? 'flex-col items-center' : 'items-center justify-between'}`}>
-                <Theme {...themeControls} placement="top" showLabel={false}/>
-                <button
-                    type="button"
-                    onClick={onToggle}
-                    aria-label={collapsed ? '展开菜单' : '收起菜单'}
-                    aria-expanded={!collapsed}
-                    title={collapsed ? '展开菜单' : '收起菜单'}
-                    className="flex items-center justify-center w-8 h-8 shrink-0 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-white/[0.05] transition-colors"
-                >
-                    {collapsed ? <FiChevronsRight className="w-4 h-4"/> : <FiChevronsLeft className="w-4 h-4"/>}
-                </button>
-            </div>
         </aside>
     );
 }

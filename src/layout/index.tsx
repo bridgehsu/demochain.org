@@ -12,7 +12,9 @@ const Layout = ({children, fullWidth}: LayoutProps) => {
     const [collapsed, setCollapsed] = useState(false);
     const currentPath = router.pathname;
     const isBlogRoute = currentPath.startsWith('/blog');
-    const showSidebar = !fullWidth && !isBlogRoute;
+    const isHomeRoute = currentPath === '/';
+    const showSidebar = !fullWidth && !isBlogRoute && !isHomeRoute;
+    const hideChrome = isHomeRoute;
     const contentOffset = showSidebar ? (collapsed ? ' md:pl-14' : ' md:pl-56') : '';
 
     return (
@@ -23,7 +25,7 @@ const Layout = ({children, fullWidth}: LayoutProps) => {
             )}
             <div
                 className={`flex flex-col flex-1 min-w-0 transition-all duration-300${contentOffset}`}>
-                <Header hideLogo={showSidebar} showSidebar={showSidebar} collapsed={collapsed} onToggle={() => setCollapsed(v => !v)} themeControls={themeControls}/>
+                {!hideChrome && <Header hideLogo={showSidebar} showSidebar={showSidebar} collapsed={collapsed} onToggle={() => setCollapsed(v => !v)} themeControls={themeControls}/>}
                 <main className="flex-1 min-w-0">
                     {fullWidth ? (
                         children
@@ -35,7 +37,7 @@ const Layout = ({children, fullWidth}: LayoutProps) => {
                         </div>
                     )}
                 </main>
-                <Footer/>
+                {!hideChrome && <Footer/>}
             </div>
         </div>
     );

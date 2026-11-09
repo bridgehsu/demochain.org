@@ -2,6 +2,13 @@
 
 import React, { forwardRef, useImperativeHandle, useState } from 'react'
 import type { Tx } from '@/types/block'
+import Select from '@/components/ui/Select'
+
+const GPU_OPTIONS = [
+  {value: '1', label: 'GPU-1 (慢)'},
+  {value: '2', label: 'GPU-2 (中)'},
+  {value: '3', label: 'GPU-3 (快)'},
+] as const
 
 export type CoinbaseCfgRef = {
   reset: () => void
@@ -101,15 +108,13 @@ export default forwardRef<CoinbaseCfgRef, Props>(function CoinbaseCfg({ onGpuCha
             {(['A', 'B', 'C'] as const).map((machine) => (
               <div key={machine} className="flex items-center gap-2 w-full min-w-0">
                   <label className="text-sm text-gray-600 dark:text-gray-400 min-w-[52px] shrink-0">电脑{machine}</label>
-                  <select
+                  <Select
+                    aria-label={`电脑${machine} GPU`}
                     value={machine === 'A' ? aGpu : machine === 'B' ? bGpu : cGpu}
-                    onChange={(e) => handleGpuChange(machine, e.target.value as '1' | '2' | '3')}
-                    className="shrink-0 px-3 py-1.5 text-sm rounded border border-gray-300 bg-white text-gray-900 focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                  >
-                    <option value="1">GPU-1 (慢)</option>
-                    <option value="2">GPU-2 (中)</option>
-                    <option value="3">GPU-3 (快)</option>
-                  </select>
+                    onChange={(next) => handleGpuChange(machine, next as '1' | '2' | '3')}
+                    options={[...GPU_OPTIONS]}
+                    className="w-32 shrink-0"
+                  />
                   <input
                     type="text"
                     value={machine === 'A' ? aAddr : machine === 'B' ? bAddr : cAddr}

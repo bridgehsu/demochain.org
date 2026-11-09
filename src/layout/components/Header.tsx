@@ -38,7 +38,7 @@ export default function Header({hideLogo, showSidebar, collapsed, onToggle, them
 
     return (
         <header
-            className="sticky top-0 z-40 bg-white/75 dark:bg-[#19191c]/85 backdrop-blur-xl transition-colors duration-500 [box-shadow:0_1px_0_0_transparent]">
+            className="sticky top-0 z-40 overflow-visible bg-white/75 dark:bg-[#19191c]/85 backdrop-blur-xl transition-colors duration-500 [box-shadow:0_1px_0_0_transparent]">
             {/* 渐变底线 */}
             <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-400/60 to-transparent dark:via-brand-500/40 pointer-events-none"/>
             <div

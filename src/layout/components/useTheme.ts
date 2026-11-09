@@ -1,22 +1,26 @@
 import {useEffect, useRef, useState} from 'react';
 
 export default function useTheme() {
-    const [theme, setTheme] = useState<'light' | 'dark' | 'system'>(() => {
-        if (typeof window === 'undefined') return 'system';
-        return (localStorage.getItem('theme') as 'light' | 'dark' | 'system') || 'system';
-    });
-
+    // 服务端与首屏客户端保持一致，避免 hydration mismatch
+    const [theme, setTheme] = useState<'light' | 'dark' | 'system'>('system');
     const [systemDark, setSystemDark] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
 
-    useEffect(() => setIsMounted(true), []);
+    useEffect(() => {
+        const saved = localStorage.getItem('theme') as 'light' | 'dark' | 'system' | null;
+        if (saved === 'light' || saved === 'dark' || saved === 'system') {
+            setTheme(saved);
+        }
+        setIsMounted(true);
+    }, []);
+
     const isDarkMode = isMounted ? (theme === 'dark' || (theme === 'system' && systemDark)) : null;
 
     const themeRef = useRef(theme);
     themeRef.current = theme;
 
     useEffect(() => {
-        if (typeof window === 'undefined' || !isMounted) return;
+        if (!isMounted) return;
         const root = document.documentElement;
         const mq = window.matchMedia('(prefers-color-scheme: dark)');
         const isDark = theme === 'dark' || (theme === 'system' && mq.matches);
@@ -25,7 +29,6 @@ export default function useTheme() {
     }, [theme, systemDark, isMounted]);
 
     useEffect(() => {
-        if (typeof window === 'undefined') return;
         const mq = window.matchMedia('(prefers-color-scheme: dark)');
         setSystemDark(mq.matches);
 
@@ -39,10 +42,10 @@ export default function useTheme() {
         if (mq.addEventListener) {
             mq.addEventListener('change', handleChange);
             return () => mq.removeEventListener('change', handleChange);
-        } else {
-            mq.addListener(handleChange);
-            return () => mq.removeListener(handleChange);
         }
+
+        mq.addListener(handleChange);
+        return () => mq.removeListener(handleChange);
     }, []);
 
     return {theme, setTheme, isDarkMode};

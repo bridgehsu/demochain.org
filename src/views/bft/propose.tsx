@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import Link from 'next/link'
+import Select from '@/components/ui/Select'
 
 const ALL_NODES = ['Node1', 'Node2', 'Node3', 'Node4', 'Node5', 'Node6', 'Node7']
 const BYZANTINE = new Set(['Node6', 'Node7'])
@@ -63,10 +64,15 @@ export default function BFTProposePage(): React.ReactElement {
                     </div>
                     <div className="flex items-center gap-3">
                         <label className="text-sm text-gray-600 dark:text-gray-300">选择 Leader：</label>
-                        <select value={leader} onChange={e => setLeader(e.target.value)}
-                            className="h-8 px-2 rounded border border-gray-300 text-sm text-gray-900 bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:outline-none focus:border-red-500">
-                            {ALL_NODES.map(n => <option key={n} value={n}>{n}{BYZANTINE.has(n) ? ' (拜占庭)' : ''}</option>)}
-                        </select>
+                        <Select
+                            aria-label="选择 Leader"
+                            value={leader}
+                            onChange={setLeader}
+                            options={ALL_NODES.map(n => ({
+                                value: n,
+                                label: `${n}${BYZANTINE.has(n) ? ' (拜占庭)' : ''}`,
+                            }))}
+                        />
                         <button onClick={propose} disabled={state === 'broadcasting'}
                             className="px-4 py-1.5 rounded text-sm bg-red-600 text-white hover:bg-red-700 disabled:opacity-50">
                             {state === 'broadcasting' ? '广播中...' : '发起提案'}

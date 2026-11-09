@@ -68,7 +68,7 @@ export default function Theme({
                 <div
                     role="menu"
                     aria-label="主题切换"
-                    className={`absolute ${placement === 'top' ? 'bottom-full left-0 mb-2' : 'right-0 mt-2'} w-56 rounded-2xl border bg-white backdrop-blur-sm shadow-lg ring-1 ring-black/5 p-2 border-gray-200 dark:bg-[#202024] dark:border-[#303034] dark:ring-white/5 dark:text-gray-200 z-50`}
+                    className={`absolute ${placement === 'top' ? 'bottom-full left-0 mb-2' : 'right-0 mt-2'} w-56 rounded-2xl border bg-white shadow-lg ring-1 ring-black/5 p-2 border-gray-200 dark:bg-[#202024] dark:border-[#303034] dark:ring-white/5 dark:text-gray-200 z-[100]`}
                 >
                     {themeOptions.map((option, index) => (
                         <React.Fragment key={option.key}>

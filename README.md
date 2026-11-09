@@ -55,6 +55,18 @@ pnpm build
 
 > 使用自定义域名 `demochain.org` 时路径在站点根目录；若只用 `*.github.io/demochain.org` 且资源 404，需要再配置 Next.js `basePath`。
 
+### Cloudflare Web Analytics（不改 DNS）
+
+站点通过 JS beacon 统计访问量，域名可继续留在 Gname / GitHub Pages。
+
+1. Cloudflare Dashboard → **Analytics & Logs → Web Analytics** → Add a site（选 JS snippet）
+2. 站点填 `demochain.org`，复制 token
+3. 仓库 **Settings → Secrets and variables → Actions** 新增 `CF_BEACON_TOKEN`
+4. 重新跑 `Deploy GitHub Pages` 工作流（或再 push 一次）
+5. 打开网站后，在 Cloudflare Web Analytics 查看日访问量
+
+本地可把 token 写进 `.env.local`（参考 `.env.example`）。
+
 ### 部署包体积
 
 - 清理后约 **3MB**（含所有页面和资源）

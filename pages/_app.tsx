@@ -5,6 +5,7 @@ import AppContent from '@/components/app/AppContent';
 import Layout from '@/layout';
 import RouteProgress from '@/components/app/RouteProgress';
 import SeoHead from '@/components/seo/SeoHead';
+import CloudflareAnalytics from '@/components/analytics/CloudflareAnalytics';
 import {isSectionRoute} from '@/utils/section-manifest';
 import '../styles/globals.css';
 import '../styles/theme.css';
@@ -27,6 +28,7 @@ const Application = ({Component, pageProps}: AppProps): React.ReactElement => {
         <>
             <RouteProgress/>
             <SeoHead path={router.asPath}/>
+            <CloudflareAnalytics/>
             <Layout>
                 {sectionRoute ? (
                     <AppContent

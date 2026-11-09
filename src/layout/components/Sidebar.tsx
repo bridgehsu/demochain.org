@@ -68,11 +68,6 @@ export default function Sidebar({collapsed}: SidebarProps): React.ReactElement {
 
             {/* 导航滚动区 */}
             <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden py-3 px-2">
-                {!collapsed && (
-                    <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 dark:text-gray-500 px-3 mb-2">
-                        {isDocsMode ? '文档目录' : '探索模块'}
-                    </p>
-                )}
                 <nav className="space-y-1">
                     {isMounted && CONSENSUS_ORDER.map(c => {
                         const cfg = CONSENSUS_CONFIG[c];

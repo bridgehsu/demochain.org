@@ -13,7 +13,7 @@ export interface SectionManifest {
 export const SECTION_MANIFESTS: Record<SectionKey, SectionManifest> = {
     docs: {
         key: 'docs',
-        label: '文档中心',
+        label: '文档',
         homeLabel: '文档首页',
         homePath: '/docs',
         nav: DOC_NAV,

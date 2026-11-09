@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import {useRouter} from 'next/router';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import Sidebar from './components/Sidebar';
@@ -7,14 +6,9 @@ import useTheme from './components/useTheme';
 import {LayoutProps} from '@/types/layout';
 
 const Layout = ({children, fullWidth}: LayoutProps) => {
-    const router = useRouter();
     const themeControls = useTheme();
     const [collapsed, setCollapsed] = useState(false);
-    const currentPath = router.pathname;
-    const isBlogRoute = currentPath.startsWith('/blog');
-    const isHomeRoute = currentPath === '/';
-    const showSidebar = !fullWidth && !isBlogRoute && !isHomeRoute;
-    const hideChrome = isHomeRoute;
+    const showSidebar = !fullWidth;
     const contentOffset = showSidebar ? (collapsed ? ' md:pl-14' : ' md:pl-56') : '';
 
     return (
@@ -25,7 +19,7 @@ const Layout = ({children, fullWidth}: LayoutProps) => {
             )}
             <div
                 className={`flex flex-col flex-1 min-w-0 transition-all duration-300${contentOffset}`}>
-                {!hideChrome && <Header hideLogo={showSidebar} showSidebar={showSidebar} collapsed={collapsed} onToggle={() => setCollapsed(v => !v)} themeControls={themeControls}/>}
+                <Header hideLogo={showSidebar} showSidebar={showSidebar} collapsed={collapsed} onToggle={() => setCollapsed(v => !v)} themeControls={themeControls}/>
                 <main className="flex-1 min-w-0">
                     {fullWidth ? (
                         children
@@ -37,7 +31,7 @@ const Layout = ({children, fullWidth}: LayoutProps) => {
                         </div>
                     )}
                 </main>
-                {!hideChrome && <Footer/>}
+                <Footer/>
             </div>
         </div>
     );

@@ -39,7 +39,7 @@ yarn-error.log*
 # Local / platform leftovers
 .wrangler
 .vercel
-nginx.conf
+/nginx.conf
 
 # TypeScript
 *.tsbuildinfo

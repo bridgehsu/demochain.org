@@ -53,37 +53,49 @@ export default function Header({hideLogo, showSidebar, collapsed, onToggle, them
                         aria-label={collapsed ? '展开菜单' : '收起菜单'}
                         aria-expanded={!collapsed}
                         title={collapsed ? '展开菜单' : '收起菜单'}
-                        className="hidden md:flex items-center justify-center w-8 h-8 shrink-0 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-white/[0.05] transition-colors"
+                        className="hidden md:flex items-center justify-center w-10 h-10 shrink-0 rounded-xl text-gray-400 hover:text-gray-700 hover:bg-gray-100 dark:hover:text-white dark:hover:bg-white/[0.05] transition-colors"
                     >
-                        {collapsed ? <FiChevronsRight className="w-4 h-4"/> : <FiChevronsLeft className="w-4 h-4"/>}
+                        {collapsed ? <FiChevronsRight className="w-5 h-5"/> : <FiChevronsLeft className="w-5 h-5"/>}
                     </button>
                 )}
-                <div className="flex items-center space-x-1 md:space-x-2 ml-auto">
+                <div className="flex items-center space-x-1.5 md:space-x-2.5 ml-auto">
                     {SECTION_SWITCHER.map(section => (
                         <Link
                             key={section.key}
                             href={section.homePath}
-                            className={`hidden md:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-105 active:scale-95 ${
+                            className={`hidden md:flex items-center gap-2 px-4 py-2 rounded-full text-base font-semibold transition-all duration-200 hover:scale-105 active:scale-95 ${
                                 isSectionLinkActive(section.homePath)
                                     ? 'text-white bg-gradient-to-r from-brand-500 to-brand-500 shadow-md shadow-brand-500/30 dark:shadow-brand-500/20'
                                     : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/[0.05] dark:hover:bg-white/10'
                             }`}
                         >
-                            <FiBook className="w-3.5 h-3.5"/>
+                            <FiBook className="w-4 h-4"/>
                             {section.label}
                         </Link>
                     ))}
                     <Link
                         href="/blog"
-                        className={`hidden md:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all duration-200 hover:scale-105 active:scale-95 ${
+                        className={`hidden md:flex items-center gap-2 px-4 py-2 rounded-full text-base font-semibold transition-all duration-200 hover:scale-105 active:scale-95 ${
                             isSectionLinkActive('/blog')
                                 ? 'text-white bg-gradient-to-r from-pink-500 to-orange-400 shadow-md shadow-pink-500/30 dark:shadow-pink-500/20'
                                 : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-black/[0.05] dark:hover:bg-white/10'
                         }`}
                     >
-                        <FiEdit3 className="w-3.5 h-3.5"/>
+                        <FiEdit3 className="w-4 h-4"/>
                         博客
                     </Link>
+                    <a
+                        href="https://t.me/bridgehsu"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Telegram"
+                        aria-label="Telegram"
+                        className="flex items-center justify-center w-10 h-10 rounded-xl text-[#2AABEE] hover:bg-[#2AABEE]/10 dark:hover:bg-[#2AABEE]/15 transition-colors"
+                    >
+                        <svg viewBox="0 0 24 24" aria-hidden="true" className="w-5 h-5 fill-current">
+                            <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.493l-3.002-2.21-1.449 1.394c-.16.16-.295.295-.605.295l.216-3.057 5.563-5.027c.242-.215-.053-.334-.376-.12l-6.877 4.33-2.962-.924c-.643-.204-.657-.643.135-.952l11.57-4.46c.536-.196 1.004.17 1.841.748z"/>
+                        </svg>
+                    </a>
                     <button
                         className="md:hidden p-2.5 rounded-xl text-gray-500 hover:text-gray-900 hover:bg-black/[0.04] dark:text-gray-400 dark:hover:text-white dark:hover:bg-white/10 transition-all active:scale-90"
                         onClick={() => setMobileOpen(v => !v)}
@@ -184,6 +196,18 @@ export default function Header({hideLogo, showSidebar, collapsed, onToggle, them
                                 <FiEdit3 className="w-4 h-4"/>
                                 博客
                             </Link>
+                            <a
+                                href="https://t.me/bridgehsu"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={() => setMobileOpen(false)}
+                                className="flex items-center justify-center gap-2 px-3 py-3 rounded-xl text-sm font-bold text-[#2AABEE] bg-[#2AABEE]/10 hover:bg-[#2AABEE]/15 transition-all"
+                            >
+                                <svg viewBox="0 0 24 24" aria-hidden="true" className="w-4 h-4 fill-current">
+                                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.493l-3.002-2.21-1.449 1.394c-.16.16-.295.295-.605.295l.216-3.057 5.563-5.027c.242-.215-.053-.334-.376-.12l-6.877 4.33-2.962-.924c-.643-.204-.657-.643.135-.952l11.57-4.46c.536-.196 1.004.17 1.841.748z"/>
+                                </svg>
+                                Telegram
+                            </a>
                         </div>
                     </div>
                 </div>

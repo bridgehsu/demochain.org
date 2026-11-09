@@ -7,7 +7,7 @@
 - **框架**: Next.js 13 + React 18 + TypeScript
 - **样式**: Tailwind CSS 3
 - **图标**: react-icons (Feather Icons)
-- **部署**: GitHub Pages（静态导出）
+- **部署**: Docker + Nginx（静态导出）
 - **字体**: Inter (UI) + Fira Code (代码)
 
 ## ✨ 支持的共识机制
@@ -43,29 +43,36 @@ pnpm build
 
 产物输出到 `dist/`。本地预览：`pnpm preview`。
 
-## ☁ GitHub Pages 自动部署
+## 🐳 Docker 部署
 
-推送到 `main` 后由 GitHub Actions 构建并发布到 GitHub Pages，无需自建服务器。
+多阶段构建：Node 编译静态站点 → Nginx 托管。配置在 `config/nginx.conf`。
 
-1. 打开仓库 **Settings → Pages**
-2. **Build and deployment → Source** 选择 **GitHub Actions**
-3. 推送代码后查看 **Actions** 工作流 `Deploy GitHub Pages`
-4. 默认地址：`https://bridgehsu.github.io/demochain.org/`
-5. 自定义域名：仓库已含 `public/CNAME`（`demochain.org`）。在 Pages 设置里确认 Custom domain，并把域名 DNS 指到 GitHub Pages（通常是 `A`/`CNAME` 记录）
+```bash
+# 在项目根目录
+cd docker
+docker compose up -d --build
 
-> 使用自定义域名 `demochain.org` 时路径在站点根目录；若只用 `*.github.io/demochain.org` 且资源 404，需要再配置 Next.js `basePath`。
+# 可选：注入 Cloudflare Analytics token
+CF_BEACON_TOKEN=你的token docker compose up -d --build
 
-### Cloudflare Web Analytics（不改 DNS）
+# 自定义宿主机端口，例如 8080
+HOST_PORT=8080 docker compose up -d --build
+```
 
-站点通过 JS beacon 统计访问量，域名可继续留在 Gname / GitHub Pages。
+访问 `http://localhost`（或你映射的端口）。服务器上把域名 A 记录指到机器 IP，并可用宿主机 Nginx/Caddy 反代做 HTTPS。
 
-1. Cloudflare Dashboard → **Analytics & Logs → Web Analytics** → Add a site（选 JS snippet）
-2. 站点填 `demochain.org`，复制 token
-3. 仓库 **Settings → Secrets and variables → Actions** 新增 `CF_BEACON_TOKEN`
-4. 重新跑 `Deploy GitHub Pages` 工作流（或再 push 一次）
-5. 打开网站后，在 Cloudflare Web Analytics 查看日访问量
+常用命令：
 
-本地可把 token 写进 `.env.local`（参考 `.env.example`）。
+```bash
+docker compose -f docker/docker-compose.yml logs -f
+docker compose -f docker/docker-compose.yml down
+```
+
+### Cloudflare Web Analytics（可选，不改 DNS）
+
+1. Cloudflare → **Web Analytics** → Add a site（JS snippet）
+2. 构建时传入 `CF_BEACON_TOKEN`（见上方 docker compose）
+3. 本地也可写进 `.env.local`（参考 `.env.example`）
 
 ### 部署包体积
 

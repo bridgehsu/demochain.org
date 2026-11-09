@@ -92,15 +92,8 @@ export default function Block(): React.ReactElement {
     return (
         <div className="px-0 sm:px-4 py-4 sm:py-8 pb-32 sm:pb-8">
             <div className="max-w-4xl mx-auto">
-                <div className={`sm:rounded-xl border-y sm:border transition-all duration-500 shadow-sm relative overflow-hidden ${
-                    isValid 
-                        ? 'bg-white border-emerald-300 dark:bg-[#1a1a1a] dark:border-emerald-500/30' 
-                        : 'bg-white border-rose-300 dark:bg-[#1a1a1a] dark:border-rose-500/30'
-                }`}>
-                    {/* 状态背景光晕 */}
-                    <div className={`absolute top-0 left-0 w-full h-1 transition-all duration-500 sm:rounded-t-xl ${isValid ? 'bg-emerald-400 dark:bg-emerald-500/50' : 'bg-rose-400 dark:bg-rose-500/50'}`} />
-                    
-                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 sm:p-6 border-b border-gray-100 dark:border-gray-700/50 relative z-10 mt-1">
+                <div className="rounded-xl border bg-white border-gray-200 dark:border-gray-700 dark:bg-[#161616] shadow-sm overflow-hidden transition-all duration-500">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 sm:p-6 border-b border-gray-100 dark:border-gray-700/50">
                         <div className="flex items-center gap-3">
                             <h2 className="text-lg sm:text-xl font-bold leading-none text-gray-900 dark:text-yellow-500">区块</h2>
                             <span className={`inline-flex items-center h-6 gap-1 px-2 rounded text-xs font-bold border ${isValid ? 'text-emerald-700 bg-emerald-50 border-emerald-300 dark:text-emerald-400 dark:bg-emerald-500/10 dark:border-emerald-600' : 'text-rose-700 bg-rose-50 border-rose-300 dark:text-rose-400 dark:bg-rose-500/10 dark:border-rose-600'}`}>

@@ -2,13 +2,13 @@
 (function() {
   try {
     // 检查localStorage中保存的主题设置
-    var savedTheme = localStorage.getItem('theme') || 'system';
+    // Web3 默认深色；仅在用户明确选过 light/system 时按保存值走
+    var savedTheme = localStorage.getItem('theme') || 'dark';
     var isDarkMode = false;
     
     if (savedTheme === 'dark') {
       isDarkMode = true;
     } else if (savedTheme === 'system') {
-      // 检查系统偏好
       isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
     }
     

@@ -77,14 +77,47 @@ docker compose up -d --build
 # 查看日志
 docker compose -f docker/docker-compose.yml logs -f
 
-# 重启
+# 重启（不重新编译；代码有变更请用下方「远程重新构建」）
 docker compose -f docker/docker-compose.yml restart
 
 # 停止并移除容器
 docker compose -f docker/docker-compose.yml down
 ```
 
+### 远程重新构建
+
+服务器上更新站点时，拉代码后必须带 `--build` 重建镜像；只 `restart` 不会带上博客等静态变更。
+
+```bash
+cd /path/to/demochain.org
+git pull
+docker compose -f docker/docker-compose.yml up -d --build
+```
+
+有 Cloudflare Analytics token 时：
+
+```bash
+CF_BEACON_TOKEN=你的token docker compose -f docker/docker-compose.yml up -d --build
+```
+
+验证：
+
+```bash
+docker compose -f docker/docker-compose.yml ps
+docker compose -f docker/docker-compose.yml logs -f --tail=50
+curl -I http://127.0.0.1:6080
+```
+
+仅当改了 `config/nginx.conf` 时，才需要重装主机 Nginx 配置：
+
+```bash
+sudo cp config/nginx.conf /etc/nginx/sites-available/demochain.org.conf
+sudo nginx -t && sudo systemctl reload nginx
+```
+
 ### 主机 Nginx（HTTPS）
+
+首次部署时安装站点配置：
 
 ```bash
 sudo cp config/nginx.conf /etc/nginx/sites-available/demochain.org.conf

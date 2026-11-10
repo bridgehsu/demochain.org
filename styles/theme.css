@@ -1,44 +1,44 @@
-/* OpenClaw 官网配色：https://openclaw.ai/ */
+/* DemoChain Web3 视觉：深色优先 + 电青强调 */
 :root {
   color-scheme: light;
-  --bg-primary: #f6f5f3;
-  --bg-secondary: #eceae6;
-  --text-primary: #17171a;
-  --text-secondary: #46464e;
-  --border-color: #17171a24;
+  --bg-primary: #f4f7fb;
+  --bg-secondary: #e8eef6;
+  --text-primary: #0b1220;
+  --text-secondary: #4b5568;
+  --border-color: #0b12201a;
   --card-bg: #ffffff;
-  --card-border: #eceae6;
-  --accent-color: #d84a31;
-  --accent-hover: #c24028;
-  --accent-soft: #d84a311f;
-  --accent-secondary: #14806e;
+  --card-border: #d7e0ec;
+  --accent-color: #0891b2;
+  --accent-hover: #0e7490;
+  --accent-soft: #0891b21a;
+  --accent-secondary: #10b981;
   --on-accent: #ffffff;
+  --grid-line: rgba(8, 145, 178, 0.045);
 }
 
 .dark {
   color-scheme: dark;
-  --bg-primary: #101012;
-  --bg-secondary: #19191c;
-  --text-primary: #ededed;
-  --text-secondary: #bcbcc4;
-  --border-color: #9a9aa22e;
-  --card-bg: #19191c;
-  --card-border: #9a9aa22e;
-  --accent-color: #f5654a;
-  --accent-hover: #e05540;
-  --accent-soft: #f5654a24;
-  --accent-secondary: #4fc8ae;
-  --on-accent: #101012;
+  --bg-primary: #070b12;
+  --bg-secondary: #0d1420;
+  --text-primary: #e8eef7;
+  --text-secondary: #94a3b8;
+  --border-color: #94a3b824;
+  --card-bg: #0f1623;
+  --card-border: #1e293b;
+  --accent-color: #22d3ee;
+  --accent-hover: #67e8f9;
+  --accent-soft: #22d3ee1f;
+  --accent-secondary: #34d399;
+  --on-accent: #041016;
+  --grid-line: rgba(34, 211, 238, 0.04);
 }
 
-/* 应用主题颜色 */
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* 卡片和组件背景 */
 .card,
 .sidebar,
 .dropdown-menu {
@@ -46,14 +46,12 @@ body {
   border-color: var(--border-color);
 }
 
-/* 头部与底部 */
 header,
 footer {
   background-color: var(--bg-primary);
   border-color: var(--border-color);
 }
 
-/* 主题切换指示器 - 添加到页面上以显示当前主题 */
 .theme-indicator {
   position: fixed;
   bottom: 1rem;
@@ -61,18 +59,16 @@ footer {
   padding: 0.5rem;
   font-size: 0.75rem;
   background-color: var(--accent-color);
-  color: white;
+  color: var(--on-accent);
   border-radius: 9999px;
   opacity: 0.8;
   z-index: 50;
 }
 
-/* 暗色模式时的图像调整 */
 .dark img:not([src*=".svg"]) {
-  filter: brightness(0.9) contrast(1.1);
+  filter: brightness(0.92) contrast(1.05);
 }
 
-/* 反转某些SVG图标颜色，如果需要 */
 .dark .invert-in-dark {
   filter: invert(1);
 }

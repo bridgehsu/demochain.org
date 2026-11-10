@@ -31,13 +31,13 @@ const CONSENSUS_ICONS: Record<Consensus, React.ReactNode> = {
     POH: <FiClock className="w-4 h-4"/>,
 };
 
+type NavChild = {href: string; label: string};
+
 export default function Sidebar({collapsed}: SidebarProps): React.ReactElement {
     const router = useRouter();
     const [pathname, setPathname] = useState('');
     const [isMounted, setIsMounted] = useState(false);
-    const [expanded, setExpanded] = useState<Partial<Record<Consensus, boolean>>>(
-        () => Object.fromEntries(CONSENSUS_ORDER.map(c => [c, true])) as Record<Consensus, boolean>
-    );
+    const [expanded, setExpanded] = useState<Partial<Record<Consensus, boolean>>>({POW: true});
 
     useEffect(() => {
         setIsMounted(true);
@@ -45,166 +45,138 @@ export default function Sidebar({collapsed}: SidebarProps): React.ReactElement {
     }, [router.pathname]);
 
     const isDocsMode = pathname.startsWith('/docs');
-    const activeConsensus = isMounted ? getActiveConsensus(pathname) : 'POW';
+    const activeConsensus = (() => {
+        if (!isMounted) return 'POW' as Consensus;
+        if (pathname.startsWith('/docs/')) {
+            const seg = pathname.split('/')[2] ?? 'pow';
+            const fromDocs: Record<string, Consensus> = {
+                pow: 'POW', pos: 'POS', dpos: 'DPOS', poa: 'POA',
+                bft: 'BFT', avalanche: 'AVALANCHE', poh: 'POH',
+            };
+            return fromDocs[seg] ?? 'POW';
+        }
+        return getActiveConsensus(pathname);
+    })();
 
     useEffect(() => {
         if (!isMounted) return;
-        setExpanded(prev => ({...prev, [activeConsensus]: true}));
+        setExpanded({[activeConsensus]: true});
     }, [activeConsensus, isMounted]);
 
     const toggle = (c: Consensus) => {
-        setExpanded(prev => ({...prev, [c]: !prev[c]}));
+        setExpanded(prev => (prev[c] ? {} : {[c]: true}));
+    };
+
+    const getChildren = (c: Consensus): NavChild[] => {
+        if (isDocsMode) {
+            const docGroup = DOC_NAV.find(g => g.consensus === c);
+            return docGroup?.items.map(item => ({href: item.href, label: item.title})) ?? [];
+        }
+        return ALL_MENUS[c].map(item => ({href: item.href, label: item.name}));
+    };
+
+    const getGroupHref = (c: Consensus) => {
+        if (isDocsMode) {
+            return DOC_NAV.find(g => g.consensus === c)?.rootHref ?? CONSENSUS_ENTRY[c];
+        }
+        return CONSENSUS_ENTRY[c];
+    };
+
+    const isGroupActive = (c: Consensus) => {
+        if (isDocsMode) {
+            const root = DOC_NAV.find(g => g.consensus === c)?.rootHref;
+            return root ? pathname.startsWith(root) : false;
+        }
+        return c === activeConsensus;
     };
 
     return (
         <aside
-            className={`hidden md:flex flex-col shrink-0 fixed left-0 top-0 h-full z-30 border-r border-gray-100 dark:border-[#303034] bg-white dark:bg-[#19191c] transition-all duration-300 ${collapsed ? 'w-14' : 'w-56'}`}>
-
-            {/* Logo 区域 */}
+            className={`hidden md:flex flex-col shrink-0 fixed left-0 top-0 h-full z-30 border-r border-[color:var(--border-color)] bg-[color:var(--card-bg)]/95 backdrop-blur-md transition-all duration-300 ${collapsed ? 'w-14' : 'w-56'}`}
+        >
             <div
-                className={`flex h-16 items-center shrink-0 border-b border-gray-100 dark:border-[#303034] ${collapsed ? 'justify-center px-2' : 'px-4'}`}>
+                className={`flex h-16 items-center shrink-0 border-b border-[color:var(--border-color)] ${collapsed ? 'justify-center px-2' : 'px-4'}`}
+            >
                 {collapsed ? <LogoIcon className="w-8 h-8"/> : <Logo/>}
             </div>
 
-            {/* 导航滚动区 */}
-            <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden py-3 px-2">
-                <nav className="space-y-1">
+            <div className="flex-1 min-h-0 overflow-y-auto overflow-x-hidden py-3">
+                <nav className="px-2 space-y-1">
                     {isMounted && CONSENSUS_ORDER.map(c => {
                         const cfg = CONSENSUS_CONFIG[c];
-                        const isActive = c === activeConsensus;
-                        const isExpanded = expanded[c] ?? isActive;
+                        const groupActive = isGroupActive(c);
+                        const isExpanded = Boolean(expanded[c]);
+                        const children = getChildren(c);
+                        const groupHref = getGroupHref(c);
 
-                        // 文档模式：使用 DOC_NAV 的链接和条目
-                        if (isDocsMode) {
-                            const docGroup = DOC_NAV.find(g => g.consensus === c);
-                            if (!docGroup) return null;
-                            const isGroupActive = pathname.startsWith(docGroup.rootHref);
-
+                        if (collapsed) {
                             return (
-                                <div key={c} className="mb-1">
-                                    {collapsed ? (
-                                        <Link
-                                            href={docGroup.rootHref}
-                                            title={`${cfg.label} 文档`}
-                                            className={`flex items-center justify-center w-10 h-10 mx-auto rounded-xl transition-all duration-200 ${
-                                                isGroupActive
-                                                    ? `text-accent bg-[color:var(--accent-soft)] ring-1 ring-black/[0.04] dark:ring-white/[0.08]`
-                                                    : 'text-gray-400 dark:text-gray-500 hover:text-gray-800 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/[0.04]'
-                                            }`}
-                                        >
-                                            {CONSENSUS_ICONS[c]}
-                                        </Link>
-                                    ) : (
-                                        <button
-                                            onClick={() => toggle(c)}
-                                            className={`group w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 ${
-                                                isGroupActive
-                                                    ? `text-accent bg-[color:var(--accent-soft)] ring-1 ring-black/[0.03] dark:ring-white/[0.05]`
-                                                    : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-white/[0.02]'
-                                            }`}
-                                        >
-                                            <div className="flex items-center gap-2.5 flex-1 text-left">
-                                                <div className="relative flex items-center justify-center w-5 h-5">
-                                                    <span className={`w-2 h-2 rounded-full shrink-0 transition-all duration-300 ${cfg.dot} ${isGroupActive ? 'scale-125' : 'opacity-30'}`}/>
-                                                    {isGroupActive && <span className={`absolute inset-0 rounded-full animate-ping opacity-15 ${cfg.dot}`}/>}
-                                                </div>
-                                                <span className="tracking-tight">{cfg.label} 文档</span>
-                                            </div>
-                                            <FiChevronRight className={`w-4 h-4 opacity-25 transition-transform duration-300 shrink-0 ${isExpanded ? 'rotate-90 opacity-60' : 'group-hover:opacity-60'}`}/>
-                                        </button>
-                                    )}
-
-                                    {!collapsed && isExpanded && (
-                                        <div className="mt-1 ml-3 pl-3 border-l-2 border-gray-100/60 dark:border-white/[0.03] space-y-0.5">
-                                            {docGroup.items.map(item => {
-                                                const isItemActive = pathname === item.href;
-                                                return (
-                                                    <Link
-                                                        key={item.href}
-                                                        href={item.href}
-                                                        className={`group relative flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
-                                                            isItemActive
-                                                                ? `text-accent font-bold bg-[color:var(--accent-soft)] ring-1 ring-black/[0.04] dark:ring-white/10`
-                                                                : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50/80 dark:hover:bg-white/[0.02]'
-                                                        }`}
-                                                    >
-                                                        {isItemActive && (
-                                                            <div className={`absolute -left-[14px] top-1/2 -translate-y-1/2 w-1 h-5 rounded-full ${cfg.dot}`}/>
-                                                        )}
-                                                        {item.title}
-                                                    </Link>
-                                                );
-                                            })}
-                                        </div>
-                                    )}
-                                </div>
+                                <Link
+                                    key={c}
+                                    href={groupHref}
+                                    title={cfg.label}
+                                    className={`flex items-center justify-center w-10 h-10 mx-auto rounded-md transition-colors ${
+                                        groupActive
+                                            ? 'text-[color:var(--accent-color)] bg-[color:var(--accent-soft)]'
+                                            : 'text-gray-500 hover:bg-gray-100 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.06] dark:hover:text-white'
+                                    }`}
+                                >
+                                    {CONSENSUS_ICONS[c]}
+                                </Link>
                             );
                         }
 
-                        // 演示模式：使用原有 ALL_MENUS 的链接
-                        const items = ALL_MENUS[c];
-
                         return (
-                            <div key={c} className="mb-1">
-                                {collapsed ? (
-                                    <Link
-                                        href={CONSENSUS_ENTRY[c]}
-                                        title={`${cfg.label} 机制`}
-                                        className={`flex items-center justify-center w-10 h-10 mx-auto rounded-xl transition-all duration-200 ${
-                                            isActive
-                                                ? `text-accent bg-[color:var(--accent-soft)] ring-1 ring-black/[0.04] dark:ring-white/[0.08]`
-                                                : 'text-gray-400 dark:text-gray-500 hover:text-gray-800 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/[0.04]'
+                            <div key={c} className={isExpanded ? 'pb-1' : ''}>
+                                {/* 一级：共识分组 */}
+                                <button
+                                    type="button"
+                                    onClick={() => toggle(c)}
+                                    className={`flex w-full items-center gap-2.5 rounded-md px-2.5 py-2.5 text-[14px] transition-colors ${
+                                        groupActive
+                                            ? 'bg-gray-100 font-semibold text-gray-900 dark:bg-white/[0.08] dark:text-white'
+                                            : 'font-semibold text-gray-700 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-white/[0.04] dark:hover:text-white'
+                                    }`}
+                                >
+                                    <span
+                                        className={`shrink-0 ${
+                                            groupActive
+                                                ? 'text-[color:var(--accent-color)]'
+                                                : 'text-gray-400 dark:text-gray-500'
                                         }`}
                                     >
                                         {CONSENSUS_ICONS[c]}
-                                    </Link>
-                                ) : (
-                                    <button
-                                        onClick={() => toggle(c)}
-                                        className={`group w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-sm font-bold transition-all duration-200 ${
-                                            isActive
-                                                ? `text-accent bg-[color:var(--accent-soft)] ring-1 ring-black/[0.03] dark:ring-white/[0.05]`
-                                                : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-white/[0.02]'
+                                    </span>
+                                    <span className="flex-1 truncate text-left">{cfg.label}</span>
+                                    <FiChevronRight
+                                        className={`h-3.5 w-3.5 shrink-0 text-gray-300 transition-transform dark:text-gray-600 ${
+                                            isExpanded ? 'rotate-90 text-gray-500 dark:text-gray-400' : ''
                                         }`}
-                                    >
-                                        <div className="flex items-center gap-2.5 flex-1 text-left">
-                                            <div className="relative flex items-center justify-center w-5 h-5">
-                                                <span
-                                                    className={`w-2 h-2 rounded-full shrink-0 transition-all duration-300 ${cfg.dot} ${isActive ? 'scale-125' : 'opacity-30'}`}/>
-                                                {isActive && <span
-                                                    className={`absolute inset-0 rounded-full animate-ping opacity-15 ${cfg.dot}`}/>}
-                                            </div>
-                                            <span className="tracking-tight">{cfg.label} 机制</span>
-                                        </div>
-                                        <FiChevronRight
-                                            className={`w-4 h-4 opacity-25 transition-transform duration-300 shrink-0 ${isExpanded ? 'rotate-90 opacity-60' : 'group-hover:opacity-60'}`}/>
-                                    </button>
-                                )}
+                                    />
+                                </button>
 
-                                {!collapsed && isExpanded && (
-                                    <div
-                                        className="mt-1 ml-3 pl-3 border-l-2 border-gray-100/60 dark:border-white/[0.03] space-y-0.5">
-                                        {items.map(item => {
+                                {/* 二级：页面项，缩进对齐一级文字 */}
+                                {isExpanded && children.length > 0 && (
+                                    <div className="relative mt-1 ml-[18px] space-y-0.5 border-l-2 border-gray-100 pl-3 dark:border-white/[0.08]">
+                                        {children.map(item => {
                                             const isItemActive = pathname === item.href;
                                             return (
                                                 <Link
                                                     key={item.href}
                                                     href={item.href}
-                                                    className={`group relative flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200 ${
+                                                    className={`relative block rounded-md py-1.5 pl-3 pr-2 text-[13px] leading-5 transition-colors ${
                                                         isItemActive
-                                                            ? `text-accent font-bold bg-[color:var(--accent-soft)] ring-1 ring-black/[0.04] dark:ring-white/10`
-                                                            : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-50/80 dark:hover:bg-white/[0.02]'
+                                                            ? 'bg-[color:var(--accent-soft)] font-medium text-[color:var(--accent-color)]'
+                                                            : 'font-normal text-gray-500 hover:bg-gray-50 hover:text-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.04] dark:hover:text-gray-100'
                                                     }`}
                                                 >
                                                     {isItemActive && (
-                                                        <div
-                                                            className={`absolute -left-[14px] top-1/2 -translate-y-1/2 w-1 h-5 rounded-full ${cfg.dot}`}/>
+                                                        <span
+                                                            className="absolute -left-[15px] top-1/2 h-4 w-0.5 -translate-y-1/2 rounded-full bg-[color:var(--accent-color)]"
+                                                            aria-hidden
+                                                        />
                                                     )}
-                                                    <span
-                                                        className={`flex items-center justify-center w-5 h-5 transition-transform duration-200 ${isItemActive ? 'scale-110 opacity-100' : 'opacity-40 group-hover:opacity-80'}`}>
-                                                        {item.icon}
-                                                    </span>
-                                                    {item.name}
+                                                    {item.label}
                                                 </Link>
                                             );
                                         })}
@@ -215,7 +187,6 @@ export default function Sidebar({collapsed}: SidebarProps): React.ReactElement {
                     })}
                 </nav>
             </div>
-
         </aside>
     );
 }

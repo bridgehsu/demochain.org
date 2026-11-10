@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from 'react';
 
 export default function useTheme() {
     // 服务端与首屏客户端保持一致，避免 hydration mismatch
-    const [theme, setTheme] = useState<'light' | 'dark' | 'system'>('system');
+    const [theme, setTheme] = useState<'light' | 'dark' | 'system'>('dark');
     const [systemDark, setSystemDark] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
 
@@ -10,6 +10,9 @@ export default function useTheme() {
         const saved = localStorage.getItem('theme') as 'light' | 'dark' | 'system' | null;
         if (saved === 'light' || saved === 'dark' || saved === 'system') {
             setTheme(saved);
+        } else {
+            setTheme('dark');
+            localStorage.setItem('theme', 'dark');
         }
         setIsMounted(true);
     }, []);

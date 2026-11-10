@@ -7,7 +7,7 @@
 - **框架**: Next.js 13 + React 18 + TypeScript
 - **样式**: Tailwind CSS 3
 - **图标**: react-icons (Feather Icons)
-- **部署**: Docker + Nginx（静态导出）
+- **部署**: Docker（静态导出）+ 主机 Nginx
 - **字体**: Inter (UI) + Fira Code (代码)
 
 ## ✨ 支持的共识机制
@@ -45,7 +45,7 @@ pnpm build
 
 ## 🐳 Docker 部署
 
-多阶段构建：Node 编译静态站点 → Nginx 托管。配置在 `config/nginx.conf`。
+多阶段构建：Node 编译静态站点 → `serve` 托管。HTTPS 由主机 Nginx（`config/nginx.conf`）反代。
 
 ```bash
 # 在项目根目录
@@ -55,11 +55,17 @@ docker compose up -d --build
 # 可选：注入 Cloudflare Analytics token
 CF_BEACON_TOKEN=你的token docker compose up -d --build
 
-# 自定义宿主机端口，例如 8080
-HOST_PORT=8080 docker compose up -d --build
+# 自定义宿主机端口（默认 4080，供主机 Nginx 反代）
+HOST_PORT=4080 docker compose up -d --build
 ```
 
-访问 `http://localhost`（或你映射的端口）。服务器上把域名 A 记录指到机器 IP，并可用宿主机 Nginx/Caddy 反代做 HTTPS。
+访问 `http://localhost:4080`。生产环境用主机 Nginx（`config/nginx.conf`）做 HTTPS 反代到 `127.0.0.1:4080`。
+
+```bash
+sudo cp config/nginx.conf /etc/nginx/sites-available/demochain.org.conf
+sudo ln -sf /etc/nginx/sites-available/demochain.org.conf /etc/nginx/sites-enabled/
+sudo nginx -t && sudo systemctl reload nginx
+```
 
 常用命令：
 

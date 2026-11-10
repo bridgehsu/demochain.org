@@ -45,33 +45,51 @@ pnpm build
 
 ## 🐳 Docker 部署
 
-多阶段构建：Node 编译静态站点 → `serve` 托管。HTTPS 由主机 Nginx（`config/nginx.conf`）反代。
+多阶段构建：Node 编译静态站点 → `serve` 托管。HTTPS 由主机 Nginx（`config/nginx.conf`）反代。默认映射 **6080**。
+
+### 启动
+
+在项目根目录执行：
 
 ```bash
-# 在项目根目录
-cd docker
-docker compose up -d --build
+# 构建并后台启动
+docker compose -f docker/docker-compose.yml up -d --build
 
-# 可选：注入 Cloudflare Analytics token
-CF_BEACON_TOKEN=你的token docker compose up -d --build
+# 指定端口（默认 6080）
+HOST_PORT=6080 docker compose -f docker/docker-compose.yml up -d --build
 
-# 自定义宿主机端口（默认 6080，供主机 Nginx 反代）
-HOST_PORT=6080 docker compose up -d --build
+# 注入 Cloudflare Analytics token 后启动
+CF_BEACON_TOKEN=你的token docker compose -f docker/docker-compose.yml up -d --build
 ```
 
-访问 `http://localhost:6080`。生产环境用主机 Nginx（`config/nginx.conf`）做 HTTPS 反代到 `127.0.0.1:6080`。
+或进入 `docker/` 目录：
+
+```bash
+cd docker
+docker compose up -d --build
+```
+
+启动后访问：`http://localhost:6080`
+
+### 常用命令
+
+```bash
+# 查看日志
+docker compose -f docker/docker-compose.yml logs -f
+
+# 重启
+docker compose -f docker/docker-compose.yml restart
+
+# 停止并移除容器
+docker compose -f docker/docker-compose.yml down
+```
+
+### 主机 Nginx（HTTPS）
 
 ```bash
 sudo cp config/nginx.conf /etc/nginx/sites-available/demochain.org.conf
 sudo ln -sf /etc/nginx/sites-available/demochain.org.conf /etc/nginx/sites-enabled/
 sudo nginx -t && sudo systemctl reload nginx
-```
-
-常用命令：
-
-```bash
-docker compose -f docker/docker-compose.yml logs -f
-docker compose -f docker/docker-compose.yml down
 ```
 
 ### Cloudflare Web Analytics（可选，不改 DNS）

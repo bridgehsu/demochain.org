@@ -55,11 +55,11 @@ docker compose up -d --build
 # 可选：注入 Cloudflare Analytics token
 CF_BEACON_TOKEN=你的token docker compose up -d --build
 
-# 自定义宿主机端口（默认 4080，供主机 Nginx 反代）
-HOST_PORT=4080 docker compose up -d --build
+# 自定义宿主机端口（默认 6080，供主机 Nginx 反代）
+HOST_PORT=6080 docker compose up -d --build
 ```
 
-访问 `http://localhost:4080`。生产环境用主机 Nginx（`config/nginx.conf`）做 HTTPS 反代到 `127.0.0.1:4080`。
+访问 `http://localhost:6080`。生产环境用主机 Nginx（`config/nginx.conf`）做 HTTPS 反代到 `127.0.0.1:6080`。
 
 ```bash
 sudo cp config/nginx.conf /etc/nginx/sites-available/demochain.org.conf

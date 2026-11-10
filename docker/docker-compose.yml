@@ -8,5 +8,5 @@ services:
     image: demochain-org:latest
     container_name: demochain-org
     ports:
-      - "${HOST_PORT:-4080}:80"
+      - "${HOST_PORT:-6080}:80"
     restart: unless-stopped
